@@ -1,3 +1,5 @@
 # BWV-BOT
-# Gruppe: Jonas, Angelika, Nils
-# Projket: Berufsorientierungstag 
+
+## Gruppe: Jonas, Angelika, Nils
+
+## Projket: Berufsorientierungstag
