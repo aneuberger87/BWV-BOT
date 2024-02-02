@@ -1,4 +1,5 @@
 import Image from "next/image";
+import fs from "fs";
 
 export default function Home() {
   return (
