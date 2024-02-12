@@ -8,10 +8,10 @@ import java.util.List;
 @Data
 public class SolutionAttendanceList {
 
-    private List<Items> items;
+    private List<AttendanceList> attendanceLists;
 
     @Data
-    public static class Items {
+    public static class AttendanceList {
 
         private String companyName;
         private CompaniesList.Meeting event;
@@ -22,6 +22,7 @@ public class SolutionAttendanceList {
     @Data
     public static class Student {
         private String prename, surname, schoolClass;
+
     }
 
 
