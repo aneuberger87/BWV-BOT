@@ -2,13 +2,15 @@ package de.bwv.ac.datamanagement.data;
 
 import java.util.List;
 
-public class Schulerliste {
+public class StudentsList {
 
-    private List<Schueler> student;
+    private List<Student> student;
 
-    public static class Schueler {
+    public static class Student {
 
         private String prename, surname, schoolClass;
         private int[] wishList;
     }
+
+    private String errorMessage;
 }

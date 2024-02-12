@@ -1,10 +1,14 @@
 package de.bwv.ac.datamanagement.data;
 
+import lombok.Data;
+
 import java.util.List;
 
-public class Unternehmensliste {
+@Data
+public class CompaniesList {
     private List<Company> company;
 
+    @Data
     public static class Company {
         int id;
         String compName;
@@ -12,8 +16,11 @@ public class Unternehmensliste {
         List<Meeting> meeting;
     }
 
+    @Data
     public static class Meeting {
         String timeSlot;
         String room;
     }
+
+    private String errorMessage;
 }
