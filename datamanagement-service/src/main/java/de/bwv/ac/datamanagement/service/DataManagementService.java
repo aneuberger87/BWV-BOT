@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class DataManagementService {
+public class DataManagementService { //TODO implement
 
     @GetMapping("/companies")
     public CompaniesList getAllCompanies(){

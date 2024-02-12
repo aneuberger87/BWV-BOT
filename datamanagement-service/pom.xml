@@ -46,7 +46,16 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel-reader</artifactId>
+            <version>0.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel</artifactId>
+            <version>0.17.0</version>
+        </dependency>
     </dependencies>
 
 </project>

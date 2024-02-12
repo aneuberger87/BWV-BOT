@@ -15,15 +15,8 @@ public class SolutionAttendanceList {
 
         private String companyName;
         private CompaniesList.Meeting event;
-        private List<Student> students;
+        private List<StudentsList.Student> students;
 
     }
-
-    @Data
-    public static class Student {
-        private String prename, surname, schoolClass;
-
-    }
-
 
 }

@@ -13,7 +13,13 @@ public class StudentsList {
     public static class Student {
 
         private String prename, surname, schoolClass;
-        private int[] wishList;
+        private Wish[] wishList;
+    }
+
+    @Data
+    public static class Wish {
+        private int compId;
+        private char timeSlot;
     }
 
     private String errorMessage;

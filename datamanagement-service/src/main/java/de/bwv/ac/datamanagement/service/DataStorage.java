@@ -2,12 +2,11 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.SolutionAttendanceList;
-import de.bwv.ac.datamanagement.data.SolutionTimeTable;
 import de.bwv.ac.datamanagement.data.StudentsList;
 
 import java.util.*;
 
-public class DataStorage {
+public class DataStorage { //TODO test
 
     //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
@@ -17,8 +16,6 @@ public class DataStorage {
 
     //Key: Company-Name, Value: AttendanceList for Company
     private final Map<String, SolutionAttendanceList.AttendanceList> attendanceListPerCompany = new HashMap<>();
-
-    private final Map<SolutionAttendanceList.Student, SolutionTimeTable.TimeTable> timeTablePerStudent = new HashMap<>();
 
     private SolutionAttendanceList calculateAttendanceList() {
         //TODO
@@ -33,27 +30,6 @@ public class DataStorage {
         List<SolutionAttendanceList.AttendanceList> attendanceLists = new ArrayList<>();
         attendanceListPerCompany.forEach((companyName, attendanceList) -> attendanceLists.add(attendanceList));
         result.setAttendanceLists(attendanceLists);
-        return result;
-    }
-
-    private SolutionTimeTable calculateTimeTables() {
-        //TODO
-        return null;
-    }
-
-    public SolutionTimeTable getSolutionTimeTable() {
-        SolutionTimeTable result = new SolutionTimeTable();
-        if(timeTablePerStudent.isEmpty()){
-            return calculateTimeTables();
-        }
-        List<SolutionTimeTable.Item> items = new ArrayList<>();
-        timeTablePerStudent.forEach((student, timeTable) -> {
-            SolutionTimeTable.Item item = new SolutionTimeTable.Item();
-            item.setTimeTable(timeTable);
-            item.setStudent(student);
-            items.add(item);
-        });
-        result.setItems(items);
         return result;
     }
 
@@ -77,7 +53,6 @@ public class DataStorage {
     public void setStudentsList(StudentsList studentsList) {
         studentsPerClass.clear();
         attendanceListPerCompany.clear();
-        timeTablePerStudent.clear();
         studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
     }
 
@@ -90,7 +65,6 @@ public class DataStorage {
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
         attendanceListPerCompany.clear();
-        timeTablePerStudent.clear();
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
 
     }
@@ -103,7 +77,6 @@ public class DataStorage {
         studentsPerClass.clear();
         companiesCache.clear();
         attendanceListPerCompany.clear();
-        timeTablePerStudent.clear();
     }
 
 }

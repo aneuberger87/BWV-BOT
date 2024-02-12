@@ -18,7 +18,7 @@ public class CompaniesList {
 
     @Data
     public static class Meeting {
-        String timeSlot;
+        char timeSlot;
         String room;
     }
 
