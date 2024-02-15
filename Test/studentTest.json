@@ -1,0 +1,22 @@
+{
+  "Stundent": [
+    {
+      "vorname": "Max",
+      "nachname": "Mustermann",
+      "wuensche": ["Fussball", "Brettspiele", "Buecher"],
+      "klasse": "10A"
+    },
+    {
+      "vorname": "Anna",
+      "nachname": "Schmidt",
+      "wuensche": ["Malen", "Musikinstrumente", "Computerspiele"],
+      "klasse": "9B"
+    },
+    {
+      "vorname": "Lisa",
+      "nachname": "Meier",
+      "wuensche": ["Schach", "Zeichnen", "Handarbeit"],
+      "klasse": "11C"
+    }
+  ]
+}
