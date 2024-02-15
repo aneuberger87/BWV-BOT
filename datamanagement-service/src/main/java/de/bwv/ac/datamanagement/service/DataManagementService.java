@@ -11,7 +11,9 @@ public class DataManagementService { //TODO implement
 
     @GetMapping("/companies")
     public CompaniesList getAllCompanies(){
-        return null;
+        CompaniesList result = new CompaniesList();
+        result.setErrorMessage("The Methode getAllCompanies() in DataManagementService is not implemented yet");
+        return result;
     }
 
     @GetMapping("/students")
