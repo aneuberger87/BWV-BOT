@@ -6,3 +6,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+
+  datamanagment:
+    build:
+      context: ./datamanagement-service
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
