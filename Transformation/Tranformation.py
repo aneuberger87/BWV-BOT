@@ -55,6 +55,8 @@ class Student:
 
 class Event:
     __nr__: int = None
+    __company__= Company(None,None)
+    __timesolts__
 class Company:
     __id__: int = None
     __compName__: str = None
