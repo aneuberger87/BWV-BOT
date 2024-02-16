@@ -1,0 +1,25 @@
+{
+  "companies": [
+    {
+      "id": 1,
+      "compName": "Company A",
+      "trainingOccupation": "Software Engineering",
+      "capacity": 20,
+      "meeting": ["A,187", "B,306", "C,311"]
+    },
+    {
+      "id": 2,
+      "compName": "Company B",
+      "trainingOccupation": "Data Science",
+      "capacity": 20,
+      "meeting": ["B,201", "C,101"]
+    },
+    {
+      "id": 3,
+      "compName": "Company C",
+      "trainingOccupation": "Marketing",
+      "capacity": 20,
+      "meeting": ["A,306", "C,311"]
+    }
+  ]
+}
