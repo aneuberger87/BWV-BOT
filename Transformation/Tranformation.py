@@ -39,10 +39,10 @@ class Student:
         self.__wishList__ = temp
 
     def wishliststring(self) -> str:
-        wishSttr = ""
+        wishsttr = ""
         for wish in self.__wishList__:
-            wishSttr =wishSttr + wish.getName() + " " + str(wish.getPrio()) + ","
-        return wishSttr[:-1]
+            wishsttr = wishsttr + wish.getName() + " " + str(wish.getPrio()) + ","
+        return wishsttr[:-1]
 
     def __iter__(self):
         self.a = 1
@@ -53,15 +53,27 @@ class Student:
         self.a += 1
         return x
 
-
+class Event:
+    __nr__: int = None
 class Company:
     __id__: int = None
     __compName__: str = None
     __trainingOccupation__: str = None
-    __meeting__: [] = None
+    __capacity__: int = None
+    __meeting__: [] = None #enthält einen Timeslot und einen Raum
 
-    def __init__(self) -> None:
-        pass
+
+    def __init__(self,id,compName,toc,capacity,meeting) -> None:
+        self.__id__ = id
+        self.__compName__ = compName
+        self.__trainingOccupation__ = toc
+        self.__capacity__ = capacity
+        self.__meeting__ = meeting
+
+    def setmeeting(self,meeting):
+        for element in meeting:
+            temp = element.split(",")
+            timeslot = Timeslot(temp[0],temp[1])
 
 
 class Timeplan:
@@ -73,11 +85,16 @@ class Timeslot:
     __timeSlot__: str = None
     __room__: str = None
 
+    def __init__(self,timeslot,room):
+        self.__timeSlot__ = timeslot
+        self.__room__ = room
 
 class Transform:
     __stundentList__ = list()
+    __companyList__ = list()
 
-    def __init__(self, filepath):
+    def __init__(self, filepath,filepath2):
+        self.load_company(filepath2)
         self.load_student(filepath)
         self.toString()
 
@@ -92,11 +109,27 @@ class Transform:
                 schoolclass = student_data['klasse']
                 student = Student(prename, surname, schoolclass, wishlist)
                 self.__stundentList__.append(student)
+    def load_company(self, filepath) -> None:
+        import json
+        with open(filepath, 'r') as json_datei:
+            data = json.load(json_datei)
+            for company_data in data['companies']:
+                id = company_data['id']
+                compname = company_data['compName']
+                toc = company_data['trainingOccupation']
+                capacity = company_data['capacity']
+                meeting = company_data['meeting']
+                company = Company(id, compname, toc, capacity, meeting)
+                self.__companyList__.append(company)
 
     def toString(self):
+        for company in self.__companyList__:
+            print(
+                f"ID: {company.__id__}, Name: {company.__compName__}, Beruf: {company.__trainingOccupation__}, Kapazität: {company.__capacity__}, Timeslot:{company.__meeting__} ")
+        print("\n")
         for student in self.__stundentList__:
             print(
                 f"Vorname: {student.__prename__}, Nachname: {student.__surname__}, Wünsche: {student.wishliststring()}, Klasse: {student.__schoolClass__}")
 
 
-start = Transform("C:/Users/nilsw/PycharmProjects/BWV-BOT/Test/studentTest.json")
+start = Transform("C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/studentTest.json","C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/companyTest.json")
