@@ -13,7 +13,7 @@ class ExcelReaderTest {
         StudentsList studentsList =
                 excelReader.readStudentsList("src/test/resources/schuelerliste.xlsx");
         assertNotNull(studentsList);
-        assertEquals(135, studentsList.getStudent().size());
+        assertEquals(180, studentsList.getStudent().size());
         assertNull(studentsList.getErrorMessage());
     }
 
@@ -21,9 +21,9 @@ class ExcelReaderTest {
     void readCompaniesList() {
         ExcelReader excelReader = new ExcelReader();
         CompaniesList companiesList =
-                excelReader.readCompaniesList("src/test/resources/unternehmensliste.xlsx");
+                excelReader.readEventList("src/test/resources/unternehmensliste.xlsx");
         assertNotNull(companiesList);
-        assertEquals(26, companiesList.getCompany().size());
+        assertEquals(14, companiesList.getCompany().size());
         assertNull(companiesList.getErrorMessage());
     }
 }

@@ -70,43 +70,6 @@ public class ExcelReader { //TODO test
         return result;
     }
 
-    public CompaniesList readCompaniesList(String fileLocation){
-        CompaniesList companiesList = new CompaniesList();
-        try (FileInputStream fileInputStream = new FileInputStream(fileLocation); ReadableWorkbook workbook = new ReadableWorkbook(fileInputStream)){
-            List<CompaniesList.Company> companies = new ArrayList<>();
-            workbook.getSheets().forEach(sheet -> companies.addAll(readCompanies(sheet)));
-            companiesList.setCompany(companies);
-        } catch (FileNotFoundException e) {
-            companiesList.setErrorMessage("Die Datei "+fileLocation+" konnte nicht gefunden werden! Studenten-Liste konnte nicht erstellt werden!");
-        } catch (IOException e) {
-            companiesList.setErrorMessage("Die Datei "+fileLocation+" konnte nicht ausgelesen werden! Studenten-Liste konnte nicht erstellt werden!");
-        }
-        return companiesList;
-    }
-
-
-    //Id, Name
-    private List<CompaniesList.Company> readCompanies(Sheet sheet) {
-        List<CompaniesList.Company> result = new ArrayList<>();
-        Map<Integer, List<String>> rows = readRows(sheet);
-        rows.forEach((rowNumber, entries) -> {
-            if(!entries.isEmpty() && entries.size() >= 2){
-                CompaniesList.Company company = new CompaniesList.Company();
-                try {
-                    company.setId(Integer.parseInt(entries.get(0)));
-                    company.setCompName(entries.get(1));
-                    result.add(company);
-                } catch (NumberFormatException e){
-                    log.warn("{} ist keine Nummer!",entries.get(0));
-                }
-            }
-        });
-        if(result.isEmpty()){
-            return result;
-        }
-        return result.subList(1, result.size()); //Without Header
-    }
-
     public CompaniesList readEventList(String fileLocation){
         CompaniesList companiesList = new CompaniesList();
         try (FileInputStream fileInputStream = new FileInputStream(fileLocation); ReadableWorkbook workbook = new ReadableWorkbook(fileInputStream)){
@@ -141,10 +104,7 @@ public class ExcelReader { //TODO test
                 }
             }
         });
-        if(result.isEmpty()){
-            return result;
-        }
-        return result.subList(1, result.size()); //Without Header
+        return result;
     }
 
     private final List<String> timeSlots = List.of("A", "B", "C", "D", "E");
