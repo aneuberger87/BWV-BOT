@@ -58,23 +58,23 @@ public class ExcelWriter { //TODO test
                 List<CompaniesList.Meeting> meeting = company.getMeeting();
                 for (CompaniesList.Meeting m : meeting) {
                     switch (m.getTimeSlot()) {
-                        case 'A': {
+                        case "A": {
                             worksheet.value(i + 1, 2, m.getRoom());
                             break;
                         }
-                        case 'B': {
+                        case "B": {
                             worksheet.value(i + 1, 3, m.getRoom());
                             break;
                         }
-                        case 'C': {
+                        case "C": {
                             worksheet.value(i + 1, 4, m.getRoom());
                             break;
                         }
-                        case 'D': {
+                        case "D": {
                             worksheet.value(i + 1, 5, m.getRoom());
                             break;
                         }
-                        case 'E': {
+                        case "E": {
                             worksheet.value(i + 1, 6, m.getRoom());
                             break;
                         }

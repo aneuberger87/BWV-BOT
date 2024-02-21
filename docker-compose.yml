@@ -11,5 +11,7 @@ services:
     build:
       context: ./datamanagement-service
       dockerfile: Dockerfile
+    #environment:
+    #  - "SPRING_CONFIG_LOCATION=./datamanagement-service/tmp/main/resources"
     ports:
       - "8080:8080"
