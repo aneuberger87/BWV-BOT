@@ -16,8 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full w-full">
-      <body className={inter.className + " h-full w-full"}>
-        <main className="max-w-xl m-auto">{children}</main>
+      <body className={inter.className + " h-full w-full bg-background"}>
+        <main className="m-auto p-20 h-full">{children}</main>
       </body>
     </html>
   );
