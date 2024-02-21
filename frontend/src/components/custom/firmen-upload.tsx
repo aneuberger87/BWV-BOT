@@ -8,11 +8,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
+import { join } from "path";
+import { writeFile } from "fs/promises";
 
 const FirmenUpload = () => {
   const upload = async (data: FormData) => {
     "use server";
-    console.log(JSON.stringify(data, null, 2));
+    const file: File | null = data.get("file") as unknown as File;
+    if (!file) {
+      throw new Error("No file uploaded");
+    }
+
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    const path = join("/", "tmp", file.name);
+    await writeFile(path, buffer);
+    console.log(`open ${path} to see the uploaded file`);
+
+    return { success: true };
   };
 
   return (
@@ -28,6 +42,7 @@ const FirmenUpload = () => {
               id="picture"
               type="file"
               className=" h-32 absolute cursor-pointer"
+              name="file"
             />
             <Label
               htmlFor="picture"
