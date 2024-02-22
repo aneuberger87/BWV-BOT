@@ -31,3 +31,6 @@ const Page = () => {
 };
 
 export default Page;
+
+export const revalidate = 0;
+export const dynamic = "force-dynamic";

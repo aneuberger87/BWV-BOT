@@ -1,6 +1,6 @@
-import { CompanyList, Student, StudentList } from "../types";
+import { CompanyList, StudentList } from "../types";
 
-const BASE_URL = "http://localhost:8080/"; //TODO Replace with your actual base URL
+const BASE_URL = process.env.DATAMANAGEMENT_URL as string;
 
 export const getAllCompanies = async () => {
   try {
@@ -10,7 +10,7 @@ export const getAllCompanies = async () => {
     }
     return (await response.json()) as CompanyList;
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllCompanies error: ", error);
     throw error;
   }
 };
@@ -23,7 +23,7 @@ export const getAllStudents = async () => {
     }
     return (await response.json()) as StudentList;
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllStudents error: ", error);
     throw error;
   }
 };
@@ -42,7 +42,7 @@ export const postStudentWishes = async (studentsWithWishes: any /*TODO */) => {
     }
     return response.json();
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("postStudentWishes error: ", error);
     throw error;
   }
 };
@@ -55,7 +55,7 @@ export const getAllDummyStudents = async () => {
     }
     return await response.json();
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllDummyStudents error: ", error);
     throw error;
   }
 };
@@ -68,7 +68,7 @@ export const getAllDummyStudentsWithWishes = async () => {
     }
     return (await response.json()) as StudentList;
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllDummyStudentsWithWishes error: ", error);
     throw error;
   }
 };
@@ -81,7 +81,7 @@ export const getAllDummyCompaniesWithRoomsAndTimeslots = async () => {
     }
     return (await response.json()) as CompanyList;
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllDummyCompaniesWithRoomsAndTimeslots error: ", error);
     throw error;
   }
 };
@@ -94,7 +94,7 @@ export const getAllDummyCompanies = async () => {
     }
     return await response.json();
   } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
+    console.error("getAllDummyCompanies error: ", error);
     throw error;
   }
 };

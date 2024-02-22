@@ -6,12 +6,19 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    volumes:
+      - shared_data:/app/share
 
-  datamanagment:
+  datamanagement:
     build:
       context: ./datamanagement-service
       dockerfile: Dockerfile
-    #environment:
-    #  - "SPRING_CONFIG_LOCATION=./datamanagement-service/tmp/main/resources"
+    expose:
+      - "8080"
     ports:
       - "8080:8080"
+    volumes:
+      - shared_data:/app/share
+
+volumes:
+  shared_data:
