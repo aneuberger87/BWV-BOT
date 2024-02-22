@@ -1,7 +1,5 @@
 import { UploadInline } from "@/components/custom/upload-inline";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -14,11 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllCompanies } from "@/lib/fetches";
-import { FaQuestion } from "react-icons/fa";
+import { getAllDummyCompaniesWithRoomsAndTimeslots } from "@/lib/fetches";
 
 const LazyTableBodyCompany = async () => {
-  const students = await getAllCompanies();
+  const students = await getAllDummyCompaniesWithRoomsAndTimeslots();
   const timeSlots = ["A", "B", "C", "D", "E"];
 
   return (

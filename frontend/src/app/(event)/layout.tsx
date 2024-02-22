@@ -6,11 +6,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
 import ListTask from "./list-task";
-import { PageStudent } from "./students/page-student";
-import { PageCompany } from "./firmen/page-company";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import { NavigationMenuDemo } from "./menu";
 
 const EventLayout = (props: { children: React.ReactNode }) => {
   return (
@@ -42,24 +50,29 @@ const EventLayout = (props: { children: React.ReactNode }) => {
           </CardContent>
         </Card>
       </div>
-      <div className="flex flex-col gap-4 max-h-full min-h-full h-0">
-        <Tabs defaultValue="overview" className="min-h-full flex flex-col">
+      <div
+        className="grid grid-rows-[auto_1fr] max-h-full min-h-full h-0 gap-y-6 justify-stretch
+      items-start"
+      >
+        <NavigationMenuDemo />
+        {props.children}
+        {/* <Tabs defaultValue="overview" className="min-h-full flex flex-col">
           <TabsList className="grid  grid-cols-5 gap-x-4 mb-6">
             <TabsTrigger value="overview" className="col-span-2">
               Überischt
             </TabsTrigger>
-            <TabsTrigger value="students">Schülerliste</TabsTrigger>
-            <TabsTrigger value="companies">Firmenliste</TabsTrigger>
-            <TabsTrigger value="rooms">Raumliste</TabsTrigger>
+            <TabsTrigger value="students" asChild>
+              <Link href="students"> Schülerliste</Link>
+            </TabsTrigger>
+            <TabsTrigger value="companies" asChild>
+              <Link href="companies">Firmenliste</Link>
+            </TabsTrigger>
+            <TabsTrigger value="rooms" asChild>
+              <Link href="rooms">Raumliste</Link>
+            </TabsTrigger>
           </TabsList>
-          <TabsContent value="overview">{props.children}</TabsContent>
-          <TabsContent value="students" className="grow">
-            <PageStudent />
-          </TabsContent>
-          <TabsContent value="companies" className="grow flex flex-col">
-            <PageCompany />
-          </TabsContent>
-        </Tabs>
+          {props.children}
+        </Tabs> */}
       </div>
     </div>
   );

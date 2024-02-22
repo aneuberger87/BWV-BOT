@@ -21,7 +21,7 @@ export const getAllStudents = async () => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return await response.json();
+    return (await response.json()) as StudentList;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
     throw error;
@@ -79,7 +79,7 @@ export const getAllDummyCompaniesWithRoomsAndTimeslots = async () => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    return await response.json();
+    return (await response.json()) as CompanyList;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
     throw error;

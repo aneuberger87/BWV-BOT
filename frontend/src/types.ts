@@ -27,6 +27,7 @@ export type Student = {
   wishList: Wish[];
 };
 
+// TODO Seperate normal list from resultlist
 export type StudentList = {
   student: Student[];
 };
