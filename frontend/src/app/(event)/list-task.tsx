@@ -22,7 +22,7 @@ const StatusEmote = ({
 const ListTask = async () => {
   const data = await getAllCompanies();
   return (
-    <div className="grid grid-cols-[auto_1fr] gap-2 items-center">
+    <div className="grid grid-cols-[auto_1fr] items-center gap-2">
       {/* <div
         className="col-span-2 text-red-200 text-center bg-red-900
       "
@@ -30,19 +30,13 @@ const ListTask = async () => {
         ↓//TODO↓
       </div> */}
       <StatusEmote status="done" />
-      <span>Schülerliste hochgeladen</span>
-      <StatusEmote status="done" />
-      <span>Schülerliste validiert</span>
+      <span>Schülerdaten vorhanden</span>
       <div className="col-span-2"></div>
       <StatusEmote status="done" />
-      <span>Firmenliste hochgeladen</span>
-      <StatusEmote status="error" />
-      <span>Firmenliste validiert</span>
+      <span>Firmendaten vorhanden</span>
       <div className="col-span-2"></div>
       <StatusEmote status="none" />
-      <span>Raumliste hochgeladen</span>
-      <StatusEmote status="none" />
-      <span>Raumliste validiert</span>
+      <span>Raumdaten vorhanden</span>
     </div>
   );
 };
