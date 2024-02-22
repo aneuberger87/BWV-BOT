@@ -6,25 +6,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
 import ListTask from "./list-task";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { NavigationMenuDemo } from "./menu";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "BWV BOT",
+    template: "%s | BWV BOT",
+  },
+};
 
 const EventLayout = (props: { children: React.ReactNode }) => {
   return (
-    <div className="grid grid-cols-[auto_1fr] h-full gap-x-8 ">
+    <div className="grid h-full grid-cols-[auto_1fr] gap-x-8 ">
       <div className="">
-        <Card className="max-h-full min-h-full h-0 grid grid-rows-[auto_1fr] min-w-96">
+        <Card className="grid h-0 max-h-full min-h-full min-w-96 grid-rows-[auto_1fr]">
           <CardHeader>
             <CardTitle>Event Details</CardTitle>
             <CardDescription className="w-min min-w-full">
@@ -33,7 +30,7 @@ const EventLayout = (props: { children: React.ReactNode }) => {
             </CardDescription>
           </CardHeader>
           <CardContent className="h-full">
-            <div className="flex flex-col h-full justify-between">
+            <div className="flex h-full flex-col justify-between">
               <div>
                 <ListTask />
               </div>
@@ -51,8 +48,8 @@ const EventLayout = (props: { children: React.ReactNode }) => {
         </Card>
       </div>
       <div
-        className="grid grid-rows-[auto_1fr] max-h-full min-h-full h-0 gap-y-6 justify-stretch
-      items-start"
+        className="grid h-0 max-h-full min-h-full grid-rows-[auto_1fr] items-start justify-stretch
+      gap-y-6"
       >
         <NavigationMenuDemo />
         {props.children}

@@ -1,4 +1,9 @@
 import { PageStudent } from "./page-student";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Schüler",
+};
 
 const Page = () => {
   return (

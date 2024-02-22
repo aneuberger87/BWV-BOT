@@ -66,7 +66,7 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
     if (isDragAccept) classes = cn(classes, acceptClasses);
     if (isDragReject) classes = cn(classes, rejectClasses);
     return classes;
-  }, [isFocused, isDragAccept, isDragReject]);
+  }, [isFocused, isDragAccept, isDragReject, className]);
 
   return (
     <div className="grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">

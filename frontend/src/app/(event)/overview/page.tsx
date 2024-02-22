@@ -1,4 +1,9 @@
 import InputUploadBox from "@/components/custom/input-upload-box";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Übersicht",
+};
 
 const Page = () => {
   return (
