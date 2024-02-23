@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 @Slf4j
-public class ExcelReader { //TODO test
+public class ExcelReader {
 
     public StudentsList readStudentsList(String fileLocation){
         StudentsList studentsList = new StudentsList();

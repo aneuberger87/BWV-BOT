@@ -30,7 +30,7 @@ public class DataStorageInitializer {
         StudentsList studentsList = reader.readStudentsList(props.getStudentslistLocation());
         dataStorage.setStudentsList(studentsList);
         //CompaniesList companiesList = reader.readCompaniesList(props.getCompanieslistLocation());
-        CompaniesList companiesList = reader.readEventList(props.getCompanieslistLocation());
+        CompaniesList companiesList = reader.readEventList(props.getEventlistLocation());
         dataStorage.setCompanies(companiesList);
 
     }
@@ -38,7 +38,7 @@ public class DataStorageInitializer {
     private boolean propsAreValid() {
         return
                 props != null &&
-                !isNullOrBlank(props.getCompanieslistLocation()) &&
+                !isNullOrBlank(props.getEventlistLocation()) &&
                 !isNullOrBlank(props.getStudentslistLocation());
     }
 
