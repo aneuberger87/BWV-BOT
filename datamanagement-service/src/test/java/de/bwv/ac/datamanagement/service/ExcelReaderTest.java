@@ -21,11 +21,11 @@ class ExcelReaderTest {
 
         List<StudentsList.Student> students = studentsList.getStudent();
         //Check First Student: Class = RosyBrown3, surname = Li; prename = Kenneth
-        StudentsList.Student student1 = new StudentsList.Student("Kenneth", "Li", "RosyBrown3", null);
+        StudentsList.Student student1 = new StudentsList.Student("Kenneth", "Li", "RosyBrown3", new ArrayList<>());
         assertEquals(student1, students.get(0));
 
         //Check Last Student: Class = DodgerBlue3, surname = Daniels, prename = Olivia
-        StudentsList.Student student2 = new StudentsList.Student("Olivia", "Daniels", "DodgerBlue3", null);
+        StudentsList.Student student2 = new StudentsList.Student("Olivia", "Daniels", "DodgerBlue3", new ArrayList<>());
         assertEquals(student2, students.get(students.size()-1));
 
         //Keine besonders zu betrachtenden Daten in der Schülerliste vorhanden

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ public class SolutionAttendanceList {
 
         private String companyName;
         private CompaniesList.Meeting event;
-        private List<StudentsList.Student> students;
+        private List<StudentsList.Student> students = new ArrayList<>();
 
     }
 
