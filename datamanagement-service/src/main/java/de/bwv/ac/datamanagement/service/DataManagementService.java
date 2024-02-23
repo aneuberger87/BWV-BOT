@@ -29,11 +29,12 @@ public class DataManagementService {
 
     @PostMapping("/students/wishes")
     public void postStudentWishes(StudentsList studentsWithJson){
+        //TODO test
         dataStorage.setStudentsList(studentsWithJson);
     }
 
     @PostMapping("/studentList")
-    //TODO argument
+    //TODO argument and implement
     public void postStudentsList(){
 
     }
