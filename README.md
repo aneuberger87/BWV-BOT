@@ -1,5 +1,15 @@
-# BWV-BOT
+# 🚧 BWV Berufsorientierungstage 🚧
 
-## Gruppe: Jonas, Angelika, Nils
+## Preview
 
-## Projket: Berufsorientierungstag
+Get a sneak peek of BWV-BOT in action! Check out our live preview at:
+
+[http://3.71.113.68/overview](http://3.71.113.68/overview)
+
+Explore the functionalities and interface of our Berufsorientierungstag project, and see how it can guide you through the career orientation process.
+
+## Team Members
+
+- **Angelika**: Java Virtuoso and Data Management Maestro - [GitHub](https://github.com/aneuberger87)
+- **Nils**: Python Prodigy and Data Algorithm Artisan - [GitHub](https://github.com/NilsWin)
+- **Jonas**: Frontend Wizard and UI/UX Enthusiast - [GitHub](https://github.com/jonashaven)
