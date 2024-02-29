@@ -12,10 +12,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllDummyStudentsWithWishes } from "@/lib/fetches";
+import { getAllDummyStudentsWithWishes, getAllStudents } from "@/lib/fetches";
 
 const LazyTableBodyStudent = async () => {
-  const students = await getAllDummyStudentsWithWishes();
+  const students = await getAllStudents();
   const timeSlots = ["A", "B", "C", "D", "E"];
 
   return (
@@ -25,12 +25,12 @@ const LazyTableBodyStudent = async () => {
           <TableCell className="font-medium">{student.prename}</TableCell>
           <TableCell>{student.surname}</TableCell>
           <TableCell>{student.schoolClass}</TableCell>
-          {timeSlots.map((timeSlot, i) => (
+          {/* {timeSlots.map((timeSlot, i) => (
             <TableCell key={timeSlot} className="text-right">
               {!!student.wishList[i] &&
                 student.wishList[i].compId + " " + student.wishList[i].timeSlot}
             </TableCell>
-          ))}
+          ))} */}
         </TableRow>
       ))}
     </TableBody>
@@ -40,11 +40,11 @@ const LazyTableBodyStudent = async () => {
 export const PageStudent = () => {
   return (
     <Card className="h-full">
-      <CardContent className="p-6 grid grid-rows-[auto_auto_auto_1fr] gap-4 h-full">
+      <CardContent className="grid h-full grid-rows-[auto_auto_auto_1fr] gap-4 p-6">
         <UploadInline label="Schüler Excel hochladen" id="student-excel" />
         <Separator />
         <Label>Schülerliste</Label>
-        <ScrollArea className="min-h-full h-0">
+        <ScrollArea className="h-0 min-h-full">
           <Table>
             <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>

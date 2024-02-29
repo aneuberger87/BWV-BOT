@@ -45,11 +45,11 @@ const LazyTableBodyCompany = async () => {
 export const PageCompany = () => {
   return (
     <Card className="h-full">
-      <CardContent className="p-6 grid grid-rows-[auto_auto_auto_1fr] gap-4 h-full">
+      <CardContent className="grid h-full grid-rows-[auto_auto_auto_1fr] gap-4 p-6">
         <UploadInline label="Firmen Excel hochladen" id="company-excel" />
         <Separator />
         <Label>Schülerliste</Label>
-        <ScrollArea className="min-h-full h-0">
+        <ScrollArea className="h-0 min-h-full">
           <Table className="relative">
             <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
