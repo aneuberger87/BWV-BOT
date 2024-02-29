@@ -29,7 +29,7 @@ public class CompaniesList {
     @AllArgsConstructor
     public static class Meeting {
         private String timeSlot;
-        private String room;
+        private RoomList.Room room;
     }
 
     private String errorMessage;

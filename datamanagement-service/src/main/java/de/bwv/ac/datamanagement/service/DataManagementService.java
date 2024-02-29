@@ -1,5 +1,6 @@
 package de.bwv.ac.datamanagement.service;
 
+import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class DataManagementService {
 
     @PostMapping("/studentList")
     //TODO argument and implement
-    public void postStudentsList(){
+    public void postStudentsList(String fileName){
 
     }
 
@@ -94,24 +95,24 @@ public class DataManagementService {
         List<CompaniesList.Company> companyList = new ArrayList<>();
         //Company 1
         List<CompaniesList.Meeting> meetings = new ArrayList<>();
-        meetings.add(new CompaniesList.Meeting("A", "306"));
-        meetings.add(new CompaniesList.Meeting("C" , "311"));
-        meetings.add(new CompaniesList.Meeting("D", "312"));
+        meetings.add(new CompaniesList.Meeting("A", new RoomList.Room("306")));
+        meetings.add(new CompaniesList.Meeting("C" , new RoomList.Room("311")));
+        meetings.add(new CompaniesList.Meeting("D", new RoomList.Room("312")));
         companyList.add(dummyCompany(1,"Heusch/BoesefeldtGmbH", "Fachinformatiker Anwendungsentwicklung", meetings));
         meetings.clear();
 
         //Company 2
-        meetings.add(new CompaniesList.Meeting("A", "Aula"));
-        meetings.add(new CompaniesList.Meeting("B", "301"));
-        meetings.add(new CompaniesList.Meeting("C", "Aula"));
-        meetings.add(new CompaniesList.Meeting("D", "Aula"));
-        meetings.add(new CompaniesList.Meeting("E", "301"));
+        meetings.add(new CompaniesList.Meeting("A", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("B", new RoomList.Room("301")));
+        meetings.add(new CompaniesList.Meeting("C", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("D", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("E", new RoomList.Room("301")));
         companyList.add(dummyCompany(2, "RWTH", "Informatik Studium", meetings));
         meetings.clear();
 
         //Company 3
-        meetings.add(new CompaniesList.Meeting("C", "Aula"));
-        meetings.add(new CompaniesList.Meeting("E", "301"));
+        meetings.add(new CompaniesList.Meeting("C", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("E", new RoomList.Room("301")));
         companyList.add(dummyCompany(3, "Fachhochschule", "Mathematisch-technischer-Softwareentwickler", meetings));
         meetings.clear();
 
