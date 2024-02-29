@@ -177,6 +177,7 @@ class Timeplan:
                 for event in event_liste:
                     if event.event_id == wunsch:
                         if event.add_teilnehmer(schueler):
+
                             break
 
 class Timeslot:
