@@ -39,6 +39,7 @@ public class DataManagementService {
 
     }
 
+    @Deprecated
     @GetMapping("/students/dummies")
     public StudentsList getAllDummyStudents(){
         StudentsList result = new StudentsList();
@@ -52,6 +53,7 @@ public class DataManagementService {
         return result;
     }
 
+    @Deprecated
     @GetMapping("/students/wishes/dummies")
     public StudentsList getAllDummyStudentsWithWishes(){
         StudentsList result = new StudentsList();
@@ -79,11 +81,13 @@ public class DataManagementService {
         return result;
     }
 
+    @Deprecated
     private StudentsList.Student dummyStudent(String prename, String surname, String clasz, List<StudentsList.Wish> wishes) {
         return new StudentsList.Student(prename, surname, clasz, new ArrayList<>(wishes));
     }
 
 
+    @Deprecated
     @GetMapping("/companies/room/dummy")
     public CompaniesList getAllDummyCompaniesWithRoomsAndTimeslots() {
         CompaniesList result = new CompaniesList();
@@ -116,6 +120,7 @@ public class DataManagementService {
 
     }
 
+    @Deprecated
     @GetMapping("/companies/dummy")
     public CompaniesList getAllDummyCompanies() {
         CompaniesList result = new CompaniesList();
@@ -133,6 +138,7 @@ public class DataManagementService {
 
     }
 
+    @Deprecated
     private CompaniesList.Company dummyCompany(int id, String compName, String training, List<CompaniesList.Meeting> meetings) {
         return new CompaniesList.Company(id, compName, training, new ArrayList<>(meetings), 20);
     }
