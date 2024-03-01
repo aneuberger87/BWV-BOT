@@ -12,19 +12,22 @@ const Page = () => {
         label="Schülerliste hochladen"
         description="Laden Sie die Schülerliste hoch"
         validateFunction={() => true}
-        dataViewHref="/companies"
+        dataViewHref="/students"
+        type="studentsList"
       />
       <InputUploadBox
         label="Firmenliste hochladen"
         description="Laden Sie die Firmenliste hoch"
         validateFunction={() => true}
-        dataViewHref="/students"
+        dataViewHref="/companies"
+        type="companiesList"
       />
       <InputUploadBox
         label="Raumliste hochladen"
         description="Laden Sie die Raumliste hoch"
         validateFunction={() => false}
         dataViewHref="/rooms"
+        type="roomsList"
       />
     </div>
   );

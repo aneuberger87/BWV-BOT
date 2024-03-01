@@ -32,7 +32,7 @@ const LazyTableBodyCompany = async () => {
             <TableCell key={timeSlot} className="text-right">
               {
                 company.meeting.find((meeting) => meeting.timeSlot === timeSlot)
-                  ?.room
+                  ?.room.roomId
               }
             </TableCell>
           ))}
@@ -51,7 +51,6 @@ export const PageCompany = () => {
         <Label>Schülerliste</Label>
         <ScrollArea className="h-0 min-h-full">
           <Table className="relative">
-            <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">ID</TableHead>

@@ -6,13 +6,12 @@ import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getAllDummyStudentsWithWishes, getAllStudents } from "@/lib/fetches";
+import { getAllStudents } from "@/lib/fetches";
 
 const LazyTableBodyStudent = async () => {
   const students = await getAllStudents();
@@ -20,17 +19,27 @@ const LazyTableBodyStudent = async () => {
 
   return (
     <TableBody>
-      {students.student.map((student, i) => (
+      {students?.student.map((student, i) => (
         <TableRow key={i}>
-          <TableCell className="font-medium">{student.prename}</TableCell>
-          <TableCell>{student.surname}</TableCell>
-          <TableCell>{student.schoolClass}</TableCell>
-          {/* {timeSlots.map((timeSlot, i) => (
-            <TableCell key={timeSlot} className="text-right">
+          <TableCell contentEditable className="font-medium">
+            {student.prename}
+          </TableCell>
+          <TableCell contentEditable>{student.surname}</TableCell>
+          <TableCell contentEditable>{student.schoolClass}</TableCell>
+          {timeSlots.map((timeSlot, i) => (
+            <TableCell
+              key={timeSlot}
+              className={
+                "text-right " +
+                (student?.wishList?.[i]?.compId == -1
+                  ? "font-bold text-red-500"
+                  : "")
+              }
+            >
               {!!student.wishList[i] &&
                 student.wishList[i].compId + " " + student.wishList[i].timeSlot}
             </TableCell>
-          ))} */}
+          ))}
         </TableRow>
       ))}
     </TableBody>
@@ -45,8 +54,7 @@ export const PageStudent = () => {
         <Separator />
         <Label>Schülerliste</Label>
         <ScrollArea className="h-0 min-h-full">
-          <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+          <Table className="">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Vorname</TableHead>
@@ -61,9 +69,9 @@ export const PageStudent = () => {
             </TableHeader>
             <LazyTableBodyStudent />
             {/* <TableFooter>
-              <TableRow>
-              </TableRow>
-            </TableFooter> */}
+                <TableRow>
+                </TableRow>
+                            </TableFooter> */}
           </Table>
         </ScrollArea>
       </CardContent>

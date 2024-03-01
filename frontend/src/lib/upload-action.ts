@@ -4,9 +4,15 @@ import { writeFile } from "fs/promises";
 import { tmpdir } from "os";
 import { join } from "path";
 
-export const upload = async (fileBase64: string) => {
+const URL = process.env.DATAMANAGEMENT_URL!;
+const FOLDER = process.env.FOLDER_SHARE!;
+
+export const upload = async (data: {
+  type: "studentsList" | "roomsList" | "companiesList";
+  fileBase64: string;
+}) => {
   // Decode the Base64 string to binary data
-  const matches = fileBase64.match(/^data:(.+);base64,(.*)$/);
+  const matches = data.fileBase64.match(/^data:(.+);base64,(.*)$/);
   if (!matches || matches.length !== 3) {
     return { success: false, error: "Invalid Base64 string" };
   }
@@ -15,17 +21,23 @@ export const upload = async (fileBase64: string) => {
   const base64Data = matches[2];
   const buffer = Buffer.from(base64Data, "base64");
 
-  // Generate a file path
-  const tempFilePath = join(tmpdir(), `upload_${Date.now()}`);
+  const fileName = `upload_${Date.now()}.excl`;
+  const filePath = join(FOLDER, fileName);
+
   try {
-    // Write the binary data to a file in the temp directory
-    await writeFile(tempFilePath, buffer);
-
-    console.log(`File saved to ${tempFilePath}`);
-
-    // At this point, you have the file saved at tempFilePath, and you can process it as needed
-
-    return { success: true, filePath: tempFilePath };
+    await writeFile(filePath, buffer);
+    const response = await fetch(URL + data.type + filePath, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "",
+    });
+    if (!response.ok) {
+      console.error("Error uploading file:", response.statusText);
+      return { success: false, error: "Error uploading file" };
+    }
+    return { success: true, filePath: filePath };
   } catch (error) {
     console.error("Error saving file:", error);
     return { success: false, error: "Error saving file" };

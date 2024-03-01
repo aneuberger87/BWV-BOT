@@ -28,13 +28,14 @@ const WrapperFormState = async (props: {
 
 const WrapperInputUploadDefault = async (props: {
   dataValidation: () => Promise<boolean> | boolean;
+  type: "studentsList" | "roomsList" | "companiesList";
 }) => {
   let isValid = props.dataValidation();
   if (isValid instanceof Promise) {
     isValid = await isValid;
   }
 
-  return <InputUploadDefault initialDisabled={isValid} />;
+  return <InputUploadDefault initialDisabled={isValid} type={props.type} />;
 };
 
 const InputUploadBox = (props: {
@@ -42,6 +43,7 @@ const InputUploadBox = (props: {
   description: string;
   validateFunction: () => Promise<boolean> | boolean;
   dataViewHref: string;
+  type: "studentsList" | "roomsList" | "companiesList";
 }) => {
   const upload = async (data: FormData) => {
     "use server";
@@ -73,6 +75,7 @@ const InputUploadBox = (props: {
           <Suspense fallback={<Skeleton className="h-32 w-72" />}>
             <WrapperInputUploadDefault
               dataValidation={props.validateFunction}
+              type={props.type}
             />
           </Suspense>
           <Separator orientation="horizontal" className="mb-2 mt-4 w-full" />

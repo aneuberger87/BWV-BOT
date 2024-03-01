@@ -2,12 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
+import { useDropzone } from "react-dropzone";
 import { upload } from "../../lib/upload-action";
 
-const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
+const InputUploadDefault = (props: {
+  initialDisabled?: boolean;
+  type: "studentsList" | "roomsList" | "companiesList";
+}) => {
   const [file, setFile] = useState<File | null>(null); // State to track a single uploaded file
   const [directUploadPending, setDirectUploadPending] = useState(false); // State to track direct upload status
   const { pending } = useFormStatus();
@@ -28,8 +30,13 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
       // Convert file content to a Base64 string
       const base64String = reader.result as string;
 
+      const data = {
+        type: props.type,
+        fileBase64: base64String,
+      };
+
       // Now you can call your upload Server Action with the base64String
-      upload(base64String).then(() => {
+      upload(data).then(() => {
         setDirectUploadPending(false);
         if (inputRef.current) {
           inputRef.current.value = "";
@@ -93,12 +100,12 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
           </p>
         )}
         {props.initialDisabled && !hasFile && !directUploadPending && (
-          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground ">
             <span>Daten überschreiben</span>
           </div>
         )}
         {directUploadPending && (
-          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground">
             <span>Wird hochgeladen...</span>
           </div>
         )}
