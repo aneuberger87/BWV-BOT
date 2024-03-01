@@ -28,16 +28,29 @@ public class DataManagementService {
         return dataStorage.getStudentsList();
     }
 
+    @GetMapping("/rooms")
+    public RoomList getAllRooms(){
+        return dataStorage.getRoomList();
+    }
+
     @PostMapping("/students/wishes")
     public void postStudentWishes(StudentsList studentsWithJson){
         //TODO test
         dataStorage.setStudentsList(studentsWithJson);
     }
 
-    @PostMapping("/studentList")
-    //TODO argument and implement
-    public void postStudentsList(String fileName){
+    @PostMapping("/roomsList")
+    public void postRoomsList(String fileLocation){
+        ExcelReader reader = new ExcelReader();
+        RoomList roomList = reader.readRoomList(fileLocation);
+        dataStorage.setRoomList(roomList);
+    }
 
+    @PostMapping("/studentList")
+    public void postStudentsList(String fileLocation){
+        ExcelReader reader = new ExcelReader();
+        StudentsList studentsList = reader.readStudentsList(fileLocation);
+        dataStorage.setStudentsList(studentsList);
     }
 
     @Deprecated

@@ -21,4 +21,6 @@ public class RoomList {
             this.roomId = roomId;
         }
     }
+
+    private String errorMessage;
 }

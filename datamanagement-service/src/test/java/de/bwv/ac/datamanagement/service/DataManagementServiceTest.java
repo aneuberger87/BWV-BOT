@@ -19,6 +19,7 @@ class DataManagementServiceTest {
         Properties props = new Properties();
         props.setEventlistLocation("src/test/resources/unternehmensliste.xlsx");
         props.setStudentslistLocation("src/test/resources/schuelerliste.xlsx");
+        props.setRoomlistLocation("src/test/resources/IMPORT_BOT0_Raumliste.xlsx");
         DataStorageInitializer initializer = new DataStorageInitializer(dataStorage, props);
         initializer.initializeDataStorage();
     }
