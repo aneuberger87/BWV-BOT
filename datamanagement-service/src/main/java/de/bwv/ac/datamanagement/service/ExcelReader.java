@@ -1,6 +1,7 @@
 package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import lombok.extern.slf4j.Slf4j;
 import org.dhatim.fastexcel.reader.Cell;
@@ -41,6 +42,7 @@ public class ExcelReader {
                 student.setSchoolClass(entries.get(0));
                 student.setSurname(entries.get(1));
                 student.setPrename(entries.get(2));
+                student.setWishList(readWishes(entries.subList(3, entries.size())));
                 result.add(student);
             }
         });
@@ -48,6 +50,58 @@ public class ExcelReader {
             return result;
         }
         return result.subList(1, result.size()); //Without Header
+    }
+
+    private List<StudentsList.Wish> readWishes(List<String> entries) {
+        List<StudentsList.Wish> wishes = new ArrayList<>();
+        for(int i = 0; i < entries.size(); i++){
+            String entry = entries.get(i);
+            //if(!isNumber(entry.charAt(entry.length()-1))){
+                //Wunsch mit Timeslot z.B. 4A
+                wishes.add(i, new StudentsList.Wish(getNumber(entry), getTimeslot(entry)));
+            //}
+        }
+        return wishes;
+    }
+
+    private String getTimeslot(String entry) {
+        if(entry == null || entry.isBlank()){
+            return "";
+        }
+        String timeSlotCandinate = ""+entry.charAt(entry.length()-1);
+        if(timeSlots.contains(timeSlotCandinate)){
+            return timeSlotCandinate;
+        }
+        return "";
+    }
+
+    private int getNumber(String entry) {
+        if(entry == null){
+            return -1;
+        }
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < entry.length(); i++){
+            if(isNumber(""+entry.charAt(i))){
+                result.append(entry.charAt(i));
+            } else {
+                break; //Erstes Zeichen, das keine Nummer ist gefunden
+            }
+        }
+        String numbers = result.toString();
+        if(numbers.isBlank()){
+            return -1;
+        }
+        return Integer.parseInt(result.toString());
+
+    }
+
+    private boolean isNumber(String str) {
+        try{
+            Integer.parseInt(str);
+        } catch (NumberFormatException e){
+            return false;
+        }
+        return true;
     }
 
     private Map<Integer, List<String>> readRows(Sheet sheet) {
@@ -125,6 +179,36 @@ public class ExcelReader {
             }
         }
         return meetings;
+    }
+
+    public RoomList readRoomList(String fileLocation){
+        RoomList result = new RoomList();
+        try (FileInputStream fileInputStream = new FileInputStream(fileLocation); ReadableWorkbook workbook = new ReadableWorkbook(fileInputStream)){
+            List<RoomList.Room> rooms = new ArrayList<>();
+            workbook.getSheets().forEach(sheet -> rooms.addAll(readRooms(sheet)));
+            result.setRoomList(rooms);
+        } catch (FileNotFoundException e) {
+            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht gefunden werden! Studenten-Liste konnte nicht erstellt werden!");
+        } catch (IOException e) {
+            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht ausgelesen werden! Studenten-Liste konnte nicht erstellt werden!");
+        }
+        return result;
+    }
+
+    private List<RoomList.Room> readRooms(Sheet sheet) {
+        List<RoomList.Room> result = new ArrayList<>();
+        Map<Integer, List<String>> rows = readRows(sheet);
+        rows.forEach((rowNumber, entries) -> {
+            if(!entries.isEmpty()){
+                RoomList.Room room = new RoomList.Room();
+                room.setRoomId(entries.get(0));
+                result.add(room);
+            }
+        });
+        if(result.isEmpty()){
+            return result;
+        }
+        return result.subList(1, result.size()); //Without Header
     }
 
 

@@ -2,6 +2,7 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.config.Properties;
 import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,9 @@ public class DataStorageInitializer {
         //CompaniesList companiesList = reader.readCompaniesList(props.getCompanieslistLocation());
         CompaniesList companiesList = reader.readEventList(props.getEventlistLocation());
         dataStorage.setCompanies(companiesList);
+
+        RoomList roomList = reader.readRoomList(props.getRoomlistLocation());
+        dataStorage.setRoomList(roomList);
 
     }
 

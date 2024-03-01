@@ -1,6 +1,7 @@
 package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.SolutionAttendanceList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 
@@ -16,6 +17,8 @@ public class DataStorage { //TODO test
 
     //Key: Company-Name, Value: AttendanceList for Company
     private final Map<String, SolutionAttendanceList.AttendanceList> attendanceListPerCompany = new HashMap<>();
+
+    private final List<RoomList.Room> roomList = new ArrayList<>();
 
     private SolutionAttendanceList calculateAttendanceList() {
         //TODO
@@ -79,4 +82,14 @@ public class DataStorage { //TODO test
         attendanceListPerCompany.clear();
     }
 
+    public void setRoomList(RoomList rooms){
+        this.roomList.clear();
+        this.roomList.addAll(rooms.getRoomList());
+    }
+
+    public RoomList getRoomList() {
+        RoomList result = new RoomList();
+        result.setRoomList(roomList);
+        return result;
+    }
 }

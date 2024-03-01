@@ -11,4 +11,8 @@ public class Properties {
 
     private String studentslistLocation;
     private String eventlistLocation;
+    private String roomlistLocation;
+
+    private int numberWishes;
+    private int numberTimeSlots;
 }

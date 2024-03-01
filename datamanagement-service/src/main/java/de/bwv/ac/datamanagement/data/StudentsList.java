@@ -27,8 +27,8 @@ public class StudentsList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Wish {
-        private int compId;
-        private String timeSlot;
+        private int compId = -1;
+        private String timeSlot = "";
     }
 
     private String errorMessage;
