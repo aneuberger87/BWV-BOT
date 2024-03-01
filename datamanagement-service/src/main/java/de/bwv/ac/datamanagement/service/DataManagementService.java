@@ -5,6 +5,7 @@ import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -33,21 +34,15 @@ public class DataManagementService {
         return dataStorage.getRoomList();
     }
 
-    @PostMapping("/students/wishes")
-    public void postStudentWishes(StudentsList studentsWithJson){
-        //TODO test
-        dataStorage.setStudentsList(studentsWithJson);
-    }
-
     @PostMapping("/roomsList")
-    public void postRoomsList(String fileLocation){
+    public void postRoomsList(@RequestParam("fileLocation")String fileLocation){
         ExcelReader reader = new ExcelReader();
         RoomList roomList = reader.readRoomList(fileLocation);
         dataStorage.setRoomList(roomList);
     }
 
     @PostMapping("/studentList")
-    public void postStudentsList(String fileLocation){
+    public void postStudentsList(@RequestParam("fileLocation") String fileLocation){
         ExcelReader reader = new ExcelReader();
         StudentsList studentsList = reader.readStudentsList(fileLocation);
         dataStorage.setStudentsList(studentsList);

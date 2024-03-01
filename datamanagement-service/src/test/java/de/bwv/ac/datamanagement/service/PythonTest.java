@@ -10,16 +10,16 @@ import java.util.stream.Collectors;
 
 public class PythonTest {
 
-    //@Test
+    @Test
     public void test() throws IOException {
-        /*
+
         ProcessBuilder processBuilder = new ProcessBuilder("python", resolvePythonScriptPath("Tranformation.py"));
         processBuilder.redirectErrorStream(true);
 
         Process process = processBuilder.start();
         List<String> results = readProcessOutput(process.getInputStream());
         System.out.println();
-*/
+
 
     }
 
