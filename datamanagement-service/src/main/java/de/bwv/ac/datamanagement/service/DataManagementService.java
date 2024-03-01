@@ -41,7 +41,14 @@ public class DataManagementService {
         dataStorage.setRoomList(roomList);
     }
 
-    @PostMapping("/studentList")
+    @PostMapping("/companiesList")
+    public void postCompaniesList(@RequestParam("fileLocation")String fileLocation){
+        ExcelReader reader = new ExcelReader();
+        CompaniesList companiesList = reader.readEventList(fileLocation);
+        dataStorage.setCompanies(companiesList);
+    }
+
+    @PostMapping("/studentsList")
     public void postStudentsList(@RequestParam("fileLocation") String fileLocation){
         ExcelReader reader = new ExcelReader();
         StudentsList studentsList = reader.readStudentsList(fileLocation);
