@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompaniesList {
-    private List<Company> company;
+    private List<Company> company = new ArrayList<>();
 
     @Data
     @NoArgsConstructor
@@ -19,7 +20,7 @@ public class CompaniesList {
         private int id;
         private String compName;
         private String trainingOccupation;
-        private List<Meeting> meeting;
+        private List<Meeting> meeting = new ArrayList<>();
         private int numberOfMembers;
     }
 
@@ -28,7 +29,7 @@ public class CompaniesList {
     @AllArgsConstructor
     public static class Meeting {
         private String timeSlot;
-        private String room;
+        private RoomList.Room room;
     }
 
     private String errorMessage;

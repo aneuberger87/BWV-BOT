@@ -59,23 +59,23 @@ public class ExcelWriter { //TODO test
                 for (CompaniesList.Meeting m : meeting) {
                     switch (m.getTimeSlot()) {
                         case "A": {
-                            worksheet.value(i + 1, 2, m.getRoom());
+                            worksheet.value(i + 1, 2, m.getRoom().getRoomId());
                             break;
                         }
                         case "B": {
-                            worksheet.value(i + 1, 3, m.getRoom());
+                            worksheet.value(i + 1, 3, m.getRoom().getRoomId());
                             break;
                         }
                         case "C": {
-                            worksheet.value(i + 1, 4, m.getRoom());
+                            worksheet.value(i + 1, 4, m.getRoom().getRoomId());
                             break;
                         }
                         case "D": {
-                            worksheet.value(i + 1, 5, m.getRoom());
+                            worksheet.value(i + 1, 5, m.getRoom().getRoomId());
                             break;
                         }
                         case "E": {
-                            worksheet.value(i + 1, 6, m.getRoom());
+                            worksheet.value(i + 1, 6, m.getRoom().getRoomId());
                             break;
                         }
                     }
@@ -84,7 +84,5 @@ public class ExcelWriter { //TODO test
         }
     }
 
-
-    //TODO: writeAttendanceList
 
 }

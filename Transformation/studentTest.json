@@ -3,19 +3,19 @@
     {
       "vorname": "Max",
       "nachname": "Mustermann",
-      "wuensche": ["Fussball", "Brettspiele", "Buecher"],
+      "wuensche": ["1,A", "2,B", "3,C"],
       "klasse": "10A"
     },
     {
       "vorname": "Anna",
       "nachname": "Schmidt",
-      "wuensche": ["Malen", "Musikinstrumente", "Computerspiele"],
+      "wuensche": ["3,A", "2,B", "1,C"],
       "klasse": "9B"
     },
     {
       "vorname": "Lisa",
       "nachname": "Meier",
-      "wuensche": ["Schach", "Zeichnen", "Handarbeit"],
+      "wuensche": ["2,A", "3,B", "1,C"],
       "klasse": "11C"
     }
   ]

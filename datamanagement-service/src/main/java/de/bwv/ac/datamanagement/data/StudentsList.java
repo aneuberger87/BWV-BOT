@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentsList {
 
-    private List<Student> student;
+    private List<Student> student = new ArrayList<>();
 
     @Data
     @NoArgsConstructor
@@ -19,15 +20,15 @@ public class StudentsList {
     public static class Student {
 
         private String prename, surname, schoolClass;
-        private List<Wish> wishList;
+        private List<Wish> wishList = new ArrayList<>();
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Wish {
-        private int compId;
-        private String timeSlot;
+        private int compId = -1;
+        private String timeSlot = "";
     }
 
     private String errorMessage;

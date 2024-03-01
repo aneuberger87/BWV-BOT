@@ -1,2 +1,4 @@
 target/
 src/main/resources/BOT1_Veranstaltungsliste.xlsx
+src/main/resources/IMPORT_BOT2_Wahl.xlsx
+.jython_cache

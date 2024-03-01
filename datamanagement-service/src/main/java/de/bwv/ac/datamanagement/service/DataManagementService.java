@@ -1,9 +1,11 @@
 package de.bwv.ac.datamanagement.service;
 
+import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -27,17 +29,26 @@ public class DataManagementService {
         return dataStorage.getStudentsList();
     }
 
-    @PostMapping("/students/wishes")
-    public void postStudentWishes(StudentsList studentsWithJson){
-        dataStorage.setStudentsList(studentsWithJson);
+    @GetMapping("/rooms")
+    public RoomList getAllRooms(){
+        return dataStorage.getRoomList();
+    }
+
+    @PostMapping("/roomsList")
+    public void postRoomsList(@RequestParam("fileLocation")String fileLocation){
+        ExcelReader reader = new ExcelReader();
+        RoomList roomList = reader.readRoomList(fileLocation);
+        dataStorage.setRoomList(roomList);
     }
 
     @PostMapping("/studentList")
-    //TODO argument
-    public void postStudentsList(){
-
+    public void postStudentsList(@RequestParam("fileLocation") String fileLocation){
+        ExcelReader reader = new ExcelReader();
+        StudentsList studentsList = reader.readStudentsList(fileLocation);
+        dataStorage.setStudentsList(studentsList);
     }
 
+    @Deprecated
     @GetMapping("/students/dummies")
     public StudentsList getAllDummyStudents(){
         StudentsList result = new StudentsList();
@@ -51,6 +62,7 @@ public class DataManagementService {
         return result;
     }
 
+    @Deprecated
     @GetMapping("/students/wishes/dummies")
     public StudentsList getAllDummyStudentsWithWishes(){
         StudentsList result = new StudentsList();
@@ -78,35 +90,37 @@ public class DataManagementService {
         return result;
     }
 
+    @Deprecated
     private StudentsList.Student dummyStudent(String prename, String surname, String clasz, List<StudentsList.Wish> wishes) {
         return new StudentsList.Student(prename, surname, clasz, new ArrayList<>(wishes));
     }
 
 
+    @Deprecated
     @GetMapping("/companies/room/dummy")
     public CompaniesList getAllDummyCompaniesWithRoomsAndTimeslots() {
         CompaniesList result = new CompaniesList();
         List<CompaniesList.Company> companyList = new ArrayList<>();
         //Company 1
         List<CompaniesList.Meeting> meetings = new ArrayList<>();
-        meetings.add(new CompaniesList.Meeting("A", "306"));
-        meetings.add(new CompaniesList.Meeting("C" , "311"));
-        meetings.add(new CompaniesList.Meeting("D", "312"));
+        meetings.add(new CompaniesList.Meeting("A", new RoomList.Room("306")));
+        meetings.add(new CompaniesList.Meeting("C" , new RoomList.Room("311")));
+        meetings.add(new CompaniesList.Meeting("D", new RoomList.Room("312")));
         companyList.add(dummyCompany(1,"Heusch/BoesefeldtGmbH", "Fachinformatiker Anwendungsentwicklung", meetings));
         meetings.clear();
 
         //Company 2
-        meetings.add(new CompaniesList.Meeting("A", "Aula"));
-        meetings.add(new CompaniesList.Meeting("B", "301"));
-        meetings.add(new CompaniesList.Meeting("C", "Aula"));
-        meetings.add(new CompaniesList.Meeting("D", "Aula"));
-        meetings.add(new CompaniesList.Meeting("E", "301"));
+        meetings.add(new CompaniesList.Meeting("A", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("B", new RoomList.Room("301")));
+        meetings.add(new CompaniesList.Meeting("C", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("D", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("E", new RoomList.Room("301")));
         companyList.add(dummyCompany(2, "RWTH", "Informatik Studium", meetings));
         meetings.clear();
 
         //Company 3
-        meetings.add(new CompaniesList.Meeting("C", "Aula"));
-        meetings.add(new CompaniesList.Meeting("E", "301"));
+        meetings.add(new CompaniesList.Meeting("C", new RoomList.Room("Aula")));
+        meetings.add(new CompaniesList.Meeting("E", new RoomList.Room("301")));
         companyList.add(dummyCompany(3, "Fachhochschule", "Mathematisch-technischer-Softwareentwickler", meetings));
         meetings.clear();
 
@@ -115,6 +129,7 @@ public class DataManagementService {
 
     }
 
+    @Deprecated
     @GetMapping("/companies/dummy")
     public CompaniesList getAllDummyCompanies() {
         CompaniesList result = new CompaniesList();
@@ -132,6 +147,7 @@ public class DataManagementService {
 
     }
 
+    @Deprecated
     private CompaniesList.Company dummyCompany(int id, String compName, String training, List<CompaniesList.Meeting> meetings) {
         return new CompaniesList.Company(id, compName, training, new ArrayList<>(meetings), 20);
     }
