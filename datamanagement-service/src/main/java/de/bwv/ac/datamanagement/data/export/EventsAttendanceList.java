@@ -1,5 +1,7 @@
-package de.bwv.ac.datamanagement.data;
+package de.bwv.ac.datamanagement.data.export;
 
+import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.data.StudentsList;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolutionAttendanceList {
+public class EventsAttendanceList {
 
     private List<AttendanceList> attendanceLists;
 
@@ -19,7 +21,6 @@ public class SolutionAttendanceList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AttendanceList {
-
         private String companyName;
         private CompaniesList.Meeting event;
         private List<StudentsList.Student> students = new ArrayList<>();

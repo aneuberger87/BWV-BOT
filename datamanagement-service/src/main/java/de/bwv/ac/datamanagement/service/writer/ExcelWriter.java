@@ -13,24 +13,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Getter
 @Slf4j
 public abstract class ExcelWriter {
 
-    @Getter
     private final DataStorage dataStorage;
 
     public ExcelWriter(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
-    public abstract void write(String fileLocation);
+    public abstract void write(String fileLocation) throws IOException;
 
-
-
-
-    public void writeAttendanceList(String fileLocation) {
-    }
-
-    public void writeTimetableList(String fileLocation) {
-    }
 }

@@ -10,6 +10,7 @@ import de.bwv.ac.datamanagement.service.reader.RoomListReader;
 import de.bwv.ac.datamanagement.service.reader.StudentsListReader;
 import de.bwv.ac.datamanagement.service.writer.AttendanceListWriter;
 import de.bwv.ac.datamanagement.service.writer.ExcelWriter;
+import de.bwv.ac.datamanagement.service.writer.RoomAssignmentsListWriter;
 import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,11 @@ import java.util.List;
 @RestController
 public class DataManagementService {
     private final DataStorage dataStorage;
+    private final PythonScriptExecuter pythonScriptExecuter;
 
-    public DataManagementService(DataStorage dataStorage){
+    public DataManagementService(DataStorage dataStorage, PythonScriptExecuter scriptExecuter){
         this.dataStorage = dataStorage;
+        this.pythonScriptExecuter = scriptExecuter;
     }
 
     @GetMapping("/companies")
@@ -43,7 +46,7 @@ public class DataManagementService {
     }
 
     @PostMapping("/roomsList")
-    public PostResponse postRoomsList(@RequestParam("fileLocation")String fileLocation){
+    public PostResponse postRoomsList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelReader<RoomList> reader = new RoomListReader();
             RoomList roomList = reader.read(fileLocation);
@@ -55,7 +58,7 @@ public class DataManagementService {
     }
 
     @PostMapping("/companiesList")
-    public PostResponse postCompaniesList(@RequestParam("fileLocation")String fileLocation){
+    public PostResponse postCompaniesList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelReader<CompaniesList> reader = new EventsListReader();
             CompaniesList companiesList = reader.read(fileLocation);
@@ -98,7 +101,7 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/attendancelist")
+    @PostMapping("print/attendanceList")
     public PostResponse printAttendanceList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new AttendanceListWriter(dataStorage);
@@ -109,11 +112,32 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/timetablelist")
+    @PostMapping("print/timetableList")
     public PostResponse printTimetableList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new TimetableListWriter(dataStorage);
             writer.write(fileLocation);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("print/timetableList")
+    public PostResponse printRoomAssignmentsList(@RequestParam("fileLocation") String fileLocation){
+        try {
+            ExcelWriter writer = new RoomAssignmentsListWriter(dataStorage);
+            writer.write(fileLocation);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("calculate")
+    public PostResponse calculate(){
+        try {
+            pythonScriptExecuter.executeScript("Transformation.py");
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());

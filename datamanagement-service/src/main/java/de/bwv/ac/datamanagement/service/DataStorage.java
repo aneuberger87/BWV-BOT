@@ -2,12 +2,12 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.RoomList;
-import de.bwv.ac.datamanagement.data.SolutionAttendanceList;
 import de.bwv.ac.datamanagement.data.StudentsList;
+import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 
 import java.util.*;
 
-public class DataStorage { //TODO test
+public class DataStorage {
 
     //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
@@ -15,26 +15,8 @@ public class DataStorage { //TODO test
     //Key: Class, Value: Students from Class
     private final Map<String, List<StudentsList.Student>> studentsPerClass = new HashMap<>();
 
-    //Key: Company-Name, Value: AttendanceList for Company
-    private final Map<String, SolutionAttendanceList.AttendanceList> attendanceListPerCompany = new HashMap<>();
+    private final Map<String, RoomList.Room> roomMap = new HashMap<>();
 
-    private final List<RoomList.Room> roomList = new ArrayList<>();
-
-    private SolutionAttendanceList calculateAttendanceList() {
-        //TODO
-        return null;
-    }
-
-    public SolutionAttendanceList getSolutionAttendanceList() {
-        SolutionAttendanceList result = new SolutionAttendanceList();
-        if(attendanceListPerCompany.isEmpty()){
-            return calculateAttendanceList();
-        }
-        List<SolutionAttendanceList.AttendanceList> attendanceLists = new ArrayList<>();
-        attendanceListPerCompany.forEach((companyName, attendanceList) -> attendanceLists.add(attendanceList));
-        result.setAttendanceLists(attendanceLists);
-        return result;
-    }
 
     public CompaniesList getCompaniesList() {
         CompaniesList result = new CompaniesList();
@@ -55,7 +37,6 @@ public class DataStorage { //TODO test
 
     public void setStudentsList(StudentsList studentsList) {
         studentsPerClass.clear();
-        attendanceListPerCompany.clear();
         studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
     }
 
@@ -67,9 +48,7 @@ public class DataStorage { //TODO test
 
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
-        attendanceListPerCompany.clear();
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
-
     }
 
     private void addCompany(CompaniesList.Company company) {
@@ -79,17 +58,23 @@ public class DataStorage { //TODO test
     public void clearStorage() {
         studentsPerClass.clear();
         companiesCache.clear();
-        attendanceListPerCompany.clear();
     }
 
     public void setRoomList(RoomList rooms){
-        this.roomList.clear();
-        this.roomList.addAll(rooms.getRoomList());
+        this.roomMap.clear();
+        for (RoomList.Room room : rooms.getRoomList()) {
+            roomMap.put(room.getRoomId(), room);
+        }
     }
 
     public RoomList getRoomList() {
         RoomList result = new RoomList();
-        result.setRoomList(roomList);
+        result.setRoomList(roomMap.values().stream().toList());
         return result;
+    }
+
+    public EventsAttendanceList calculateEventsAttendenceList() {
+        //TODO
+        return null;
     }
 }

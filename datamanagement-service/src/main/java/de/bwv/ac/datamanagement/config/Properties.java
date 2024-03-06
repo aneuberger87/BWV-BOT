@@ -15,4 +15,6 @@ public class Properties {
 
     private int numberWishes;
     private int numberTimeSlots;
+
+    private String scriptLocation;
 }

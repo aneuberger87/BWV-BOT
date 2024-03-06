@@ -10,6 +10,7 @@ public class PostResponse {
     private String errormessage;
 
     public PostResponse (String errormessage){
+        postSuccessful = false;
         this.errormessage = errormessage;
     }
 }
