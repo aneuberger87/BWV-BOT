@@ -2,6 +2,8 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.StudentsList;
+import de.bwv.ac.datamanagement.service.reader.ExcelReader;
+import de.bwv.ac.datamanagement.service.reader.StudentsListReader;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,9 +15,9 @@ class ExcelReaderTest {
 
     @Test
     void readStudentsList() {
-        ExcelReader excelReader = new ExcelReader();
+        ExcelReader<StudentsList> excelReader = new StudentsListReader();
         StudentsList studentsList =
-                excelReader.readStudentsList("src/test/resources/schuelerliste.xlsx");
+                excelReader.read("src/test/resources/schuelerliste.xlsx");
         assertNotNull(studentsList);
         assertEquals(180, studentsList.getStudent().size());
 

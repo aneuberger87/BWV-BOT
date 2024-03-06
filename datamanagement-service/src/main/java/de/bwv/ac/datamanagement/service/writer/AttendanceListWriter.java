@@ -1,6 +1,7 @@
-package de.bwv.ac.datamanagement.service;
+package de.bwv.ac.datamanagement.service.writer;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.service.DataStorage;
 import lombok.extern.slf4j.Slf4j;
 import org.dhatim.fastexcel.Workbook;
 import org.dhatim.fastexcel.Worksheet;
@@ -12,7 +13,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Slf4j
-public class ExcelWriter { //TODO test
+public class AttendanceListWriter extends ExcelWriter{
+
+    public AttendanceListWriter(DataStorage dataStorage) {
+        super(dataStorage);
+    }
 
     /**
      * Writes the Room and TimeSlots for the Events as Excel-File
@@ -20,7 +25,7 @@ public class ExcelWriter { //TODO test
      * @param companiesList the Companies-List
      * @param fileDirectory the directory of the file to write
      */
-    public void writeRoomAndTimeSlotList(CompaniesList companiesList, String fileDirectory) throws IOException {
+    private void writeRoomAndTimeSlotList(CompaniesList companiesList, String fileDirectory) throws IOException {
         if (companiesList.getErrorMessage() != null && !companiesList.getErrorMessage().isBlank()) {
             log.warn("Can not write the Rooms- and TimeSlot-Plan because the companieslist is not available (Reason: {})", companiesList.getErrorMessage());
             return;
@@ -84,5 +89,8 @@ public class ExcelWriter { //TODO test
         }
     }
 
+    @Override
+    public void write(String fileLocation) {
 
+    }
 }

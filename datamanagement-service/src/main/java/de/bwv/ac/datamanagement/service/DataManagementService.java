@@ -1,8 +1,16 @@
 package de.bwv.ac.datamanagement.service;
 
+import de.bwv.ac.datamanagement.data.PostResponse;
 import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.service.reader.EventsListReader;
+import de.bwv.ac.datamanagement.service.reader.ExcelReader;
+import de.bwv.ac.datamanagement.service.reader.RoomListReader;
+import de.bwv.ac.datamanagement.service.reader.StudentsListReader;
+import de.bwv.ac.datamanagement.service.writer.AttendanceListWriter;
+import de.bwv.ac.datamanagement.service.writer.ExcelWriter;
+import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,24 +43,81 @@ public class DataManagementService {
     }
 
     @PostMapping("/roomsList")
-    public void postRoomsList(@RequestParam("fileLocation")String fileLocation){
-        ExcelReader reader = new ExcelReader();
-        RoomList roomList = reader.readRoomList(fileLocation);
-        dataStorage.setRoomList(roomList);
+    public PostResponse postRoomsList(@RequestParam("fileLocation")String fileLocation){
+        try {
+            ExcelReader<RoomList> reader = new RoomListReader();
+            RoomList roomList = reader.read(fileLocation);
+            dataStorage.setRoomList(roomList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
     }
 
     @PostMapping("/companiesList")
-    public void postCompaniesList(@RequestParam("fileLocation")String fileLocation){
-        ExcelReader reader = new ExcelReader();
-        CompaniesList companiesList = reader.readEventList(fileLocation);
-        dataStorage.setCompanies(companiesList);
+    public PostResponse postCompaniesList(@RequestParam("fileLocation")String fileLocation){
+        try {
+            ExcelReader<CompaniesList> reader = new EventsListReader();
+            CompaniesList companiesList = reader.read(fileLocation);
+            dataStorage.setCompanies(companiesList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
     }
 
     @PostMapping("/studentsList")
-    public void postStudentsList(@RequestParam("fileLocation") String fileLocation){
-        ExcelReader reader = new ExcelReader();
-        StudentsList studentsList = reader.readStudentsList(fileLocation);
-        dataStorage.setStudentsList(studentsList);
+    public PostResponse postStudentsList(@RequestParam("fileLocation") String fileLocation){
+        try {
+            ExcelReader<StudentsList> reader = new StudentsListReader();
+            StudentsList studentsList = reader.read(fileLocation);
+            dataStorage.setStudentsList(studentsList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("update/studentsList")
+    public PostResponse updateStudentsList(@RequestParam("studentsList") StudentsList studentsList){
+        try {
+            dataStorage.setStudentsList(studentsList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("update/companiesList")
+    public PostResponse updateStudentsList(@RequestParam("companiesList") CompaniesList companiesList){
+        try {
+            dataStorage.setCompanies(companiesList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("print/attendancelist")
+    public PostResponse printAttendanceList(@RequestParam("fileLocation") String fileLocation){
+        try {
+            ExcelWriter writer = new AttendanceListWriter(dataStorage);
+            writer.write(fileLocation);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("print/timetablelist")
+    public PostResponse printTimetableList(@RequestParam("fileLocation") String fileLocation){
+        try {
+            ExcelWriter writer = new TimetableListWriter(dataStorage);
+            writer.write(fileLocation);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
     }
 
     @Deprecated
