@@ -40,7 +40,7 @@ class Student:
 
     def fillList(self, wisharray):
         prio = 1
-        temp = list()
+        tempwish = list()
         if wisharray != None:
             for element in wisharray:
                 tempWish = ""
@@ -52,12 +52,26 @@ class Student:
                         pass
                     else:
                         tempTimeslot = tempTimeslot +char
-                print(str(tempWish))
                 newWish = Wish(tempTimeslot, tempWish, prio)
-                temp.append(newWish)
+                tempwish.append(newWish)
                 prio = prio + 1
-            self.__wishList__ = temp
-
+        else:
+            tempTimeslot = ["A","B","C","D","E","A","B"]
+            prio = 1
+            for _ in range(6):
+                tempSlot = tempTimeslot[_]
+                tempWish = "egal"
+                newWish = Wish(tempTimeslot, tempWish, prio)
+                tempwish.append(newWish)
+                prio = prio + 1
+        if len(tempwish) < 6:
+            i = len(tempwish)
+            for i in range(6):
+                tempSlot = tempTimeslot[_]
+                tempWish = "egal"
+                newWish = Wish(tempTimeslot, tempWish, len(tempwish)+1)
+                tempwish.append(newWish)
+        self.__wishList__ = tempwish
     def wishliststring(self) -> str:
         wishsttr = ""
         for wish in self.__wishList__:
@@ -302,11 +316,11 @@ class Transform:
     def load_company(self, jsonfile) -> None:
         print(jsonfile)
         try:
-            for student_data in jsonfile.get('company',[]):
-                id = jsonfile.get('id', '')
-                compName = jsonfile.get('compName', '')
-                cop = jsonfile.get('trainingOccupation', '')
-                meeting = jsonfile.get('meeting', '')
+            for company_data in jsonfile.get('company',[]):
+                id = company_data.get('id', '')
+                compName = company_data.get('compName', '')
+                cop = company_data.get('trainingOccupation', '')
+                meeting = company_data.get('meeting', '')
                 com = Company(int(id),compName,cop,meeting)
                 self.__companyList__.append(com)
         except KeyError as e:
