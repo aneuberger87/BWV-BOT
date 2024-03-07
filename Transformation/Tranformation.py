@@ -277,11 +277,11 @@ class Transform:
     def load_student(self, jsonfile) -> None:
         print(jsonfile)
         try:
-            for student_data in jsonfile["student"]:
-                vorname = jsonfile["prename"]
-                nachname = jsonfile["surname"]
-                klasse = jsonfile["schoolClass"]
-                wunschliste = jsonfile["wishList"]
+            for student_data in jsonfile.get('student', []):
+                vorname = jsonfile.get('prename', '')
+                nachname = jsonfile.get('surname', '')
+                klasse = jsonfile.get('schoolClass', '')
+                wunschliste = jsonfile.get('schoolClass', '')
                 Student(vorname, nachname, klasse, wunschliste)
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
@@ -301,12 +301,11 @@ class Transform:
     def load_company(self, jsonfile) -> None:
         print(jsonfile)
         try:
-            for student_data in jsonfile["company"]:
-                id = jsonfile["id"]
-                compName = jsonfile["compName"]
-                cop = jsonfile["trainingOccupation"]
-                meeting = jsonfile["meeting"]
-                Company(id,compName,cop,meeting)
+            for student_data in jsonfile.get('company',[]):
+                id = jsonfile.get('id', '')
+                compName = jsonfile.get('compName', '')
+                cop = jsonfile.get('trainingOccupation', '')
+                meeting = jsonfile.get('meeting', '')
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
         except Exception as e:
