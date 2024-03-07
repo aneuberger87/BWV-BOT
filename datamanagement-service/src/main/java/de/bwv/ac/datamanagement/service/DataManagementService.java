@@ -74,7 +74,7 @@ public class DataManagementService {
         try {
             ExcelReader<StudentsList> reader = new StudentsListReader();
             StudentsList studentsList = reader.read(fileLocation);
-            dataStorage.setStudentsList(studentsList);
+            dataStorage.setStudentsWishesList(studentsList);
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
@@ -84,7 +84,17 @@ public class DataManagementService {
     @PostMapping("update/studentsList")
     public PostResponse updateStudentsList(@RequestParam("studentsList") StudentsList studentsList){
         try {
-            dataStorage.setStudentsList(studentsList);
+            dataStorage.setStudentsWishesList(studentsList);
+            return new PostResponse();
+        } catch (Exception e) {
+            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
+        }
+    }
+
+    @PostMapping("update/allocation/studentsList")
+    public PostResponse updateAllocationStudentsList(@RequestParam("studentsList") StudentsList studentsList){
+        try {
+            dataStorage.setStudentsAllocationList(studentsList);
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());

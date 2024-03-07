@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EventsAttendanceList {
 
-    private List<AttendanceListsPerCompany> AttendanceListsPerCompany;
+    private List<AttendanceListsPerCompany> attendanceListsPerCompany;
 
     @Data
     @NoArgsConstructor
