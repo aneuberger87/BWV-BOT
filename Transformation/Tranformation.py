@@ -282,7 +282,8 @@ class Transform:
                 nachname = jsonfile.get('surname', '')
                 klasse = jsonfile.get('schoolClass', '')
                 wunschliste = jsonfile.get('schoolClass', '')
-                Student(vorname, nachname, klasse, wunschliste)
+                student = Student(vorname, nachname, klasse, wunschliste)
+                self.__stundentList__.append(student)
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
 
@@ -306,6 +307,8 @@ class Transform:
                 compName = jsonfile.get('compName', '')
                 cop = jsonfile.get('trainingOccupation', '')
                 meeting = jsonfile.get('meeting', '')
+                com = Company(int(id),compName,cop,meeting)
+                self.__companyList__.append(com)
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
         except Exception as e:
