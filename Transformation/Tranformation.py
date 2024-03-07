@@ -274,30 +274,28 @@ class Transform:
         self.toString()
         t = Timeplan(self.__companyList__, self.__stundentList__)
 
-    def load_student(self, filepath) -> None:
+    def load_student(self, jsonfile) -> None:
         import json
-        with open(filepath, 'r') as json_datei:
-            data = json.load(json_datei)
-            for student_data in data['Stundent']:
-                prename = student_data['vorname']
-                surname = student_data['nachname']
-                wishlist = student_data['wuensche']
-                schoolclass = student_data['klasse']
-                student = Student(prename, surname, schoolclass, wishlist)
-                self.__stundentList__.append(student)
+        data = json.load(jsonfile)
+        for student_data in data['Stundent']:
+            prename = student_data['vorname']
+            surname = student_data['nachname']
+            wishlist = student_data['wuensche']
+            schoolclass = student_data['klasse']
+            student = Student(prename, surname, schoolclass, wishlist)
+            self.__stundentList__.append(student)
 
-    def load_company(self, filepath) -> None:
+    def load_company(self, jsonfile) -> None:
         import json
-        with open(filepath, 'r') as json_datei:
-            data = json.load(json_datei)
-            for company_data in data['companies']:
-                id = company_data['id']
-                compname = company_data['compName']
-                toc = company_data['trainingOccupation']
-                capacity = company_data['capacity']
-                meeting = company_data['meeting']
-                company = Company(id, compname, toc, meeting)
-                self.__companyList__.append(company)
+        data = json.load(jsonfile)
+        for company_data in data['companies']:
+            id = company_data['id']
+            compname = company_data['compName']
+            toc = company_data['trainingOccupation']
+            capacity = company_data['capacity']
+            meeting = company_data['meeting']
+            company = Company(id, compname, toc, meeting)
+            self.__companyList__.append(company)
 
     def toString(self):
         for company in self.__companyList__:
@@ -309,7 +307,7 @@ class Transform:
                 f"Vorname: {student.__prename__}, Nachname: {student.__surname__}, Wünsche: {student.wishliststring()}, Klasse: {student.__schoolClass__}")
 
 import requests
-api_url = "http://localhost:8080"
+api_url = "http://localhost:8080" #?companieslist =
 response = requests.get(api_url+"/studnes")
 response2 = requests.get(api_url+"/companies")
 
