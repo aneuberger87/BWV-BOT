@@ -92,7 +92,7 @@ public class DataManagementService {
     }
 
     @PostMapping("update/companiesList")
-    public PostResponse updateStudentsList(@RequestParam("companiesList") CompaniesList companiesList){
+    public PostResponse updateCompaniesList(@RequestParam("companiesList") CompaniesList companiesList){
         try {
             dataStorage.setCompanies(companiesList);
             return new PostResponse();
@@ -123,7 +123,7 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/timetableList")
+    @PostMapping("print/roomAssignmentsList")
     public PostResponse printRoomAssignmentsList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new RoomAssignmentsListWriter(dataStorage);
@@ -134,10 +134,10 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("calculate")
+    @GetMapping("calculate")
     public PostResponse calculate(){
         try {
-            pythonScriptExecuter.executeScript("Transformation.py");
+            pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());

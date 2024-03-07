@@ -20,5 +20,6 @@ public class TimetableListWriter extends ExcelWriter{
 
     @Override
     public void write(String fileLocation) throws IOException {
+
     }
 }
