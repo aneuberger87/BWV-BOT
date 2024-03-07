@@ -276,17 +276,17 @@ class Transform:
 
     def load_student(self, jsonfile) -> None:
         try:
-            for student_data in jsonfile['student']:
-                vorname = jsonfile['prename']
-                nachname = jsonfile['surname']
-                klasse = jsonfile['schoolClass']
-                wunschliste = jsonfile['wishList']
+            for student_data in jsonfile["student"]:
+                vorname = jsonfile["prename"]
+                nachname = jsonfile["surname"]
+                klasse = jsonfile["schoolClass"]
+                wunschliste = jsonfile["wishList"]
                 Student(vorname, nachname, klasse, wunschliste)
         except KeyError as e:
-            print(f"Schlüssel {e} fehlt im Dictionary.")
+            print(f"Schluessel {e} fehlt im Dictionary.")
 
         except Exception as e:
-            print(f"Fehler beim Laden des Schülers: {e}")
+            print(f"Fehler beim Laden des Schuelers: {e}")
         #import json
         #data = json.load(jsonfile)
         #for student_data in data['Stundent']:
@@ -299,16 +299,16 @@ class Transform:
 
     def load_company(self, jsonfile) -> None:
         try:
-            for student_data in jsonfile['company']:
-                id = jsonfile['id']
-                compName = jsonfile['compName']
-                cop = jsonfile['trainingOccupation']
-                meeting = jsonfile['meeting']
+            for student_data in jsonfile["company"]:
+                id = jsonfile["id"]
+                compName = jsonfile["compName"]
+                cop = jsonfile["trainingOccupation"]
+                meeting = jsonfile["meeting"]
                 Company(id,compName,cop,meeting)
         except KeyError as e:
-            print(f"Schlüssel {e} fehlt im Dictionary.")
+            print(f"Schluessel {e} fehlt im Dictionary.")
         except Exception as e:
-            print(f"Fehler beim Laden des Schülers: {e}")
+            print(f"Fehler beim Laden der Company: {e}")
 
         #import json
         #data = json.load(jsonfile)
