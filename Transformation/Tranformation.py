@@ -276,7 +276,7 @@ class Transform:
 
     def load_student(self, jsonfile) -> None:
         try:
-            for student_data in data['student']:
+            for student_data in jsonfile['student']:
                 vorname = jsonfile['prename']
                 nachname = jsonfile['surname']
                 klasse = jsonfile['schoolClass']
@@ -299,7 +299,7 @@ class Transform:
 
     def load_company(self, jsonfile) -> None:
         try:
-            for student_data in data['company']:
+            for student_data in jsonfile['company']:
                 id = jsonfile['id']
                 compName = jsonfile['compName']
                 cop = jsonfile['trainingOccupation']
