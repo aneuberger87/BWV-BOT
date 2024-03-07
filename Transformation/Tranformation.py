@@ -204,9 +204,6 @@ class Timeplan:
             for student in self.__studentList__:
                 wish = ConcreatWish(student, prio + 1, student.__wishList__[prio].getCompID())
                 concreateWishlist.append(wish)
-                temp_togolist_forStudnets = list()
-                for togoevent in student.__toGolist__:
-                    temp_togolist_forStudnets.append(togoevent)
             for event in self.__eventlist__:
                 eventid = event.__eventid__
                 temp_particepent_list = list()
@@ -215,13 +212,17 @@ class Timeplan:
                 for element in concreateWishlist:
                     suffused = element.__studnet__.__wishList__[element.__prio__ - 1].getsuffused()
                     wishID = element.get_wish_id()
+                    temp_togolist_forStudnets = list()
+                    for togoevent in student.__toGolist__:
+                        temp_togolist_forStudnets.append(togoevent)
                     if eventid == wishID and suffused == False:
                         temp_particepent_list.append(element.__studnet__)
                         element.__studnet__.__wishList__[element.__prio__ - 1].setsuffused_true()
                         temp_togolist_forStudnets.append(event)
                 event.__participantlist__ = temp_particepent_list
                 temp_togolist_forStudnets.append(event)
-                student.__toGolist__ = temp_togolist_forStudnets
+                element.__studnet__.__toGolist__ = temp_togolist_forStudnets
+
 
 
         print(" ")
@@ -239,14 +240,15 @@ class Timeplan:
             filename = perfixfilename + stundent.__surname__ + "_" + stundent.__prename__ + postfixfilename + str(stundent.__schoolClass__)
             headline = "Schueler: " + stundent.__surname__ + " , " + stundent.__prename__ + " Klasse: " + str(stundent.__schoolClass__) +"\n"
             tempgolist = stundent.__toGolist__
-            eventString= ""
+            eventlist= list()
+            eventString = ""
             for event in tempgolist:
-                eventString = (eventString+ "Zeitpunkt " +event.__timeslot__ + " Veranstalltung: " +event.__company_name__
-                               + "Thema: " +event.__event_topic__ +"in Raum: "+ str(event.__room__) +"\n")
-            text = headline + eventString
-            with open("C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/trahdata/"+filename+".txt", 'w') as file:
-                file.write(text)
-
+                eventString = eventString+ "Zeitpunkt " +event.__timeslot__ + " Veranstalltung: " +event.__company_name__+ "Thema: " +event.__event_topic__ +"in Raum: "+ str(event.__room__) +"\n"
+                eventlist.append(eventlist)
+            #with open("C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/trahdata/"+filename+".txt", 'w') as file:
+            #    file.writelines(headline)
+            #    for line in eventlist:
+            #        file.writelines(str(line))
 class Timeslot:
     __timeSlot__: str = None
     __room__: str = None
@@ -306,6 +308,9 @@ class Transform:
             print(
                 f"Vorname: {student.__prename__}, Nachname: {student.__surname__}, Wünsche: {student.wishliststring()}, Klasse: {student.__schoolClass__}")
 
+import requests
+api_url = "http://localhost:8080"
+response = requests.get(api_url+"/studnes")
+response2 = requests.get(api_url+"/companies")
 
-start = Transform("C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/studentTest.json",
-                  "C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/companyTest.json")
+start = Transform(response.json(),response2.json())
