@@ -1,10 +1,5 @@
-import { UploadInline } from "@/components/custom/upload-inline";
-import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { CardData } from "@/components/custom/card-data";
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -48,33 +43,25 @@ const LazyTableBodyStudent = async () => {
 
 export const PageStudent = () => {
   return (
-    <Card className="h-full">
-      <CardContent className="grid h-full grid-rows-[auto_auto_auto_1fr] gap-4 p-6">
-        <UploadInline label="Schüler Excel hochladen" id="student-excel" />
-        <Separator />
-        <Label>Schülerliste</Label>
-        <ScrollArea className="h-0 min-h-full">
-          <Table className="">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Vorname</TableHead>
-                <TableHead>Nachname</TableHead>
-                <TableHead>Klasse</TableHead>
-                <TableHead className="text-right">W.1</TableHead>
-                <TableHead className="text-right">W.2</TableHead>
-                <TableHead className="text-right">W.3</TableHead>
-                <TableHead className="text-right">W.4</TableHead>
-                <TableHead className="text-right">W.5</TableHead>
-              </TableRow>
-            </TableHeader>
-            <LazyTableBodyStudent />
-            {/* <TableFooter>
-                <TableRow>
-                </TableRow>
-                            </TableFooter> */}
-          </Table>
-        </ScrollArea>
-      </CardContent>
-    </Card>
+    <CardData
+      table={{
+        header: (
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Vorname</TableHead>
+              <TableHead>Nachname</TableHead>
+              <TableHead>Klasse</TableHead>
+              <TableHead className="text-right">W.1</TableHead>
+              <TableHead className="text-right">W.2</TableHead>
+              <TableHead className="text-right">W.3</TableHead>
+              <TableHead className="text-right">W.4</TableHead>
+              <TableHead className="text-right">W.5</TableHead>
+            </TableRow>
+          </TableHeader>
+        ),
+        body: <LazyTableBodyStudent />,
+      }}
+      title="Schüler"
+    />
   );
 };

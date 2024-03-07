@@ -1,4 +1,4 @@
-import InputUploadBox from "@/components/custom/input-upload-box";
+import InputUploadBox from "@/components/custom/input-upload-parent";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div className="flex flex-wrap gap-6">
+    <div className="flex flex-wrap items-stretch gap-6">
       <InputUploadBox
         label="Schülerliste hochladen"
         description="Laden Sie die Schülerliste hoch"

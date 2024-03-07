@@ -4,12 +4,15 @@ import { cn } from "@/lib/utils";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
-import { upload } from "../../lib/upload-action";
+import { upload } from "../../lib/action-upload";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const InputUploadDefault = (props: {
   initialDisabled?: boolean;
   type: "studentsList" | "roomsList" | "companiesList";
 }) => {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null); // State to track a single uploaded file
   const [directUploadPending, setDirectUploadPending] = useState(false); // State to track direct upload status
   const { pending } = useFormStatus();
@@ -19,7 +22,12 @@ const InputUploadDefault = (props: {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     // Ensure there's at least one file
-    if (acceptedFiles.length === 0) return;
+    if (acceptedFiles.length === 0 || acceptedFiles.length > 1) return;
+    const fileExtension = acceptedFiles[0].name.split(".").pop();
+    if (fileExtension !== "xlsx" && fileExtension !== "xls") {
+      toast.error("Nur .xlsx und .xls Dateien sind erlaubt");
+      return;
+    }
 
     const file = acceptedFiles[0];
     setDirectUploadPending(true);
@@ -41,6 +49,7 @@ const InputUploadDefault = (props: {
         if (inputRef.current) {
           inputRef.current.value = "";
         }
+        router.refresh();
       });
     };
     reader.readAsDataURL(file);
@@ -76,9 +85,14 @@ const InputUploadDefault = (props: {
   }, [isFocused, isDragAccept, isDragReject, className]);
 
   return (
-    <div className="grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">
+    <div className="relative grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">
       <div {...getRootProps({ className: combinedClasses })}>
-        <input {...getInputProps()} name="file" ref={inputRef} />
+        <input
+          {...getInputProps()}
+          name="file"
+          ref={inputRef}
+          accept=".xlsx, .xls"
+        />
         {isDragActive ? (
           <p>Lassen Sie die Datei fallen.</p>
         ) : (
@@ -112,12 +126,12 @@ const InputUploadDefault = (props: {
       </div>
       {hasFile && !directUploadPending && (
         <div className="pt-4">
-          <p>Datei hochgeladen: {file.name}</p>
+          <p className="font-mono">Geladen: {file.name}</p>
         </div>
       )}
       {hasFile && directUploadPending && (
         <div className="pt-4">
-          <p>Datei wird hochgeladen: {file.name}</p>
+          <p className="font-mono">{file.name}</p>
         </div>
       )}
     </div>
