@@ -278,10 +278,10 @@ class Transform:
         print(jsonfile)
         try:
             for student_data in jsonfile.get('student', []):
-                vorname = jsonfile.get('prename', '')
-                nachname = jsonfile.get('surname', '')
-                klasse = jsonfile.get('schoolClass', '')
-                wunschliste = jsonfile.get('schoolClass', '')
+                vorname = student_data.get('prename', '')
+                nachname = student_data.get('surname', '')
+                klasse = student_data.get('schoolClass', '')
+                wunschliste = student_data.get('wishList', [])
                 student = Student(vorname, nachname, klasse, wunschliste)
                 self.__stundentList__.append(student)
         except KeyError as e:
