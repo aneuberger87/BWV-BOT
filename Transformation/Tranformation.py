@@ -68,6 +68,7 @@ class Student:
             i = len(tempwish)
             i: int
             for i in range(6):
+                tempTimeslot = ["A", "B", "C", "D", "E", "A", "B"]
                 tempSlot = tempTimeslot[i]
                 tempWish = "egal"
                 newWish = Wish(tempTimeslot, tempWish, len(tempwish)+1)
