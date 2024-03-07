@@ -275,6 +275,7 @@ class Transform:
         t = Timeplan(self.__companyList__, self.__stundentList__)
 
     def load_student(self, jsonfile) -> None:
+        print(jsonfile)
         try:
             for student_data in jsonfile["student"]:
                 vorname = jsonfile["prename"]
@@ -298,6 +299,7 @@ class Transform:
         #    self.__stundentList__.append(student)
 
     def load_company(self, jsonfile) -> None:
+        print(jsonfile)
         try:
             for student_data in jsonfile["company"]:
                 id = jsonfile["id"]
