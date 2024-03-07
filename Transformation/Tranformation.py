@@ -275,27 +275,49 @@ class Transform:
         t = Timeplan(self.__companyList__, self.__stundentList__)
 
     def load_student(self, jsonfile) -> None:
-        import json
-        data = json.load(jsonfile)
-        for student_data in data['Stundent']:
-            prename = student_data['vorname']
-            surname = student_data['nachname']
-            wishlist = student_data['wuensche']
-            schoolclass = student_data['klasse']
-            student = Student(prename, surname, schoolclass, wishlist)
-            self.__stundentList__.append(student)
+        try:
+            vorname = data['prename']
+            nachname = data['surname']
+            klasse = data['schoolClass']
+            wunschliste = data['wishList']
+            Student(vorname, nachname, klasse, wunschliste)
+        except KeyError as e:
+            print(f"Schlüssel {e} fehlt im Dictionary.")
+
+        except Exception as e:
+            print(f"Fehler beim Laden des Schülers: {e}")
+        #import json
+        #data = json.load(jsonfile)
+        #for student_data in data['Stundent']:
+        #    prename = student_data['vorname']
+        #    surname = student_data['nachname']
+        #    wishlist = student_data['wuensche']
+        #    schoolclass = student_data['klasse']
+        #    student = Student(prename, surname, schoolclass, wishlist)
+        #    self.__stundentList__.append(student)
 
     def load_company(self, jsonfile) -> None:
-        import json
-        data = json.load(jsonfile)
-        for company_data in data['companies']:
-            id = company_data['id']
-            compname = company_data['compName']
-            toc = company_data['trainingOccupation']
-            capacity = company_data['capacity']
-            meeting = company_data['meeting']
-            company = Company(id, compname, toc, meeting)
-            self.__companyList__.append(company)
+        try:
+            id = data['id']
+            compName = data['compName']
+            cop = data['trainingOccupation']
+            meeting = data['meeting']
+            Company(id,compName,cop,meeting)
+        except KeyError as e:
+            print(f"Schlüssel {e} fehlt im Dictionary.")
+        except Exception as e:
+            print(f"Fehler beim Laden des Schülers: {e}")
+
+        #import json
+        #data = json.load(jsonfile)
+        #for company_data in data['companies']:
+        #    id = company_data['id']
+        #    compname = company_data['compName']
+        #    toc = company_data['trainingOccupation']
+        #    capacity = company_data['capacity']
+        #    meeting = company_data['meeting']
+        #    company = Company(id, compname, toc, meeting)
+        #    self.__companyList__.append(company)
 
     def toString(self):
         for company in self.__companyList__:
