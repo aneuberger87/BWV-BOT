@@ -66,8 +66,9 @@ class Student:
                 prio = prio + 1
         if len(tempwish) < 6:
             i = len(tempwish)
+            i: int
             for i in range(6):
-                tempSlot = tempTimeslot[_]
+                tempSlot = tempTimeslot[i]
                 tempWish = "egal"
                 newWish = Wish(tempTimeslot, tempWish, len(tempwish)+1)
                 tempwish.append(newWish)
@@ -120,10 +121,11 @@ class Company:
 
     def setmeeting(self, meeting):
         templist = list()
-        for element in meeting:
-            temp = element.split(",")
-            timeslot = Timeslot(temp[0], temp[1])
-            templist.append(timeslot)
+        timeslot = Timeslot("A",None)
+        #for element in meeting:
+        #    temp = element.split(",")
+        #    timeslot = Timeslot(temp[0], temp[1])
+        #    templist.append(timeslot)
         self.__timeslotroomlist__ = templist
 
     def getroomTimeslotlist(self):
