@@ -40,22 +40,8 @@ class Student:
 
     def fillList(self, wisharray):
         prio = 1
-        tempwish = list()
-        if wisharray != None:
-            for element in wisharray:
-                tempWish = ""
-                tempTimeslot = ""
-                for char in element:
-                    if char.isnumeric() == True:
-                        tempWish = tempWish +char
-                    elif char == ",":
-                        pass
-                    else:
-                        tempTimeslot = tempTimeslot +char
-                newWish = Wish(tempTimeslot, tempWish, prio)
-                tempwish.append(newWish)
-                prio = prio + 1
-        else:
+        tempwish = wisharray
+        if wisharray == None:
             tempTimeslot = ["A","B","C","D","E","A","B"]
             prio = 1
             for _ in range(6):
@@ -123,10 +109,10 @@ class Company:
     def setmeeting(self, meeting):
         templist = list()
         timeslot = Timeslot("A",None)
-        #for element in meeting:
-        #    temp = element.split(",")
-        #    timeslot = Timeslot(temp[0], temp[1])
-        #    templist.append(timeslot)
+        for element in meeting:
+            temp = element.split(",")
+            timeslot = Timeslot(temp[0], temp[1])
+            templist.append(timeslot)
         self.__timeslotroomlist__ = templist
 
     def getroomTimeslotlist(self):
@@ -298,7 +284,14 @@ class Transform:
                 vorname = student_data.get('prename', '')
                 nachname = student_data.get('surname', '')
                 klasse = student_data.get('schoolClass', '')
-                wunschliste = student_data.get('wishList', [])
+                wunschliste = list()
+                prio = 1
+                for wish_data in student_data.get('wishList', []):
+                    tslot = wish_data.get('timeSlot', '')
+                    compid = wish_data.get('compId', '')
+                    wish = Wish(tslot,compid,prio)
+                    wunschliste.append()
+                    prio = prio +1
                 student = Student(vorname, nachname, klasse, wunschliste)
                 self.__stundentList__.append(student)
         except KeyError as e:
@@ -323,7 +316,7 @@ class Transform:
                 id = company_data.get('id', '')
                 compName = company_data.get('compName', '')
                 cop = company_data.get('trainingOccupation', '')
-                meeting = company_data.get('meeting', '')
+                meeting = company_data.get('meeting', [])
                 com = Company(int(id),compName,cop,meeting)
                 self.__companyList__.append(com)
         except KeyError as e:
