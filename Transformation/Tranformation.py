@@ -225,16 +225,7 @@ class Timeplan:
                 event.__participantlist__ = temp_particepent_list
                 temp_togolist_forStudnets.append(event)
                 element.__studnet__.__toGolist__ = temp_togolist_forStudnets
-
-
-
         print(" ")
-        # for student in self.__studentList__:
-        #    for wish in student.__wishList__:
-        #        for event in self.__eventlist__:
-        #            if int(event.__eventid__) == int(wish.getCompID()) and wish.getsuffused() == False:
-        #                event.addstudentasparticipant(student)
-        #               wish.setsuffusedTrue()
 
     def createTimeplanforStudents(self):
         perfixfilename = "Laufzettel_für_den_Schueler_ "
@@ -290,7 +281,7 @@ class Transform:
                     tslot = wish_data.get('timeSlot', '')
                     compid = wish_data.get('compId', '')
                     wish = Wish(tslot,compid,prio)
-                    wunschliste.append()
+                    wunschliste.append(wish)
                     prio = prio +1
                 student = Student(vorname, nachname, klasse, wunschliste)
                 self.__stundentList__.append(student)
