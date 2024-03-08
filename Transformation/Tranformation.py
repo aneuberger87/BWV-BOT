@@ -195,9 +195,9 @@ class Timeplan:
             for t in templist:
                 temptimeslot = t.gettimeslot()
                 event = Event(element, self.__eventId__, temptimeslot)
-                self.__eventId__ = self.__eventId__ + 1
-                self.__eventlist__.append(event)
 
+                self.__eventlist__.append(event)
+            self.__eventId__ = self.__eventId__ + 1
     def assign_studentstoEvents(self):
         concreateWishlist = list()
         prio = 0
@@ -343,5 +343,6 @@ import requests
 api_url = "http://localhost:8080" #?companieslist =
 response = requests.get(api_url+"/students")
 response2 = requests.get(api_url+"/companies")
+response3 = requwests.get(api_url+"/rooms")
 
 start = Transform(response.json(),response2.json())
