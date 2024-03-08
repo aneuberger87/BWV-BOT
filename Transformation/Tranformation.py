@@ -63,7 +63,7 @@ class Student:
     def wishliststring(self) -> str:
         wishsttr = ""
         for wish in self.__wishList__:
-            wishsttr = wishsttr + "Comp_ID: " + wish.getCompID() + "|" + "Prio: " + str(
+            wishsttr = wishsttr + "Comp_ID: " + str(wish.getCompID()) + "|" + "Prio: " + str(
                 wish.getPrio()) + "|" + " Timeslot: " + str(wish.gettimeslot()) + ","
         return wishsttr[:-1]
 
