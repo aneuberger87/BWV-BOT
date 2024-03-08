@@ -107,13 +107,7 @@ class Company:
         self.setmeeting(self.__meeting__)
 
     def setmeeting(self, meeting):
-        templist = list()
-        timeslot = Timeslot("A",None)
-        for element in meeting:
-            temp = element.split(",")
-            timeslot = Timeslot(temp[0], temp[1])
-            templist.append(timeslot)
-        self.__timeslotroomlist__ = templist
+        self.__timeslotroomlist__ = meeting
 
     def getroomTimeslotlist(self):
         return self.__timeslotroomlist__
@@ -307,8 +301,13 @@ class Transform:
                 id = company_data.get('id', '')
                 compName = company_data.get('compName', '')
                 cop = company_data.get('trainingOccupation', '')
-                meeting = company_data.get('meeting', [])
-                com = Company(int(id),compName,cop,meeting)
+                meetinglist = list()
+                for meeting_data in company_data.get('meeting', []):
+                    tslot = meeting_data.get('timeSlot', '')
+                    room = meeting_data.get('room','')
+                    timeslot = Timeslot(tslot,room)
+                    meetinglist.append(timeslot)
+                com = Company(int(id),compName,cop,meetinglist)
                 self.__companyList__.append(com)
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
