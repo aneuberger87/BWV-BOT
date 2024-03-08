@@ -11,7 +11,7 @@ WORKDIR /app
 
 COPY --from=build /app/src/main/resources/* .
 # Copy the built application from the build stage
-COPY --from=build /app/target/datamanagement-service-0.2.0-SNAPSHOT.jar .
+COPY --from=build /app/target/datamanagement-service-0.2.0.jar .
 
 COPY Transformation/Tranformation.py /app/Transformation/Tranformation.py 
 
@@ -28,4 +28,4 @@ RUN pip install --no-cache-dir requests
 EXPOSE 8080
 
 # Set the command to run the application
-CMD ["java", "-jar", "datamanagement-service-0.2.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "datamanagement-service-0.2.0.jar"]
