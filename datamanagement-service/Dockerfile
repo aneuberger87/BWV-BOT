@@ -13,6 +13,8 @@ COPY --from=build /app/src/main/resources/* .
 # Copy the built application from the build stage
 COPY --from=build /app/target/datamanagement-service-0.2.0-SNAPSHOT.jar .
 
+COPY Transformation/Tranformation.py /app/Transformation/Tranformation.py 
+
 # Install Python and pip, then set up a virtual environment
 RUN apk update && \
     apk add --no-cache python3 py3-pip && \
