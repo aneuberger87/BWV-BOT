@@ -1,6 +1,19 @@
-import { CompanyList, StudentList } from "../types";
+import { CompanyList, RoomList, StudentList } from "../types";
 
 const BASE_URL = process.env.DATAMANAGEMENT_URL as string;
+
+export const getAllRooms = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}rooms`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return (await response.json()) as RoomList;
+  } catch (error) {
+    console.error("getAllCompanies error: ", error);
+    throw error;
+  }
+};
 
 export const getAllCompanies = async () => {
   try {

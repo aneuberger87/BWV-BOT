@@ -23,8 +23,8 @@ export function NavigationMenuDemo() {
   const pathName = usePathname();
 
   return (
-    <Card className="min-w-full w-full">
-      <CardContent className="p-1 flex justify-around">
+    <Card className="w-full min-w-full">
+      <CardContent className="flex justify-around p-1">
         <NavigationMenu className="">
           <NavigationMenuList className="h-max">
             <NavigationMenuItem>
@@ -38,7 +38,12 @@ export function NavigationMenuDemo() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={URL_STUDENTS} legacyBehavior passHref>
+              <Link
+                href={URL_STUDENTS}
+                legacyBehavior
+                passHref
+                prefetch={false}
+              >
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
                   active={pathName === URL_STUDENTS}
@@ -48,7 +53,12 @@ export function NavigationMenuDemo() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={URL_COMPANIES} legacyBehavior passHref>
+              <Link
+                href={URL_COMPANIES}
+                legacyBehavior
+                passHref
+                prefetch={false}
+              >
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
                   active={pathName === URL_COMPANIES}
@@ -58,7 +68,7 @@ export function NavigationMenuDemo() {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={URL_ROOMS} legacyBehavior passHref>
+              <Link href={URL_ROOMS} legacyBehavior passHref prefetch={false}>
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
                   active={pathName === URL_ROOMS}
@@ -141,7 +151,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >

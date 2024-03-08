@@ -6,11 +6,9 @@ export const metadata: Metadata = {
 };
 
 const Page = () => {
-  return (
-    <>
-      <PageStudent />
-    </>
-  );
+  return <PageStudent />;
 };
 
 export default Page;
+
+export const revalidate = 0;

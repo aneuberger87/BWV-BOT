@@ -2,12 +2,17 @@
 
 import { cn } from "@/lib/utils";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
-import { upload } from "../../lib/upload-action";
+import { useDropzone } from "react-dropzone";
+import { upload } from "../../lib/action-upload";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
+const InputUploadDefault = (props: {
+  initialDisabled?: boolean;
+  type: "studentsList" | "roomsList" | "companiesList";
+}) => {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null); // State to track a single uploaded file
   const [directUploadPending, setDirectUploadPending] = useState(false); // State to track direct upload status
   const { pending } = useFormStatus();
@@ -17,7 +22,12 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     // Ensure there's at least one file
-    if (acceptedFiles.length === 0) return;
+    if (acceptedFiles.length === 0 || acceptedFiles.length > 1) return;
+    const fileExtension = acceptedFiles[0].name.split(".").pop();
+    if (fileExtension !== "xlsx" && fileExtension !== "xls") {
+      toast.error("Nur .xlsx und .xls Dateien sind erlaubt");
+      return;
+    }
 
     const file = acceptedFiles[0];
     setDirectUploadPending(true);
@@ -28,12 +38,18 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
       // Convert file content to a Base64 string
       const base64String = reader.result as string;
 
+      const data = {
+        type: props.type,
+        fileBase64: base64String,
+      };
+
       // Now you can call your upload Server Action with the base64String
-      upload(base64String).then(() => {
+      upload(data).then(() => {
         setDirectUploadPending(false);
         if (inputRef.current) {
           inputRef.current.value = "";
         }
+        router.refresh();
       });
     };
     reader.readAsDataURL(file);
@@ -69,20 +85,21 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
   }, [isFocused, isDragAccept, isDragReject, className]);
 
   return (
-    <div className="grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">
+    <div className="relative grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">
       <div {...getRootProps({ className: combinedClasses })}>
-        <input {...getInputProps()} name="file" ref={inputRef} />
+        <input
+          {...getInputProps()}
+          name="file"
+          ref={inputRef}
+          accept=".xlsx, .xls"
+        />
         {isDragActive ? (
           <p>Lassen Sie die Datei fallen.</p>
         ) : (
           <p>
             {file ? (
               <>
-                <span>
-                  Geladene Datei:
-                  <br />
-                  {file.name}
-                </span>
+                <span>{file.name}</span>
               </>
             ) : (
               <>
@@ -93,24 +110,24 @@ const InputUploadDefault = (props: { initialDisabled?: boolean }) => {
           </p>
         )}
         {props.initialDisabled && !hasFile && !directUploadPending && (
-          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground ">
             <span>Daten überschreiben</span>
           </div>
         )}
         {directUploadPending && (
-          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-primary-foreground">
             <span>Wird hochgeladen...</span>
           </div>
         )}
       </div>
       {hasFile && !directUploadPending && (
         <div className="pt-4">
-          <p>Datei hochgeladen: {file.name}</p>
+          <p className="font-mono">Geladen: {file.name}</p>
         </div>
       )}
       {hasFile && directUploadPending && (
         <div className="pt-4">
-          <p>Datei wird hochgeladen: {file.name}</p>
+          <p className="font-mono">{file.name}</p>
         </div>
       )}
     </div>
