@@ -12,6 +12,7 @@ import de.bwv.ac.datamanagement.service.writer.AttendanceListWriter;
 import de.bwv.ac.datamanagement.service.writer.ExcelWriter;
 import de.bwv.ac.datamanagement.service.writer.RoomAssignmentsListWriter;
 import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class DataManagementService {
     private final DataStorage dataStorage;
     private final PythonScriptExecuter pythonScriptExecuter;
@@ -72,6 +74,7 @@ public class DataManagementService {
     @PostMapping("/studentsList")
     public PostResponse postStudentsList(@RequestParam("fileLocation") String fileLocation){
         try {
+
             ExcelReader<StudentsList> reader = new StudentsListReader();
             StudentsList studentsList = reader.read(fileLocation);
             dataStorage.setStudentsList(studentsList);
