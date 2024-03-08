@@ -38,6 +38,7 @@ export const PageRooms = () => {
         body: <LazyTableBodyCompany />,
       }}
       title="Räume"
+      type="roomsList"
     />
   );
 };

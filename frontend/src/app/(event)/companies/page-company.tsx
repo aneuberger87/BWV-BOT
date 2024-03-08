@@ -57,6 +57,7 @@ export const PageCompany = () => {
         body: <LazyTableBodyCompany />,
       }}
       title="Firmen"
+      type="companiesList"
     />
   );
 };

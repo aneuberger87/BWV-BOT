@@ -8,8 +8,7 @@ import { useRouter } from "next/navigation";
 export const UploadStateDelete = (props: { type: ExcelFileName }) => {
   const router = useRouter();
   const onClick = () => {
-    deleteData(props.type);
-    router.refresh();
+    deleteData(props.type).finally(() => router.refresh());
   };
 
   return (

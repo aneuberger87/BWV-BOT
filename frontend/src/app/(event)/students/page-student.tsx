@@ -62,6 +62,7 @@ export const PageStudent = () => {
         body: <LazyTableBodyStudent />,
       }}
       title="Schüler"
+      type="studentsList"
     />
   );
 };

@@ -9,6 +9,7 @@ import {
 import ListTask from "./list-task";
 import { NavigationMenuDemo } from "./menu";
 import { Metadata } from "next";
+import { ButtonPrint } from "@/components/custom/button-print";
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +41,7 @@ const EventLayout = (props: { children: React.ReactNode }) => {
                   <Button disabled className="grow">
                     Ergebnis
                   </Button>
-                  <Button disabled>Drucken</Button>
+                  <ButtonPrint />
                 </div>
               </div>
             </div>

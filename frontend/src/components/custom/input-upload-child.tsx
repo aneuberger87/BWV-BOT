@@ -99,11 +99,7 @@ const InputUploadDefault = (props: {
           <p>
             {file ? (
               <>
-                <span>
-                  Geladene Datei:
-                  <br />
-                  {file.name}
-                </span>
+                <span>{file.name}</span>
               </>
             ) : (
               <>

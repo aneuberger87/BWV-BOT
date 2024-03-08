@@ -10,7 +10,7 @@ const URL = process.env.DATAMANAGEMENT_URL!;
 const FOLDER = process.env.FOLDER_SHARE!;
 
 export const upload = async (data: {
-  type: ExcelFileName | "EMPTY";
+  type: ExcelFileName;
   fileBase64: string;
 }) => {
   // Decode the Base64 string to binary data
@@ -23,18 +23,20 @@ export const upload = async (data: {
   const base64Data = matches[2];
   const buffer = Buffer.from(base64Data, "base64");
 
-  const filePath =
-    data.type !== "EMPTY" ? excelFileLocation(data.type) : "EMPTY";
+  const filePath = excelFileLocation(data.type);
 
   try {
     await writeFile(filePath, buffer);
-    const response = await fetch(URL + "?fileLocation=" + filePath, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      URL + data.type + "?fileLocation=" + filePath,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
       },
-      body: "",
-    });
+    );
     if (!response.ok) {
       console.log("🚀 ~ response:", response);
       console.error("Error uploading file:", response.statusText);

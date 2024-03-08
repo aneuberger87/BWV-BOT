@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { getAllCompanies } from "../../lib/fetches";
 import { FaCheck, FaExclamationTriangle, FaTimes, FaCog } from "react-icons/fa";
+import { excelExists } from "@/lib/action-excel-exists";
 
 const StatusEmote = ({
   status,
@@ -20,23 +21,33 @@ const StatusEmote = ({
 };
 
 const ListTask = async () => {
-  const data = await getAllCompanies();
+  const companies = excelExists("companiesList");
+  const students = excelExists("studentsList");
+  const rooms = excelExists("roomsList");
   return (
     <div className="grid grid-cols-[auto_1fr] items-center gap-2">
-      {/* <div
-        className="col-span-2 text-red-200 text-center bg-red-900
-      "
-      >
-        ↓//TODO↓
-      </div> */}
-      <StatusEmote status="done" />
-      <span>Schülerdaten vorhanden</span>
       <div className="col-span-2"></div>
-      <StatusEmote status="done" />
-      <span>Firmendaten vorhanden</span>
-      <div className="col-span-2"></div>
-      <StatusEmote status="none" />
-      <span>Raumdaten vorhanden</span>
+      <StatusEmote status={rooms ? "done" : "none"} />
+      <span>
+        Hochgeladen: <span className="font-mono text-lg">Raumdaten</span>
+      </span>
+      <StatusEmote status={companies ? "done" : "none"} />
+      <span>
+        Hochgeladen: <span className="font-mono text-lg">Firmendaten</span>
+      </span>
+      <StatusEmote status={students ? "done" : "none"} />
+      <span>
+        Hochgeladen: <span className="font-mono text-lg">Schülerdaten</span>
+      </span>
+      <div className="col-span-2 h-2"></div>
+      <StatusEmote status={students ? "done" : "none"} />
+      <span>
+        Verlosung: <span className="font-mono text-lg">Firmen aufgeteilt</span>
+      </span>
+      <StatusEmote status={students ? "done" : "none"} />
+      <span>
+        Verlosung: <span className="font-mono text-lg">Schüler aufgeteilt</span>
+      </span>
     </div>
   );
 };
