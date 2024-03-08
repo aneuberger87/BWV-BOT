@@ -46,7 +46,7 @@ class Student:
             prio = 1
             for _ in range(6):
                 tempSlot = tempTimeslot[_]
-                tempWish = "egal"
+                tempWish = -1
                 newWish = Wish(tempTimeslot, tempWish, prio)
                 tempwish.append(newWish)
                 prio = prio + 1
@@ -56,7 +56,7 @@ class Student:
             for i in range(6):
                 tempTimeslot = ["A", "B", "C", "D", "E", "A", "B"]
                 tempSlot = tempTimeslot[i]
-                tempWish = "egal"
+                tempWish = -1
                 newWish = Wish(tempTimeslot, tempWish, len(tempwish)+1)
                 tempwish.append(newWish)
         self.__wishList__ = tempwish
