@@ -156,9 +156,13 @@ class Event:
         self.__participantlist__.append(student)
 
     def toString(self):
+        if self.__room__ == None:
+            room = "To be done"
+        else:
+            room = str(self.__room__)
         return ("Versanstalltungsid: " + str(self.__eventid__) + " Unternehmens ID: " + str(
             self.__companyid__) + " Unternehmensname: " + self.__company_name__
-                + " Thema: " + self.__event_topic__ + " Raum: " + self.__room__ + " Timeslot: " + self.__timeslot__)
+                + " Thema: " + self.__event_topic__ + " Raum: " + room + " Timeslot: " + self.__timeslot__)
 
     def participant_to_string(self):
         line = ""
