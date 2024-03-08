@@ -34,7 +34,7 @@ public class DataStorageInitializer {
         }
         ExcelReader<StudentsList> studentsReader = new StudentsListReader(); //wird nur zum einlesen benötigt und kann dann wieder vom GC entfernt werden
         StudentsList studentsList = studentsReader.read(props.getStudentslistLocation());
-        dataStorage.setStudentsWishesList(studentsList);
+        dataStorage.setStudentsList(studentsList);
         //CompaniesList companiesList = reader.readCompaniesList(props.getCompanieslistLocation());
 
         ExcelReader<CompaniesList> eventsReader = new EventsListReader();

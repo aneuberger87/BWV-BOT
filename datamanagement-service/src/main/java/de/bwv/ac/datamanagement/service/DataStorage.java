@@ -10,15 +10,12 @@ import java.util.*;
 
 public class DataStorage {
 
-    //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
 
     //Key: Class, Value: Students from Class
-    private final Map<String, List<StudentsList.Student>> studentsPerClassWishMap = new HashMap<>();
-    private final Map<String, List<StudentsList.Student>> studentsPerClassAllocationMap = new HashMap<>();
+    private final Map<String, List<StudentsList.Student>> studentsPerClass = new HashMap<>();
 
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
-
 
     public CompaniesList getCompaniesList() {
         CompaniesList result = new CompaniesList();
@@ -31,39 +28,27 @@ public class DataStorage {
     public StudentsList getStudentsList() {
         StudentsList result = new StudentsList();
         List<StudentsList.Student> studentList = new ArrayList<>();
-        /*
-        if(studentsPerClassAllocationMap.isEmpty()){
-            studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
-        }
-        else {
-         */
-            studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
-        //}
+        studentsPerClass.forEach((clasz, students) -> studentList.addAll(students));
         result.setStudent(studentList);
         return result;
     }
 
 
-    public void setStudentsWishesList(StudentsList studentsList) {
-        studentsPerClassWishMap.clear();
-        studentsPerClassAllocationMap.clear();
-        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassWishMap));
+    public void setStudentsList(StudentsList studentsList) {
+        studentsPerClass.clear();
+        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
     }
 
-    public void setStudentsAllocationList(StudentsList studentsList) {
-        studentsPerClassAllocationMap.clear();
-        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassAllocationMap));
-    }
-
-    private void addStudent(StudentsList.Student student, Map<String, List<StudentsList.Student>> studentsPerClassMap) {
-        List<StudentsList.Student> studentList = studentsPerClassMap.getOrDefault(student.getSchoolClass(), new ArrayList<>());
+    private void addStudent(StudentsList.Student student) {
+        List<StudentsList.Student> studentList = studentsPerClass.getOrDefault(student.getSchoolClass(), new ArrayList<>());
         studentList.add(student);
-        studentsPerClassMap.put(student.getSchoolClass(), studentList);
+        studentsPerClass.put(student.getSchoolClass(), studentList);
     }
 
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
+
     }
 
     private void addCompany(CompaniesList.Company company) {
@@ -71,8 +56,7 @@ public class DataStorage {
     }
 
     public void clearStorage() {
-        studentsPerClassWishMap.clear();
-        studentsPerClassAllocationMap.clear();
+        studentsPerClass.clear();
         companiesCache.clear();
     }
 
@@ -107,8 +91,8 @@ public class DataStorage {
 
     private List<StudentsList.Student> getStudentsForMeeting(int compId, String timeSlot) {
         List<StudentsList.Student> result = new ArrayList<>();
-        for (String schoolClass : studentsPerClassWishMap.keySet()) {
-            List<StudentsList.Student> studentsFromClass = studentsPerClassWishMap.get(schoolClass);
+        for (String schoolClass : studentsPerClass.keySet()) {
+            List<StudentsList.Student> studentsFromClass = studentsPerClass.get(schoolClass);
             for (StudentsList.Student student : studentsFromClass) {
                 for (int i = 0; i < student.getWishList().size(); i++) {
                     StudentsList.Wish wish = student.getWishList().get(i);
@@ -123,6 +107,7 @@ public class DataStorage {
         return result;
     }
 
+    /*
     public TimetableList calculateTimeTableList() {
         if(studentsPerClassAllocationMap.isEmpty()){
             studentsPerClassAllocationMap.putAll(studentsPerClassWishMap); //Erstmal für Test Zwecke
@@ -169,9 +154,10 @@ public class DataStorage {
         timeTable.setRows(rows);
         return timeTable;
     }
+     */
 
     private String getNumberOfWish(StudentsList.Wish wish, StudentsList.Student student) {
-        List<StudentsList.Student> students = studentsPerClassWishMap.get(student.getSchoolClass());
+        List<StudentsList.Student> students = studentsPerClass.get(student.getSchoolClass());
         for(StudentsList.Student s : students){
             if(s.equals(student)){
                 for(int i = 0; i < student.getWishList().size(); i++){

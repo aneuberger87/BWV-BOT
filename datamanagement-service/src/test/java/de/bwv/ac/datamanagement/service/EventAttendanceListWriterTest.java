@@ -39,7 +39,7 @@ public class EventAttendanceListWriterTest {
                 new StudentsList.Student("Max", "Mustermann", "GammaStrahl", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C"))),
                 new StudentsList.Student("Bernd", "Atlantis", "DeltaX", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C")))));
 
-        dataStorage.setStudentsWishesList(new StudentsList(students, null));
+        dataStorage.setStudentsList(new StudentsList(students, null));
     }
 
     private void setDummyCompanies() {
