@@ -37,7 +37,7 @@ public class DataStorage {
         }
         else {
          */
-            studentsPerClassAllocationMap.forEach((clasz, students) -> studentList.addAll(students));
+            studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
         //}
         result.setStudent(studentList);
         return result;
