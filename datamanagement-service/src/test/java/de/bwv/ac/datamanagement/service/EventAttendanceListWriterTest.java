@@ -16,11 +16,19 @@ public class EventAttendanceListWriterTest {
 
     @Test
     void test() throws IOException {
-        setDummyCompanies();
-        setDummyStudents();
+        setDummies();
         AttendanceListWriter writer = new AttendanceListWriter(dataStorage);
         writer.write("C:/Users/aneub/IdeaProjects/BWV-BOT/datamanagement-service/src/test/resources/out");
 
+    }
+
+    private void setTestData(){
+
+    }
+
+    private void setDummies() {
+        setDummyCompanies();
+        setDummyStudents();
     }
 
     private void setDummyStudents() {

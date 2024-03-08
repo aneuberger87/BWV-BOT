@@ -31,11 +31,14 @@ public class DataStorage {
     public StudentsList getStudentsList() {
         StudentsList result = new StudentsList();
         List<StudentsList.Student> studentList = new ArrayList<>();
+        /*
         if(studentsPerClassAllocationMap.isEmpty()){
             studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
-        } else {
-            studentsPerClassAllocationMap.forEach((clasz, students) -> studentList.addAll(students));
         }
+        else {
+         */
+            studentsPerClassAllocationMap.forEach((clasz, students) -> studentList.addAll(students));
+        //}
         result.setStudent(studentList);
         return result;
     }
