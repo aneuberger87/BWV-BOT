@@ -1,6 +1,19 @@
+export type ExcelFileName = "studentsList" | "roomsList" | "companiesList";
+
+//! API
+
+export type Room = {
+  roomId: string;
+  capacity: number;
+};
+
 export type Meeting = {
   timeSlot: string;
-  room: string | null;
+  room: Room;
+};
+
+export type RoomList = {
+  roomList: Room[];
 };
 
 export type Company = {
