@@ -2,6 +2,9 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.StudentsList;
+import de.bwv.ac.datamanagement.service.reader.EventsListReader;
+import de.bwv.ac.datamanagement.service.reader.ExcelReader;
+import de.bwv.ac.datamanagement.service.reader.StudentsListReader;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -13,9 +16,9 @@ class ExcelReaderTest {
 
     @Test
     void readStudentsList() {
-        ExcelReader excelReader = new ExcelReader();
+        ExcelReader<StudentsList> excelReader = new StudentsListReader();
         StudentsList studentsList =
-                excelReader.readStudentsList("src/test/resources/schuelerliste.xlsx");
+                excelReader.read("src/test/resources/schuelerliste.xlsx");
         assertNotNull(studentsList);
         assertEquals(180, studentsList.getStudent().size());
 
@@ -35,9 +38,9 @@ class ExcelReaderTest {
     //TODO: Methode zum Erstellen der Companies und Meetings auslagern
     @Test
     void readCompaniesList() {
-        ExcelReader excelReader = new ExcelReader();
+        ExcelReader<CompaniesList> excelReader = new EventsListReader();
         CompaniesList companiesList =
-                excelReader.readEventList("src/test/resources/unternehmensliste.xlsx");
+                excelReader.read("src/test/resources/unternehmensliste.xlsx");
         assertNotNull(companiesList);
         assertEquals(14, companiesList.getCompany().size());
         assertNull(companiesList.getErrorMessage());

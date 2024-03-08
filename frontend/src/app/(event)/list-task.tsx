@@ -40,11 +40,11 @@ const ListTask = async () => {
         Hochgeladen: <span className="font-mono text-lg">Schülerdaten</span>
       </span>
       <div className="col-span-2 h-2"></div>
-      <StatusEmote status={students ? "done" : "none"} />
+      <StatusEmote status={students ? "none" : "none"} />
       <span>
         Verlosung: <span className="font-mono text-lg">Firmen aufgeteilt</span>
       </span>
-      <StatusEmote status={students ? "done" : "none"} />
+      <StatusEmote status={students ? "none" : "none"} />
       <span>
         Verlosung: <span className="font-mono text-lg">Schüler aufgeteilt</span>
       </span>
