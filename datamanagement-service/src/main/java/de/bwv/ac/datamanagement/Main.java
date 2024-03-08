@@ -1,6 +1,5 @@
 package de.bwv.ac.datamanagement;
 
-import de.bwv.ac.datamanagement.service.ExcelReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

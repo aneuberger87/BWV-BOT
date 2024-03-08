@@ -1,7 +1,6 @@
 package de.bwv.ac.datamanagement.service;
 
 import org.junit.jupiter.api.Test;
-import org.python.util.PythonInterpreter;
 
 import javax.script.*;
 import java.io.*;
@@ -37,9 +36,13 @@ public class PythonTest {
         System.out.println(writer.toString());
         */
 
+
+        /*
         try(PythonInterpreter pyInterp = new PythonInterpreter()) {
             pyInterp.exec("print('Hello Python World!')");
         }
+
+         */
     }
 
     private List<String> readProcessOutput(InputStream inputStream) throws IOException {

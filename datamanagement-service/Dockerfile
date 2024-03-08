@@ -10,6 +10,7 @@ COPY --from=build /app/src/main/resources/* .
 COPY --from=build /app/target/datamanagement-service-0.2.0-SNAPSHOT.jar .
 RUN apk update
 RUN apk add python3 --no-cache py3-pip
+RUN python -m pip install requests
 EXPOSE 8080
 # Set the command to run the application
 CMD ["java", "-jar", "datamanagement-service-0.2.0-SNAPSHOT.jar"]
