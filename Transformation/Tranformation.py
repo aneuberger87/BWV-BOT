@@ -343,6 +343,6 @@ import requests
 api_url = "http://localhost:8080" #?companieslist =
 response = requests.get(api_url+"/students")
 response2 = requests.get(api_url+"/companies")
-response3 = requwests.get(api_url+"/rooms")
+response3 = requests.get(api_url+"/rooms")
 
 start = Transform(response.json(),response2.json())

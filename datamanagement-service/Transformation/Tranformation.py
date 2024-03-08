@@ -343,7 +343,7 @@ import requests
 api_url = "http://localhost:8080" #?companieslist =
 response = requests.get(api_url+"/students")
 response2 = requests.get(api_url+"/companies")
-response3 = requwests.get(api_url+"/rooms")
+response3 = requests.get(api_url+"/rooms")
 #rooms
 #{"roomList":[{"roomId":"110","capacity":20},{"roomId":"111","capacity":20},{"roomId":"101","capacity":20},{"roomId":"112","capacity":20},{"roomId":"102","capacity":20},{"roomId":"113","capacity":20},{"roomId":"103","capacity":20},{"roomId":"Aula","capacity":20},{"roomId":"106","capacity":20},{"roomId":"107","capacity":20},{"roomId":"108","capacity":20},{"roomId":"109","capacity":20},{"roomId":"209","capacity":20}],"errorMessage":null}
 #studnets
