@@ -78,7 +78,7 @@ class Student:
 
 
 class ConcreatWish:
-    __studnet__: Student(None, None, None, None)
+    __studnet__: Student(None, None, None, list())
     __prio__: int = None
     __wishID__: int = None
 
