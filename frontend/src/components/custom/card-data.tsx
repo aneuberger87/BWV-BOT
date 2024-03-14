@@ -26,7 +26,7 @@ export const CardData = (props: {
         <CardTitle>{props.title}</CardTitle>
         {!exists && (
           <CardDescription>
-            {props.title} wurde noch nicht geladen.
+            {props.title} wurde noch nicht hochgeladen.
           </CardDescription>
         )}
       </CardHeader>
