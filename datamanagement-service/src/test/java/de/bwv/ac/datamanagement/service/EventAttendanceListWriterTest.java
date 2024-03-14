@@ -1,8 +1,10 @@
 package de.bwv.ac.datamanagement.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
+import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.service.writer.AttendanceListWriter;
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +21,10 @@ public class EventAttendanceListWriterTest {
         setDummies();
         AttendanceListWriter writer = new AttendanceListWriter(dataStorage);
         writer.write("C:/Users/aneub/IdeaProjects/BWV-BOT/datamanagement-service/src/test/resources/out");
+        EventsAttendanceList eventsAttendanceList = dataStorage.calculateEventsAttendenceList();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(eventsAttendanceList);
+        System.out.println(json);
 
     }
 
@@ -39,7 +45,7 @@ public class EventAttendanceListWriterTest {
                 new StudentsList.Student("Max", "Mustermann", "GammaStrahl", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C"))),
                 new StudentsList.Student("Bernd", "Atlantis", "DeltaX", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C")))));
 
-        dataStorage.setStudentsList(new StudentsList(students, null));
+        dataStorage.setStudentsAllocationList(new StudentsList(students, null));
     }
 
     private void setDummyCompanies() {

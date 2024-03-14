@@ -235,36 +235,38 @@ class Timeplan:
     def createTimeplanforStudents(self):
         perfixfilename = "Laufzettel_für_den_Schueler_ "
         postfixfilename = "_Klasse_"
-        api_url = "http://localhost:8080"
+        api_url = "http://localhost:8080/update/timetableList"
+        data = []
         for stundent in self.__studentList__:
             temptoGolist = stundent.__toGolist__
             prename = stundent.__prename__
             surname = stundent.__surname__
             sclass = stundent.__schoolClass__
-            data = data +self.togo_list_to_json()
-            r = requests.post(api_url, data=data)
+            tempjson = self.togo_list_to_json(prename,surname,sclass,temptoGolist)
+            data.append(tempjson)
+        print("PostRequest with data: ")
+        print(data)
 
 
     def togo_list_to_json(self,prename:str,surname:str,sclass:str,toGO_liste):
         schueler_json = []
+        print("test")
         schueler_data = {
             "prename": prename,
             "surname": surname,
             "schoolclass": sclass,
             "Events": []
         }
-        for event in schueler["Events"]:
-            for togoevent in toGO_liste:
-                veranstaltung_data = {
-                    "ID": togoevent.__id__,
-                    "compName": togoevent.__company_name__,
-                    "topic": togoevent.__event_topic__,
-                    "timeslot": togoevent.__timeslot__,
-                    "room": togoevent.__room__
-                }
+        for togoevent in toGO_liste:
+            veranstaltung_data = {
+                "ID": togoevent.__id__,
+                "compName": togoevent.__company_name__,
+                "topic": togoevent.__event_topic__,
+                "timeslot": togoevent.__timeslot__,
+                "room": togoevent.__room__
+            }
         schueler_data["Events"].append(veranstaltung_data)
-        schueler_json.append(schueler_data)
-        return json.dumps(schueler_json)
+        return schueler_data
 class Timeslot:
     __timeSlot__: str = None
     __room__: str = None
