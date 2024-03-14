@@ -135,6 +135,7 @@ class Event:
     __room__: str = None
     __timeslot__ = str = None
     __capacity__: int = 20
+    __amountofmembers__: int = 0
 
     def __init__(self, company, id,timeslot):
         self.__eventid__ = id
@@ -195,7 +196,6 @@ class Timeplan:
             for t in templist:
                 temptimeslot = t.gettimeslot()
                 event = Event(element, self.__eventId__, temptimeslot)
-
                 self.__eventlist__.append(event)
             self.__eventId__ = self.__eventId__ + 1
     def assign_studentstoEvents(self):
@@ -217,9 +217,16 @@ class Timeplan:
                     for togoevent in student.__toGolist__:
                         temp_togolist_forStudnets.append(togoevent)
                     if eventid == wishID and suffused == False:
-                        temp_particepent_list.append(element.__studnet__)
-                        element.__studnet__.__wishList__[element.__prio__ - 1].setsuffused_true()
-                        temp_togolist_forStudnets.append(event)
+                        tslotEvent = event.__timeslot__
+                        checkgo: bool = False
+                        for goevent in temp_togolist_forStudnets:
+                            if goevent.__timeslot__ == tslotWish:
+                                checkgo = True
+                        if event.__capacity__ > event.__amountofmembers__ and checkgo != True:
+                            temp_particepent_list.append(element.__studnet__)
+                            element.__studnet__.__wishList__[element.__prio__ - 1].setsuffused_true()
+                            temp_togolist_forStudnets.append(event)
+                            event.__amountofmembers__ = event.__amountofmembers__ +1
                 event.__participantlist__ = temp_particepent_list
                 temp_togolist_forStudnets.append(event)
                 element.__studnet__.__toGolist__ = temp_togolist_forStudnets
@@ -228,19 +235,36 @@ class Timeplan:
     def createTimeplanforStudents(self):
         perfixfilename = "Laufzettel_für_den_Schueler_ "
         postfixfilename = "_Klasse_"
+        api_url = "http://localhost:8080"
         for stundent in self.__studentList__:
-            filename = perfixfilename + stundent.__surname__ + "_" + stundent.__prename__ + postfixfilename + str(stundent.__schoolClass__)
-            headline = "Schueler: " + stundent.__surname__ + " , " + stundent.__prename__ + " Klasse: " + str(stundent.__schoolClass__) +"\n"
-            tempgolist = stundent.__toGolist__
-            eventlist= list()
-            eventString = ""
-            for event in tempgolist:
-                eventString = eventString+ "Zeitpunkt " +event.__timeslot__ + " Veranstalltung: " +event.__company_name__+ "Thema: " +event.__event_topic__ +"in Raum: "+ str(event.__room__) +"\n"
-                eventlist.append(eventlist)
-            #with open("C:/Users/nilsw/PycharmProjects/BWV-BOT/Transformation/trahdata/"+filename+".txt", 'w') as file:
-            #    file.writelines(headline)
-            #    for line in eventlist:
-            #        file.writelines(str(line))
+            temptoGolist = stundent.__toGolist__
+            prename = stundent.__prename__
+            surname = stundent.__surname__
+            sclass = stundent.__schoolClass__
+            data = data +self.togo_list_to_json()
+            r = requests.post(api_url, data=data)
+
+
+    def togo_list_to_json(self,prename:str,surname:str,sclass:str,toGO_liste):
+        schueler_json = []
+        schueler_data = {
+            "prename": prename,
+            "surname": surname,
+            "schoolclass": sclass,
+            "Events": []
+        }
+        for event in schueler["Events"]:
+            for togoevent in toGO_liste:
+                veranstaltung_data = {
+                    "ID": togoevent.__id__,
+                    "compName": togoevent.__company_name__,
+                    "topic": togoevent.__event_topic__,
+                    "timeslot": togoevent.__timeslot__,
+                    "room": togoevent.__room__
+                }
+        schueler_data["Events"].append(veranstaltung_data)
+        schueler_json.append(schueler_data)
+        return json.dumps(schueler_json)
 class Timeslot:
     __timeSlot__: str = None
     __room__: str = None
@@ -260,9 +284,9 @@ class Transform:
     __stundentList__ = list()
     __companyList__ = list()
 
-    def __init__(self, filepath, filepath2):
-        self.load_company(filepath2)
-        self.load_student(filepath)
+    def __init__(self, filepath_students, filepath_company):
+        self.load_company(filepath_company)
+        self.load_student(filepath_students)
         self.toString()
         t = Timeplan(self.__companyList__, self.__stundentList__)
 
@@ -288,15 +312,6 @@ class Transform:
 
         except Exception as e:
             print(f"Fehler beim Laden des Schuelers: {e}")
-        #import json
-        #data = json.load(jsonfile)
-        #for student_data in data['Stundent']:
-        #    prename = student_data['vorname']
-        #    surname = student_data['nachname']
-        #    wishlist = student_data['wuensche']
-        #    schoolclass = student_data['klasse']
-        #    student = Student(prename, surname, schoolclass, wishlist)
-        #    self.__stundentList__.append(student)
 
     def load_company(self, jsonfile) -> None:
         print(jsonfile)
@@ -317,18 +332,6 @@ class Transform:
             print(f"Schluessel {e} fehlt im Dictionary.")
         except Exception as e:
             print(f"Fehler beim Laden der Company: {e}")
-
-        #import json
-        #data = json.load(jsonfile)
-        #for company_data in data['companies']:
-        #    id = company_data['id']
-        #    compname = company_data['compName']
-        #    toc = company_data['trainingOccupation']
-        #    capacity = company_data['capacity']
-        #    meeting = company_data['meeting']
-        #    company = Company(id, compname, toc, meeting)
-        #    self.__companyList__.append(company)
-        #{'student': [{'prename': 'Tyler', 'surname': 'Meyer', 'schoolClass': 'LightBlue4', 'wishList': []}, {'prename': 'Joseph', 'surname': 'Chapman', 'schoolClass': 'LightBlue3', 'wishList': []}, {'prename': 'Jesse', 'surname': 'Anderson', 'schoolClass': 'Gray4', 'wishList': []}, {'prename': 'Aaron', 'surname': 'Cruz', 'schoolClass': 'Gray3', 'wishList': []}, {'prename': 'Gregory', 'surname': 'Phillips', 'schoolClass': 'Wheat5', 'wishList': []}, {'prename': 'Christy', 'surname': 'Smith', 'schoolClass': 'Aqua5', 'wishList': []}, {'prename': 'Mario', 'surname': 'Mason', 'schoolClass': 'Aqua5', 'wishList': []}, {'prename': 'Paul', 'surname': 'Evans', 'schoolClass': 'Aqua4', 'wishList': []}, {'prename': 'Alicia', 'surname': 'Warner', 'schoolClass': 'Aqua4', 'wishList': []}, {'prename': 'Amber', 'surname': 'Marks', 'schoolClass': 'SkyBlue3', 'wishList': []}, {'prename': 'Michael', 'surname': 'Vaughan', 'schoolClass': 'MintCream3', 'wishList': []}, {'prename': 'Regina', 'surname': 'Murillo', 'schoolClass': 'DarkTurquoise4', 'wishList': []}, {'prename': 'Chloe', 'surname': 'Stone', 'schoolClass': 'DarkTurquoise5', 'wishList': []}, {'prename': 'Brenda', 'surname': 'Beard', 'schoolClass': 'DarkOrange5', 'wishList': []}, {'prename': 'Sean', 'surname': 'Wallae', 'schoolClass': 'PeachPuff4', 'wishList': []}, {'prename': 'Roy', 'surname': 'Li', 'schoolClass': 'PeachPuff5', 'wishList': []}, {'prename': 'Michelle', 'surname': 'Bowman', 'schoolClass': 'LightYellow4', 'wishList': []}, {'prename': 'Nicholas', 'surname': 'Brown', 'schoolClass': 'LightYellow4', 'wishList': []}, {'prename': 'Wendy', 'surname': 'Pety', 'schoolClass': 'DarkOliveGreen4', 'wishList': []}, {'prename': 'Gary', 'surname': 'Hansen', 'schoolClass': 'DodgerBlue3', 'wishList': []}, {'prename': 'Olivia', 'surname': 'Daniels', 'schoolClass': 'DodgerBlue3', 'wishList': []}, {'prename': 'Jonathan', 'surname': 'Gibbs', 'schoolClass': 'MidnightBlue5', 'wishList': []}, {'prename': 'Lisa', 'surname': 'Lee', 'schoolClass': 'Olive5', 'wishList': []}, {'prename': 'Dorothy', 'surname': 'Rich', 'schoolClass': 'OldLace5', 'wishList': []}, {'prename': 'Kelly', 'surname': 'Pearson', 'schoolClass': 'MidnightBlue4', 'wishList': []}, {'prename': 'William', 'surname': 'Cervantes', 'schoolClass': 'MidnightBlue4', 'wishList': []}, {'prename': 'Karen', 'surname': 'Lambert', 'schoolClass': 'PaleGreen3', 'wishList': []}, {'prename': 'Daniel', 'surname': 'Wells', 'schoolClass': 'Olive3', 'wishList': []}, {'prename': 'Xavier', 'surname': 'Murray', 'schoolClass': 'OldLace3', 'wishList': []}, {'prename': 'Jennifer', 'surname': 'Davidson', 'schoolClass': 'White3', 'wishList': []}, {'prename': 'James', 'surname': 'Ramirez', 'schoolClass': 'White3', 'wishList': []}, {'prename': 'Benjamin', 'surname': 'Williams', 'schoolClass': 'White5', 'wishList': []}, {'prename': 'Thomas', 'surname': 'Hogan', 'schoolClass': 'White5', 'wishList': []}, {'prename': 'Jake', 'surname': 'Hobbs', 'schoolClass': 'Green3', 'wishList': []}, {'prename': 'Tiffany', 'surname': 'Shepard', 'schoolClass': 'Blue4', 'wishList': []}, {'prename': 'Abigail', 'surname': 'Miller', 'schoolClass': 'Green5', 'wishList': []}, {'prename': 'Samantha', 'surname': 'Cruz', 'schoolClass': 'LawnGreen4', 'wishList': []}, {'prename': 'Cody', 'surname': 'Sexton', 'schoolClass': 'PaleGreen5', 'wishList': []}, {'prename': 'Jennifer', 'surname': 'Tucker', 'schoolClass': 'Linen5', 'wishList': []}, {'prename': 'Christopher', 'surname': 'Dyer', 'schoolClass': 'Snow4', 'wishList': []}, {'prename': 'Alex', 'surname': 'Cook', 'schoolClass': 'Snow3', 'wishList': []}, {'prename': 'Richard', 'surname': 'Marshall', 'schoolClass': 'MediumTurquoise3', 'wishList': []}, {'prename': 'Alex', 'surname': 'Aguirre', 'schoolClass': 'DeepPink3', 'wishList': []}, {'prename': 'Ryan', 'surname': 'Johnson', 'schoolClass': 'SeaGreen5', 'wishList': []}, {'prename': 'Brandon', 'surname': 'Wilson', 'schoolClass': 'SeaGreen5', 'wishList': []}, {'prename': 'Nicholas', 'surname': 'Alvarado', 'schoolClass': 'DarkSlateGray4', 'wishList': []}, {'prename': 'Ricky', 'surname': 'Nelson', 'schoolClass': 'DarkSlateGray5', 'wishList': []}, {'prename': 'Casey', 'surname': 'Miller', 'schoolClass': 'DarkSeaGreen5', 'wishList': []}, {'prename': 'Renee', 'surname': 'Myers', 'schoolClass': 'DarkGreen3', 'wishList': []}, {'prename': 'Tammy', 'surname': 'Glenn', 'schoolClass': 'DarkGreen4', 'wishList': []}, {'prename': 'Ivan', 'surname': 'Porter', 'schoolClass': 'LightSeaGreen5', 'wishList': []}, {'prename': 'Catherine', 'surname': 'Walker', 'schoolClass': 'FloralWhite3', 'wishList': []}, {'prename': 'Debra', 'surname': 'Jenkins', 'schoolClass': 'FloralWhite3', 'wishList': []}, {'prename': 'Cassandra', 'surname': 'Johnson', 'schoolClass': 'Aquamarine3', 'wishList': []}, {'prename': 'Michelle', 'surname': 'Sampson', 'schoolClass': 'Aquamarine3', 'wishList': []}, {'prename': 'John', 'surname': 'Campbell', 'schoolClass': 'Silver5', 'wishList': []}, {'prename': 'John', 'surname': 'Dickerson', 'schoolClass': 'DarkBlue5', 'wishList': []}, {'prename': 'Melissa', 'surname': 'Ford', 'schoolClass': 'DarkBlue5', 'wishList': []}, {'prename': 'Katherine', 'surname': 'Munoz', 'schoolClass': 'YellowGreen4', 'wishList': []}, {'prename': 'Kelly', 'surname': 'Parks', 'schoolClass': 'YellowGreen3', 'wishList': []}, {'prename': 'Heather', 'surname': 'Mason', 'schoolClass': 'WhiteSmoke4', 'wishList': []}, {'prename': 'Richard', 'surname': 'Carr', 'schoolClass': 'WhiteSmoke5', 'wishList': []}, {'prename': 'Eric', 'surname': 'Anderson', 'schoolClass': 'YellowGreen5', 'wishList': []}, {'prename': 'Amy', 'surname': 'Cook', 'schoolClass': 'Silver3', 'wishList': []}, {'prename': 'Claudia', 'surname': 'Jenkins', 'schoolClass': 'Navy3', 'wishList': []}, {'prename': 'James', 'surname': 'Olsen', 'schoolClass': 'Navy3', 'wishList': []}, {'prename': 'Troy', 'surname': 'Henderson', 'schoolClass': 'Navy3', 'wishList': []}, {'prename': 'Kenneth', 'surname': 'Li', 'schoolClass': 'RosyBrown3', 'wishList': []}, {'prename': 'Sydney', 'surname': 'Ayala', 'schoolClass': 'Navy5', 'wishList': []}, {'prename': 'Lauren', 'surname': 'Brown', 'schoolClass': 'RosyBrown4', 'wishList': []}, {'prename': 'Crystal', 'surname': 'Rivera', 'schoolClass': 'Navy4', 'wishList': []}, {'prename': 'Kevin', 'surname': 'Bradley', 'schoolClass': 'HoneyDew5', 'wishList': []}, {'prename': 'Eric', 'surname': 'Chaney', 'schoolClass': 'Tomato4', 'wishList': []}, {'prename': 'Heather', 'surname': 'Murray', 'schoolClass': 'DarkSalmon5', 'wishList': []}, {'prename': 'Destiny', 'surname': 'Myers', 'schoolClass': 'MediumBlue3', 'wishList': []}, {'prename': 'Adrienne', 'surname': 'Mendoza', 'schoolClass': 'Turquoise5', 'wishList': []}, {'prename': 'Crystal', 'surname': 'Johnson', 'schoolClass': 'Turquoise5', 'wishList': []}, {'prename': 'William', 'surname': 'Arnold', 'schoolClass': 'Bisque3', 'wishList': []}, {'prename': 'Jimmy', 'surname': 'Lowery', 'schoolClass': 'Khaki5', 'wishList': []}, {'prename': 'Daniel', 'surname': 'Contreras', 'schoolClass': 'SpringGreen5', 'wishList': []}, {'prename': 'Emily', 'surname': 'Thompson', 'schoolClass': 'DarkKhaki3', 'wishList': []}, {'prename': 'Tanya', 'surname': 'Carr', 'schoolClass': 'DarkSalmon3', 'wishList': []}, {'prename': 'Christine', 'surname': 'Hogan', 'schoolClass': 'BlanchedAlmond3', 'wishList': []}, {'prename': 'Sandra', 'surname': 'Coleman', 'schoolClass': 'BlanchedAlmond3', 'wishList': []}, {'prename': 'Tina', 'surname': 'Davidson', 'schoolClass': 'PaleGoldenRod3', 'wishList': []}, {'prename': 'Joseph', 'surname': 'Hill', 'schoolClass': 'DarkKhaki4', 'wishList': []}, {'prename': 'Shannon', 'surname': 'Johnson', 'schoolClass': 'BlanchedAlmond4', 'wishList': []}, {'prename': 'Jeffrey', 'surname': 'Atkins', 'schoolClass': 'Lime5', 'wishList': []}, {'prename': 'Danielle', 'surname': 'Bray', 'schoolClass': 'GreenYellow5', 'wishList': []}, {'prename': 'Scott', 'surname': 'Case', 'schoolClass': 'GreenYellow5', 'wishList': []}, {'prename': 'Jeffery', 'surname': 'Hernandez', 'schoolClass': 'LightGoldenRodYellow3', 'wishList': []}, {'prename': 'Tracy', 'surname': 'Smith', 'schoolClass': 'LightGoldenRodYellow3', 'wishList': []}, {'prename': 'Matthew', 'surname': 'Valenzuela', 'schoolClass': 'LightGoldenRodYellow3', 'wishList': []}, {'prename': 'Lance', 'surname': 'Dudley', 'schoolClass': 'GreenYellow4', 'wishList': []}, {'prename': 'Kevin', 'surname': 'Jimenez', 'schoolClass': 'Thistle5', 'wishList': []}, {'prename': 'Jimmy', 'surname': 'Martin', 'schoolClass': 'PowderBlue4', 'wishList': []}, {'prename': 'Joseph', 'surname': 'Brooks', 'schoolClass': 'DarkGray5', 'wishList': []}, {'prename': 'Robert', 'surname': 'Chan', 'schoolClass': 'Thistle4', 'wishList': []}, {'prename': 'Erik', 'surname': 'Williams', 'schoolClass': 'Black5', 'wishList': []}, {'prename': 'Elizabeth', 'surname': 'Williams', 'schoolClass': 'MediumPurple5', 'wishList': []}, {'prename': 'Brandon', 'surname': 'Adams', 'schoolClass': 'Black3', 'wishList': []}, {'prename': 'James', 'surname': 'Shepherd', 'schoolClass': 'Indigo4', 'wishList': []}, {'prename': 'Courtney', 'surname': 'Cooley', 'schoolClass': 'NavajoWhite3', 'wishList': []}, {'prename': 'Shannon', 'surname': 'Johnson', 'schoolClass': 'NavajoWhite3', 'wishList': []}, {'prename': 'Anna', 'surname': 'Jacobs', 'schoolClass': 'AliceBlue5', 'wishList': []}, {'prename': 'Andrea', 'surname': 'Bates', 'schoolClass': 'MediumPurple3', 'wishList': []}, {'prename': 'Jillian', 'surname': 'Wilkins', 'schoolClass': 'Peru3', 'wishList': []}, {'prename': 'Laura', 'surname': 'Martinez', 'schoolClass': 'Ivory3', 'wishList': []}, {'prename': 'Angelica', 'surname': 'Robertson', 'schoolClass': 'Ivory3', 'wishList': []}, {'prename': 'Dustin', 'surname': 'Booth', 'schoolClass': 'Beige3', 'wishList': []}, {'prename': 'Brooke', 'surname': 'Mccarty', 'schoolClass': 'LightGoldenRodYellow5', 'wishList': []}, {'prename': 'Vicki', 'surname': 'Chavez', 'schoolClass': 'Indigo3', 'wishList': []}, {'prename': 'Alexandra', 'surname': 'Sloan', 'schoolClass': 'Beige4', 'wishList': []}, {'prename': 'John', 'surname': 'Williams', 'schoolClass': 'GoldenRod4', 'wishList': []}, {'prename': 'Sherry', 'surname': 'Thomas', 'schoolClass': 'GoldenRod4', 'wishList': []}, {'prename': 'Debra', 'surname': 'Rhodes', 'schoolClass': 'Beige5', 'wishList': []}, {'prename': 'John', 'surname': 'Richards', 'schoolClass': 'LightSteelBlue3', 'wishList': []}, {'prename': 'Ana', 'surname': 'Scott', 'schoolClass': 'Plum4', 'wishList': []}, {'prename': 'Karen', 'surname': 'Randall', 'schoolClass': 'LightSteelBlue5', 'wishList': []}, {'prename': 'Kelly', 'surname': 'Lozano', 'schoolClass': 'LightSteelBlue5', 'wishList': []}, {'prename': 'Sandra', 'surname': 'Chase', 'schoolClass': 'Gainsboro5', 'wishList': []}, {'prename': 'Joshua', 'surname': 'Riley', 'schoolClass': 'SaddleBrown5', 'wishList': []}, {'prename': 'Richard', 'surname': 'Wallace', 'schoolClass': 'MediumSeaGreen3', 'wishList': []}, {'prename': 'Ana', 'surname': 'Osborn', 'schoolClass': 'LightPink5', 'wishList': []}, {'prename': 'Daniel', 'surname': 'Alvarado', 'schoolClass': 'Chocolate5', 'wishList': []}, {'prename': 'Tara', 'surname': 'King', 'schoolClass': 'Chocolate5', 'wishList': []}, {'prename': 'Donna', 'surname': 'Ibarra', 'schoolClass': 'ForestGreen3', 'wishList': []}, {'prename': 'Scott', 'surname': 'Stephenson', 'schoolClass': 'Yellow4', 'wishList': []}, {'prename': 'Heather', 'surname': 'Thompson', 'schoolClass': 'Gold5', 'wishList': []}, {'prename': 'Michael', 'surname': 'Lowery', 'schoolClass': 'MediumAquaMarine5', 'wishList': []}, {'prename': 'Sandra', 'surname': 'Brown', 'schoolClass': 'SteelBlue5', 'wishList': []}, {'prename': 'Richard', 'surname': 'Campbell', 'schoolClass': 'PapayaWhip3', 'wishList': []}, {'prename': 'Chad', 'surname': 'Hodge', 'schoolClass': 'PapayaWhip3', 'wishList': []}, {'prename': 'Jessica', 'surname': 'Scott', 'schoolClass': 'Magenta5', 'wishList': []}, {'prename': 'Sandra', 'surname': 'Washington', 'schoolClass': 'GhostWhite5', 'wishList': []}, {'prename': 'Kathleen', 'surname': 'Wright', 'schoolClass': 'GhostWhite3', 'wishList': []}, {'prename': 'Bryan', 'surname': 'Calderon', 'schoolClass': 'Magenta3', 'wishList': []}, {'prename': 'William', 'surname': 'Yoder', 'schoolClass': 'Cyan3', 'wishList': []}, {'prename': 'Daniel', 'surname': 'Lambert', 'schoolClass': 'LightCoral4', 'wishList': []}, {'prename': 'Arthur', 'surname': 'White', 'schoolClass': 'Orange4', 'wishList': []}, {'prename': 'Hector', 'surname': 'Blake', 'schoolClass': 'Orange4', 'wishList': []}, {'prename': 'David', 'surname': 'Smith', 'schoolClass': 'LightSkyBlue5', 'wishList': []}, {'prename': 'Sharon', 'surname': 'Short', 'schoolClass': 'OliveDrab5', 'wishList': []}, {'prename': 'Denise', 'surname': 'Goodman', 'schoolClass': 'LightCyan3', 'wishList': []}, {'prename': 'Sarah', 'surname': 'Goodman', 'schoolClass': 'DarkMagenta4', 'wishList': []}, {'prename': 'Jacob', 'surname': 'Wilson', 'schoolClass': 'Purple3', 'wishList': []}, {'prename': 'Steven', 'surname': 'Hernandez', 'schoolClass': 'DarkMagenta3', 'wishList': []}, {'prename': 'Donna', 'surname': 'Bishop', 'schoolClass': 'Brown4', 'wishList': []}, {'prename': 'Kelly', 'surname': 'Rodriguez', 'schoolClass': 'LightSlateGray5', 'wishList': []}, {'prename': 'Kathleen', 'surname': 'Rogers', 'schoolClass': 'LightSlateGray5', 'wishList': []}, {'prename': 'Corey', 'surname': 'Norris', 'schoolClass': 'LightCyan5', 'wishList': []}, {'prename': 'Paul', 'surname': 'Rodriguez', 'schoolClass': 'LightGray3', 'wishList': []}, {'prename': 'John', 'surname': 'Russo', 'schoolClass': 'LightGray5', 'wishList': []}, {'prename': 'Brenda', 'surname': 'Hurley', 'schoolClass': 'LightGreen5', 'wishList': []}, {'prename': 'Amanda', 'surname': 'George', 'schoolClass': 'LightGreen5', 'wishList': []}, {'prename': 'Jeffrey', 'surname': 'Herring', 'schoolClass': 'LimeGreen4', 'wishList': []}, {'prename': 'Barbara', 'surname': 'Zuniga', 'schoolClass': 'SeaShell3', 'wishList': []}, {'prename': 'John', 'surname': 'Montgomery', 'schoolClass': 'LightGreen3', 'wishList': []}, {'prename': 'George', 'surname': 'Martinez', 'schoolClass': 'LightGreen4', 'wishList': []}, {'prename': 'Teresa', 'surname': 'Howell', 'schoolClass': 'Coral5', 'wishList': []}, {'prename': 'Sara', 'surname': 'Bond', 'schoolClass': 'HotPink4', 'wishList': []}, {'prename': 'Anthony', 'surname': 'Morris', 'schoolClass': 'Maroon3', 'wishList': []}, {'prename': 'Austin', 'surname': 'Parker', 'schoolClass': 'DarkRed3', 'wishList': []}, {'prename': 'Gwendolyn', 'surname': 'Holloway', 'schoolClass': 'Orchid4', 'wishList': []}, {'prename': 'Renee', 'surname': 'Lewis', 'schoolClass': 'IndianRed4', 'wishList': []}, {'prename': 'Clayton', 'surname': 'Wilson', 'schoolClass': 'SlateGray4', 'wishList': []}, {'prename': 'Gloria', 'surname': 'Miller', 'schoolClass': 'LavenderBlush3', 'wishList': []}, {'prename': 'Donna', 'surname': 'Martinez', 'schoolClass': 'SlateGray5', 'wishList': []}, {'prename': 'Crystal', 'surname': 'Kelley', 'schoolClass': 'Cornsilk5', 'wishList': []}, {'prename': 'Benjamin', 'surname': 'Anderson', 'schoolClass': 'Cornsilk5', 'wishList': []}, {'prename': 'Christopher', 'surname': 'Taylor', 'schoolClass': 'DarkSlateBlue4', 'wishList': []}, {'prename': 'Alex', 'surname': 'Wise', 'schoolClass': 'DarkSlateBlue3', 'wishList': []}, {'prename': 'Phillip', 'surname': 'Reed', 'schoolClass': 'DimGray5', 'wishList': []}, {'prename': 'Connie', 'surname': 'Allen', 'schoolClass': 'Fuchsia4', 'wishList': []}, {'prename': 'Luke', 'surname': 'Mclaughlin', 'schoolClass': 'DarkCyan5', 'wishList': []}, {'prename': 'Eric', 'surname': 'Burns', 'schoolClass': 'Chartreuse3', 'wishList': []}, {'prename': 'Justin', 'surname': 'Ramos', 'schoolClass': 'Chartreuse3', 'wishList': []}, {'prename': 'Emily', 'surname': 'Miller', 'schoolClass': 'Cornsilk4', 'wishList': []}, {'prename': 'Joshua', 'surname': 'Freeman', 'schoolClass': 'DarkCyan4', 'wishList': []}, {'prename': 'Derek', 'surname': 'Ellison', 'schoolClass': 'MistyRose5', 'wishList': []}], 'errorMessage': None}
 
     def toString(self):
         for company in self.__companyList__:
