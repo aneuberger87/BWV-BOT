@@ -26,7 +26,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllCompanies() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         CompaniesList allCompanies = dataManagementService.getAllCompanies();
         assertNotNull(allCompanies);
         assertNotNull(allCompanies.getCompany());
@@ -36,7 +36,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllStudents() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         StudentsList allStudents = dataManagementService.getAllStudents();
         assertNotNull(allStudents);
         assertNotNull(allStudents.getStudent());
@@ -56,7 +56,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllDummyStudents() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         StudentsList allDummyStudents = dataManagementService.getAllDummyStudents();
         assertNotNull(allDummyStudents);
         assertNotNull(allDummyStudents.getStudent());
@@ -67,7 +67,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllDummyStudentsWithWishes() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         StudentsList allDummyStudents = dataManagementService.getAllDummyStudentsWithWishes();
         assertNotNull(allDummyStudents);
         assertNotNull(allDummyStudents.getStudent());
@@ -78,7 +78,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllDummyCompaniesWithRoomsAndTimeslots() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         CompaniesList allDummyCompanies = dataManagementService.getAllDummyCompaniesWithRoomsAndTimeslots();
         assertNotNull(allDummyCompanies);
         assertNotNull(allDummyCompanies.getCompany());
@@ -92,7 +92,7 @@ class DataManagementServiceTest {
 
     @Test
     void getAllDummyCompanies() {
-        DataManagementService dataManagementService = new DataManagementService(dataStorage);
+        DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         CompaniesList allDummyCompanies = dataManagementService.getAllDummyCompanies();
         assertNotNull(allDummyCompanies);
         assertNotNull(allDummyCompanies.getCompany());

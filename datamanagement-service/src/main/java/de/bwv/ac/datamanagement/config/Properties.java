@@ -13,6 +13,5 @@ public class Properties {
     private String eventlistLocation;
     private String roomlistLocation;
 
-    private int numberWishes;
-    private int numberTimeSlots;
+    private String scriptLocation;
 }

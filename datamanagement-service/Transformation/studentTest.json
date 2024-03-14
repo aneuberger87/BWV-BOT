@@ -1,0 +1,1084 @@
+{
+  "Stundent": [
+    {
+      "vorname": "Aaron",
+      "nachname": "Garrett",
+      "wuensche": ["4,E","13,B","5,E","43,B","21,B","25,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Danielle",
+      "nachname": "Mays",
+      "wuensche": ["6,E","29,A","38,E","32,B","19,D","20,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Kathleen",
+      "nachname": "Rodriguez",
+      "wuensche": ["16,E","42,A","47,A","39,C","45,E","38,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Thomas",
+      "nachname": "Torres",
+      "wuensche": ["48,D","14,D","33,D","9,C","14,A","38,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Kimberly",
+      "nachname": "Carey",
+      "wuensche": ["31,D","4,B","39,E","50,B","19,D","48,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Daniel",
+      "nachname": "Dawson",
+      "wuensche": ["9,C","3,E","36,C","44,D","28,C","23,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Cindy",
+      "nachname": "Jacobson",
+      "wuensche": ["17,E","41,E","9,C","26,A","47,B","23,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Douglas",
+      "nachname": "Campbell",
+      "wuensche": ["2,D","41,C","13,D","19,B","5,D","36,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Patricia",
+      "nachname": "Howell",
+      "wuensche": ["24,D","2,B","21,D","32,A","35,E","48,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "James",
+      "nachname": "Lewis",
+      "wuensche": ["11,B","43,A","28,C","21,B","37,D","15,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "William",
+      "nachname": "Orozco",
+      "wuensche": ["12,E","43,B","3,B","9,C","45,D","15,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Justin",
+      "nachname": "Hardy",
+      "wuensche": ["35,C","6,C","27,B","46,E","43,B","32,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Karen",
+      "nachname": "Park",
+      "wuensche": ["15,D","49,A","7,A","45,D","41,D","22,A"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Luke",
+      "nachname": "Pacheco",
+      "wuensche": ["48,C","4,D","50,C","18,C","11,A","39,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Jimmy",
+      "nachname": "Jones",
+      "wuensche": ["10,B","23,B","28,C","5,A","6,A","36,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Samuel",
+      "nachname": "Rodriguez",
+      "wuensche": ["11,D","13,E","11,D","2,C","16,C","29,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Ashley",
+      "nachname": "Quinn",
+      "wuensche": ["26,C","6,A","39,E","28,C","11,D","8,B"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Paul",
+      "nachname": "Marks",
+      "wuensche": ["29,A","9,D","46,C","18,C","43,B","38,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Susan",
+      "nachname": "Gonzalez",
+      "wuensche": ["45,E","36,C","9,B","10,D","20,A","47,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Debra",
+      "nachname": "Cross",
+      "wuensche": ["13,B","19,D","14,C","50,B","1,A","39,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Joy",
+      "nachname": "Serrano",
+      "wuensche": ["14,A", "42,A", "26,A", "39,B", "30,D","7,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Joshua",
+      "nachname": "Ramos",
+      "wuensche": ["18,C","10,C","33,D","27,E","44,B","8,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Wesley",
+      "nachname": "Jones",
+      "wuensche": ["36,C","48,E","45,A","28,A","28,E","43,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Ricky",
+      "nachname": "Brown",
+      "wuensche": ["26,B","49,B","3,B","12,B","26,C","22,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "David",
+      "nachname": "Gonzalez",
+      "wuensche": ["44,C","44,C","43,D","23,B","35,D","5,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Maria",
+      "nachname": "Cameron",
+      "wuensche": ["36,B","34,C","43,B","19,E","23,D","29,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Karen",
+      "nachname": "Spencer",
+      "wuensche": ["38,B","35,C","36,D","32,D","3,A","19,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Maria",
+      "nachname": "Barnett",
+      "wuensche": ["41,B","50,D","19,D","28,D","21,B","12,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Steven",
+      "nachname": "Cunningham",
+      "wuensche": ["23,B","3,D","2,B","16,A","34,C","45,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Jennifer",
+      "nachname": "Allen",
+      "wuensche": ["18,A","16,E","11,C","23,C","18,E","14,A"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Rhonda",
+      "nachname": "Kirk",
+      "wuensche": ["17,A","27,D","36,C","2,D","39,B","13,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "John",
+      "nachname": "Vargas",
+      "wuensche": ["6,A","33,B","37,A","3,E","13,B","27,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Donald",
+      "nachname": "Evans",
+      "wuensche": ["46,A","37,E","42,E","30,B","36,E","25,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Suzanne",
+      "nachname": "Kirk",
+      "wuensche": ["37,B","46,D","10,B","34,E","29,D","50,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Zachary",
+      "nachname": "Frazier",
+      "wuensche": ["8,B","15,E","36,E","28,E","34,B","41,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Rachel",
+      "nachname": "Meadows",
+      "wuensche": ["39,C","40,E","8,C","39,B","27,D","23,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "James",
+      "nachname": "Williams",
+      "wuensche": ["4,C","17,B","39,E","5,E","46,D","3,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Alexander",
+      "nachname": "Flores",
+      "wuensche": ["44,B","32,A","35,D","19,A","7,A","22,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Emily",
+      "nachname": "Simpson",
+      "wuensche": ["36,E","5,D","30,C","6,B","43,D","5,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Michele",
+      "nachname": "Chavez",
+      "wuensche": ["40,B","30,C","1,C","22,E","29,D","31,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Elizabeth",
+      "nachname": "Vang",
+      "wuensche": ["15,E","3,B","16,C","24,B","20,D","42,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Michelle",
+      "nachname": "Smith",
+      "wuensche": ["48,D","23,B","37,E","2,B","42,B","22,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Jennifer",
+      "nachname": "Simmons",
+      "wuensche": ["3,E","36,D","30,D","48,E","20,C","38,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Brown",
+      "wuensche": ["26,E","3,E","2,E","13,B","36,B","33,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Kevin",
+      "nachname": "Wood",
+      "wuensche": ["2,E","12,B","3,E","24,E","5,A","35,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Teresa",
+      "nachname": "Howe",
+      "wuensche": ["20,A","38,C","36,B","28,D","6,A","9,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Raymond",
+      "nachname": "Thomas",
+      "wuensche": ["24","24,D","43,C","16,D","14,A","23,A"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Susan",
+      "nachname": "Butler",
+      "wuensche": ["50,A","40,E","14,D","26,A","17,C","33,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Daniel",
+      "nachname": "Richardson",
+      "wuensche": ["5,C","27,B","34,D","45,E","34,A","31,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "David",
+      "nachname": "Obrien",
+      "wuensche": ["6,D","19,E","32,D","36,C","24,E","5,C"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Christopher",
+      "nachname": "Ayala",
+      "wuensche": ["21,D","31,D","45,B","6,E","18,C","17,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "John",
+      "nachname": "Watkins",
+      "wuensche": ["18,C","31,C","23,A","43,E","17,A","38,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Linda",
+      "nachname": "Ross",
+      "wuensche": ["44,C","38,A","11,B","15,B","13,C","45,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "David",
+      "nachname": "Sanchez",
+      "wuensche": ["50,B","29,E","22,C","28,B","35,B","3,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Trevor",
+      "nachname": "Lam",
+      "wuensche": ["45,B","25,A","27,B","21,D","49,C","42,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "David",
+      "nachname": "Guzman",
+      "wuensche": ["34,A","46,C","22,E","47,A","26,A","6,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Ricardo",
+      "nachname": "Blankenship",
+      "wuensche": ["40,E","25,C","25,C","6,C","18,A","12,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Shaun",
+      "nachname": "Snyder",
+      "wuensche": ["47,E","29,E","22,A","40,B","5,C","13,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "John",
+      "nachname": "Hall",
+      "wuensche": ["42,D","35,A","35,A","9,E","11,B","30,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Savannah",
+      "nachname": "Andersen",
+      "wuensche": ["2,E","17,D","29,C","29,E","18,C","29,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Deborah",
+      "nachname": "Jensen",
+      "wuensche": ["21,B","50,D","27,E","13,A","14,B","19,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Ashley",
+      "nachname": "Whitney",
+      "wuensche": ["32,D","39,E","13,A","19,C","39,D","50,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Roberts",
+      "wuensche": ["11,D","19,B","10,C","20,A","4,E","37,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Amy",
+      "nachname": "Martinez",
+      "wuensche": ["14,B","22,D","2,D","29,B","35,E","38,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Emily",
+      "nachname": "Crane",
+      "wuensche": ["25,B","10,C","23,A","21,D","4,A","27,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Brittany",
+      "nachname": "Price",
+      "wuensche": ["31,B","1,E","17,E","13,B","32,E","15,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Erin",
+      "nachname": "Trujillo",
+      "wuensche": ["9,D","12,B","25,C","16,D","20,B","38,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Tiffany",
+      "nachname": "Roberts",
+      "wuensche": ["3,E","17,A","43,B","7,A","34,E","38,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Ashley",
+      "nachname": "Costa",
+      "wuensche": ["10,A","3,A","18,C","14,E","24,C","23,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Michele",
+      "nachname": "Campbell",
+      "wuensche": ["3,B","7,B","41,D","24,E","44,B","5,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Christopher",
+      "nachname": "Holland",
+      "wuensche": ["5,D","50,A","18,A","40,D","6,D","46,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Eugene",
+      "nachname": "Meyer",
+      "wuensche": ["37,D","41,C","26,C","1,E","26,E","14,E"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Kenneth",
+      "nachname": "Smith",
+      "wuensche": ["32,C","35,D","48,B","6,A","12,E","7,E"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Jeremy",
+      "nachname": "Aguirre",
+      "wuensche": ["34,E","30,B","15,D","35,D","35,D","39,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Kari",
+      "nachname": "Bell",
+      "wuensche": ["33,A","23,D","49,B","39,C","11,D","3,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Nicole",
+      "nachname": "Singh",
+      "wuensche": ["32,B","2,E","11,C","12,B","15,E","23,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Jane",
+      "nachname": "Mullins",
+      "wuensche": ["4,E","32,A","2,B","39,B","2,B","45,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Eric",
+      "nachname": "Simmons",
+      "wuensche": ["49,B","6,D","43,A","26,D","48,A","50,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Suzanne",
+      "nachname": "Price",
+      "wuensche": ["32,A","32,D","44,C","36,E","25,A","19,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Lauren",
+      "nachname": "Mays",
+      "wuensche": ["18,D","27,D","23,C","8,B","49,D","13,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Andrew",
+      "nachname": "Johnson",
+      "wuensche": ["34,B","49,E","11,D","28,E","35,A","6,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Vickie",
+      "nachname": "Beard",
+      "wuensche": ["18,D","10,C","27,C","49,D","36,B","29,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Eric",
+      "nachname": "Pierce",
+      "wuensche": ["4,E","12,E","8,C","47,B","21,A","15,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Brett",
+      "nachname": "Jones",
+      "wuensche": ["37,E","19,A","36,B","24,B","47,D","43,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Barbara",
+      "nachname": "Porter",
+      "wuensche": ["2,A","35,D","27,C","42,A","21,B","26,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Anthony",
+      "nachname": "Taylor",
+      "wuensche": ["35,E","14,A","40,A","11,D","32,A","25,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Rachel",
+      "nachname": "Middleton",
+      "wuensche": ["40,B","44,A","10,B","21,B","27,D","39,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Sabrina",
+      "nachname": "Ruiz",
+      "wuensche": ["8,B","9,D","40,A","47,E","39,C","36,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Justin",
+      "nachname": "Roy",
+      "wuensche": ["3,D","12,B","10,B","11,A","27,E","49,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Taylor",
+      "nachname": "Stark",
+      "wuensche": ["47,E","13,C","4,D","21,B","43,B","4,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Anne",
+      "nachname": "Jones",
+      "wuensche": ["39,D","6,D","26,E","13,C","38,D","34,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Richard",
+      "nachname": "Thomas",
+      "wuensche": ["23,C","14,E","41,A","46,B","25,D","6,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Angelica",
+      "nachname": "Reid",
+      "wuensche": ["31,D","48,C","31,E","44,E","14,C","10,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Denise",
+      "nachname": "Johnson",
+      "wuensche": ["35,D","30,E","30,C","2,E","29,E","44,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Elizabeth",
+      "nachname": "Clark",
+      "wuensche": ["22,B","50,C","18,C","45,B","25,C","2,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Hannah",
+      "nachname": "Murphy",
+      "wuensche": ["11,D","30,E","37,C","41,C","49,E","3,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Jamie",
+      "nachname": "Brady",
+      "wuensche": ["40,C","1,E","44,C","49,C","48,D","41,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "James",
+      "nachname": "Mata",
+      "wuensche": ["8,C","3,E","6,B","35,B","28,C","46,B"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Dylan",
+      "nachname": "Schultz",
+      "wuensche": ["25,D","24,A","27,A","16,D","19,E","49,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Danielle",
+      "nachname": "Olsen",
+      "wuensche": ["49,E","26,B","4,D","28,E","37,B","6,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Gary",
+      "nachname": "Macdonald",
+      "wuensche": ["13,A","8,A","11,A","1,C","44,C","31,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Gregory",
+      "nachname": "Rodriguez",
+      "wuensche": ["18,E","7,B","16,A","11,D","30,C","43,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Catherine",
+      "nachname": "Lee",
+      "wuensche": ["29,B","23,D","5,B","25,B","43,A","27,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Joseph",
+      "nachname": "Snyder",
+      "wuensche": ["29,C","1,C","13,B","31,B","39,B","2,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Brooke",
+      "nachname": "Harding",
+      "wuensche": ["41,B","15,A","46,A","2,C","23,E","40,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Ronald",
+      "nachname": "Johnson",
+      "wuensche": ["23,B","16,A","10,E","3,E","31,C","20,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Mitchell",
+      "nachname": "Romero",
+      "wuensche": ["26,D","37,E","22,D","6,E","26,C","40,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Douglas",
+      "nachname": "Robinson",
+      "wuensche": ["4,A","25,D","7,A","18,C","23,D","42,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Cindy",
+      "nachname": "Castillo",
+      "wuensche": ["47,E","32,A","32,B","3,B","35,B","21,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Sharon",
+      "nachname": "Pennington",
+      "wuensche": ["11,D","9,B","22,E","14,E","48,A","8,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "David",
+      "nachname": "Houston",
+      "wuensche": ["15,A","44,E","32,C","33,E","27,B","3,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Jennifer",
+      "nachname": "Bush",
+      "wuensche": ["37,E","22,B","8,C","14,C","47,D","3,C"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Ashley",
+      "nachname": "Decker",
+      "wuensche": ["20,E","19,A","18,C","18,D","34,E","21,A"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Rodney",
+      "nachname": "Taylor",
+      "wuensche": ["44,C","9,D","4,E","17,E","24,C","42,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Kimberly",
+      "nachname": "Parker",
+      "wuensche": ["45,B","15,A","34,C","49,E","22,C","42,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Emily",
+      "nachname": "Johnston",
+      "wuensche": ["4,D","22,B","26,C","16,C","3,A","35,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Nicole",
+      "nachname": "Whitehead",
+      "wuensche": ["48,E","38,A","11,D","27,A","8,D","44,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Bonnie",
+      "nachname": "Lane",
+      "wuensche": ["36,C","21,E","6,D","32,D","5,C","31,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Brittany",
+      "nachname": "Newman",
+      "wuensche": ["16,C","5,E","5,E","9,A","41,A","33,B"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Thomas",
+      "nachname": "Wilson",
+      "wuensche": ["41,E","6,C","1,A","7,A","29,C","48,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Erica",
+      "nachname": "Johnson",
+      "wuensche": ["8,D","19,C","23,A","6,A","45,E","36,B"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Brian",
+      "nachname": "Nguyen",
+      "wuensche": ["24,B","47,D","22,C","5,A","11,A","1,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Christina",
+      "nachname": "Estes",
+      "wuensche": ["22,C","17,E","15,D","39,C","32,B","50,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Carl",
+      "nachname": "Craig",
+      "wuensche": ["25,E","37,E","7,C","45,B","6,B","21,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Anna",
+      "nachname": "Guerrero",
+      "wuensche": ["27,E","36,B","44,A","33,A","31,D","23,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Gina",
+      "nachname": "Scott",
+      "wuensche": ["41,C","17,A","36,A","47,C","3,C","31,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Kevin",
+      "nachname": "Bryan",
+      "wuensche": ["37,B","34,C","1,A","46,C","45,B","20,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Toni",
+      "nachname": "Randolph",
+      "wuensche": ["7,C","1,C","42,D","44,C","37,C","25,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Nancy",
+      "nachname": "Frazier",
+      "wuensche": ["21,B","3,A","31,B","26,E","25,D","13,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Steven",
+      "nachname": "Lee",
+      "wuensche": ["30,C","33,C","38,A","5,C","20,B","23,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Bruce",
+      "nachname": "Sheppard",
+      "wuensche": ["49,E","17,C","21,B","12,E","12,A","39,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Jacob",
+      "nachname": "Rios",
+      "wuensche": ["41,A","32,C","16,B","12,A","34,A","9,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Rhonda",
+      "nachname": "Fuller",
+      "wuensche": ["32,A","31,B","45,A","12,D","29,A","26,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Linda",
+      "nachname": "Mcconnell",
+      "wuensche": ["4,C","37,B","45,C","22,C","1,E","24,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Manuel",
+      "nachname": "Smith",
+      "wuensche": ["35,E","41,E","20,C","44,D","5,D","36,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Ronald",
+      "nachname": "Ramsey",
+      "wuensche": ["12,D","8,D","39,D","2,D","17,D","5,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Robert",
+      "nachname": "Johnson",
+      "wuensche": ["22,A","22,D","34,C","1,B","39,D","35,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Michelle",
+      "nachname": "Griffith",
+      "wuensche": ["21,C","47,E","47,A","9,B","28,C","49,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Dawn",
+      "nachname": "Lewis",
+      "wuensche": ["21,B","35,A","20,B","11,B","5,C","45,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Susan",
+      "nachname": "Hall",
+      "wuensche": ["21,E","13,A","45,B","38,B","10,C","17,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Monique",
+      "nachname": "Sanchez",
+      "wuensche": ["20,B","37,C","17,E","27,A","50,B","32,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Vanessa",
+      "nachname": "Thornton",
+      "wuensche": ["24,D","50,D","13,B","16,A","7,D","27,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Peter",
+      "nachname": "Kelley",
+      "wuensche": ["2,E","16,C","39,C","19,E","14,E","6,C"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Ashlee",
+      "nachname": "Jensen",
+      "wuensche": ["8,B","41,B","48,A","15,D","5,C","27,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Cindy",
+      "nachname": "Davis",
+      "wuensche": ["24,D","10,B","40,C","44,C","15,B","7,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Eddie",
+      "nachname": "Rich",
+      "wuensche": ["28,E","20,D","44,C","21,C","30,D","18,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Brittany",
+      "nachname": "Moore",
+      "wuensche": ["48,C","21,A","14,B","6,A","20,A","23,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Julia",
+      "nachname": "Gamble",
+      "wuensche": ["19,E","20,B","3,E","49,D","6,B","42,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Melissa",
+      "nachname": "Simmons",
+      "wuensche": ["36,E","35,E","38,B","21,E","5,C","14,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Sarah",
+      "nachname": "Nichols",
+      "wuensche": ["42,B","3,A","8,A","25,D","24,C","34,A"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Shane",
+      "nachname": "Torres",
+      "wuensche": ["23,E","16,C","23,D","29,D","15,C","8,E"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Mendez",
+      "wuensche": ["49,C","2,A","31,D","50,E","24,A","40,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Brittany",
+      "nachname": "Butler",
+      "wuensche": ["13,D","46,E","26,E","20,E","12,C","43,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Kristin",
+      "nachname": "Wilson",
+      "wuensche": ["16,D","31,E","6,A","34,A","44,E","23,A"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Robert",
+      "nachname": "Dickerson",
+      "wuensche": ["28,C","39,E","34,A","48,D","34,D","35,E"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Thomas",
+      "nachname": "Jones",
+      "wuensche": ["9,A","34,D","8,C","43,E","19,E","39,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Barry",
+      "nachname": "Sanders",
+      "wuensche": ["44,E","35,D","17,C","21,B","7,D","48,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Charles",
+      "nachname": "Adams",
+      "wuensche": ["48,A","21,B","49,A","37,B","33,E","27,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Amanda",
+      "nachname": "Evans",
+      "wuensche": ["17,C","8,A","34,A","35,D","39,C","49,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Megan",
+      "nachname": "Shields",
+      "wuensche": ["32,C","20,E","23,D","45,E","1,D","46,C"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Andrea",
+      "nachname": "Stephens",
+      "wuensche": ["15,B","50,B","37,A","43,A","45,D","8,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Elijah",
+      "nachname": "Phillips",
+      "wuensche": ["26,C","32,D","20,B","46,D","14,B","38,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Jennifer",
+      "nachname": "Jackson",
+      "wuensche": ["6,C","33,E","7,D","30,B","30,C","26,D"],
+      "klasse": 9
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Williams",
+      "wuensche": ["49,E","43,B","6,E","7,A","31,D","19,B"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Debbie",
+      "nachname": "Williams",
+      "wuensche": ["46,E","17,D","20,B","17,D","17,C","10,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Scott",
+      "nachname": "Blankenship",
+      "wuensche": ["13,D","11,E","2,D","21,B","46,B","33,D"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Ashley",
+      "nachname": "Guerrero",
+      "wuensche": ["3,E","27,C","16,B","17,C","20,E","23,C"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Misty",
+      "nachname": "Smith",
+      "wuensche": ["33,E","12,A","14,D","33,A","27,A","16,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Wendy",
+      "nachname": "Garcia",
+      "wuensche": ["16,E","17,C","18,D","8,E","40,A","16,D"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Kenneth",
+      "nachname": "Taylor",
+      "wuensche": ["2,A","35,C","27,C","5,B","20,C","28,E"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Christopher",
+      "nachname": "Garrett",
+      "wuensche": ["28,A","17,B","9,C","40,B","43,A","21,B"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Mary",
+      "nachname": "Thompson",
+      "wuensche": ["16,C","25,B","34,C","5,E","21,A","34,D"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Hunter",
+      "nachname": "Alvarez",
+      "wuensche": ["1,A","41,E","3,D","47,C","21,B","44,A"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Amber",
+      "nachname": "Watkins",
+      "wuensche": ["28,D","16,E","35,D","41,A","1,C","10,E"],
+      "klasse": 12
+    },
+    {
+      "vorname": "Matthew",
+      "nachname": "Taylor",
+      "wuensche": ["33,A","14,B","11,C","2,D","2,D","34,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Michael",
+      "nachname": "Johnston",
+      "wuensche": ["41,E","25,E","34,B","26,A","40,D","49,A"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Alexandria",
+      "nachname": "Barnett",
+      "wuensche": ["1,C","46,D","36,A","41,B","21,D","44,C"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Melissa",
+      "nachname": "Knight",
+      "wuensche": ["15,B","47,A","6,B","42,A","22,B","50,B"],
+      "klasse": 11
+    },
+    {
+      "vorname": "Tammie",
+      "nachname": "Ruiz",
+      "wuensche": ["37,D","10,D","16,A","17,C","3,E","15,C"],
+      "klasse": 10
+    },
+    {
+      "vorname": "Nancy",
+      "nachname": "Fry",
+      "wuensche": ["50,A","5,C","18,C","15,E","21,D","49,E"],
+      "klasse": 11
+    }
+  ]
+}
