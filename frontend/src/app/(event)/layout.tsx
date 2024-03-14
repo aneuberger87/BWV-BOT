@@ -10,6 +10,8 @@ import ListTask from "./list-task";
 import { NavigationMenuDemo } from "./menu";
 import { Metadata } from "next";
 import { ButtonPrint } from "@/components/custom/button-print";
+import { ButtonCalculate } from "@/components/custom/button-calculate";
+import { excelExistsAll } from "@/lib/excel-exists-all";
 
 export const metadata: Metadata = {
   title: {
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
 };
 
 const EventLayout = (props: { children: React.ReactNode }) => {
+  const dataExists = excelExistsAll();
+  console.log("🚀 ~ EventLayout ~ dataExists:", dataExists);
   return (
     <div className="grid h-full grid-cols-[auto_1fr] gap-x-8 ">
       <div className="">
@@ -36,7 +40,7 @@ const EventLayout = (props: { children: React.ReactNode }) => {
                 <ListTask />
               </div>
               <div className="flex flex-col gap-4">
-                <Button disabled>Auslosen</Button>
+                <ButtonCalculate disabled={!dataExists.allExist} />
                 <div className="flex gap-4">
                   <Button disabled className="grow">
                     Ergebnis

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { getAllCompanies } from "../../lib/fetches";
 import { FaCheck, FaExclamationTriangle, FaTimes, FaCog } from "react-icons/fa";
-import { excelExists } from "@/lib/action-excel-exists";
+import { excelExists } from "@/lib/excel-exists";
 
 const StatusEmote = ({
   status,

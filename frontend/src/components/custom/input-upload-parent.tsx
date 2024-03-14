@@ -11,7 +11,7 @@ import { UploadState } from "./upload-state";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { ExcelFileName } from "@/types";
-import { excelExists } from "@/lib/action-excel-exists";
+import { excelExists } from "@/lib/excel-exists";
 
 const WrapperInputUploadDefault = async (props: {
   dataValidation: () => Promise<boolean> | boolean;

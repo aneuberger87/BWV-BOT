@@ -1,5 +1,5 @@
 import InputUploadBox from "@/components/custom/input-upload-parent";
-import { excelExists } from "@/lib/action-excel-exists";
+import { excelExists } from "@/lib/excel-exists";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
