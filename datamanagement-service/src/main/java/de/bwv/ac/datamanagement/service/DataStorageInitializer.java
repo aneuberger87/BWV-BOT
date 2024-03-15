@@ -20,14 +20,12 @@ public class DataStorageInitializer {
     private final Properties props;
     private final DataStorage dataStorage;
 
-    public DataStorageInitializer(DataStorage dataStorage
-           , Properties props
-    ){
+    public DataStorageInitializer(DataStorage dataStorage, Properties props){
         this.dataStorage = dataStorage;
         this.props = props;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initializeDataStorage(){
         if(!propsAreValid()){
             log.warn("No Locations of studentsList and companiesList can be found!");

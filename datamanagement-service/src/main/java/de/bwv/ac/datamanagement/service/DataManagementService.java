@@ -40,6 +40,11 @@ public class DataManagementService {
         return dataStorage.getStudentsWishList();
     }
 
+    @GetMapping("/students/allocation")
+    public StudentsList getAllStudentsAllocations(){
+        return dataStorage.getStudentsAllocationList();
+    }
+
     @GetMapping("/rooms")
     public RoomList getAllRooms(){
         return dataStorage.getRoomList();
@@ -88,15 +93,15 @@ public class DataManagementService {
     }
 
     @PostMapping("update/studentsList")
-    public PostResponse updateStudentsList(@RequestParam("studentsList") StudentsList studentsList){
+    public PostResponse updateStudentsList(@RequestParam("student") StudentsList studentsList){
         try {
-            dataStorage.setStudentsWishesList(studentsList);
+            dataStorage.setStudentsAllocationList(studentsList);
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
     }
-
+/*
     @PostMapping("update/allocation/studentsList")
     public PostResponse updateAllocationStudentsList(@RequestParam("studentsList") StudentsList studentsList){
         try {
@@ -106,9 +111,9 @@ public class DataManagementService {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
     }
-
+*/
     @PostMapping("update/companiesList")
-    public PostResponse updateCompaniesList(@RequestParam("companiesList") CompaniesList companiesList){
+    public PostResponse updateCompaniesList(@RequestParam("company") CompaniesList companiesList){
         try {
             dataStorage.setCompanies(companiesList);
             return new PostResponse();
@@ -159,7 +164,7 @@ public class DataManagementService {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
     }
-
+/*
     @PostMapping("/update/timetableList")
     public PostResponse updateTimetableList(String json){
         try {
@@ -169,5 +174,6 @@ public class DataManagementService {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
     }
+ */
 
 }
