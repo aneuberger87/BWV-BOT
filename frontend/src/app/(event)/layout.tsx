@@ -25,33 +25,31 @@ const EventLayout = (props: { children: React.ReactNode }) => {
   console.log("🚀 ~ EventLayout ~ dataExists:", dataExists);
   return (
     <div className="grid h-full grid-cols-[auto_1fr] gap-x-8 ">
-      <div className="">
-        <Card className="grid h-0 max-h-full min-h-full min-w-96 grid-rows-[auto_1fr]">
-          <CardHeader>
-            <CardTitle>Event Details</CardTitle>
-            <CardDescription className="w-min min-w-full">
-              In dieser Liste sind alle Schritte aufgelistet, die für das Event
-              erledigt werden müssen.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="h-full">
-            <div className="flex h-full flex-col justify-between">
-              <div>
-                <ListTask />
-              </div>
-              <div className="flex flex-col gap-4">
-                <ButtonCalculate disabled={!dataExists.allExist} />
-                <div className="flex gap-4">
-                  <Button disabled className="grow">
-                    Ergebnis
-                  </Button>
-                  <ButtonPrint />
-                </div>
+      <Card className="grid h-0 max-h-full min-h-full min-w-96 grid-rows-[auto_1fr]">
+        <CardHeader>
+          <CardTitle>Event Details</CardTitle>
+          <CardDescription className="w-min min-w-full">
+            In dieser Liste sind alle Schritte aufgelistet, die für das Event
+            erledigt werden müssen.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="h-full">
+          <div className="flex h-full flex-col justify-between">
+            <div>
+              <ListTask />
+            </div>
+            <div className="flex flex-col gap-4">
+              <ButtonCalculate disabled={!dataExists.allExist} />
+              <div className="flex gap-4">
+                <Button disabled className="grow">
+                  Ergebnis
+                </Button>
+                <ButtonPrint />
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+          </div>
+        </CardContent>
+      </Card>
       <div
         className="grid h-0 max-h-full min-h-full grid-rows-[auto_1fr] items-start justify-stretch
       gap-y-6"

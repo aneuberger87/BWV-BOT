@@ -124,3 +124,59 @@ export const webhookCalculate = async () => {
     throw error;
   }
 };
+
+export const postPrintRoomAssignmentList = async (
+  fileFolderLocation: string,
+) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/roomAssignmentsList?fileLocatoin=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintRoomAssignmentList error: ", error);
+    throw error;
+  }
+};
+
+export const postPrintTimeTableList = async (fileFolderLocation: string) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/timetableList?fileLocatoin=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintTimeTableList error: ", error);
+    throw error;
+  }
+};
+
+export const postPrintAttendanceList = async (fileFolderLocation: string) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/attendanceList?fileLocatoin=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintAttendanceList error: ", error);
+    throw error;
+  }
+};
