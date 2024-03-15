@@ -14,16 +14,10 @@ import java.util.function.Function;
 @Slf4j
 public class DataStorage {
 
-    //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
-    //Key: Class, Value: Students from Class
-    //private final Map<String, List<StudentsList.Student>> studentsPerClassWishMap = new HashMap<>();
-    //private final Map<String, List<StudentsList.Student>> studentsPerClassAllocationMap = new HashMap<>();
-
     private final Map<String, List<String>> studentsPerClass = new HashMap<>();
     private final Map<String, StudentStorageDatamodel> studentsMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
-    //private final Map<Integer, List<EventsAttendanceList.AttendanceList>> attendanceListPerCompanyMap = new HashMap<>();
 
 
     public CompaniesList getCompaniesList() {
@@ -102,13 +96,7 @@ public class DataStorage {
         }
         studentStorageDatamodel.setAllocation(student.getWishList());
     }
-/*
-    private void addStudent(StudentsList.Student student, Map<String, List<StudentsList.Student>> studentsPerClassMap) {
-        List<StudentsList.Student> studentList = studentsPerClassMap.getOrDefault(student.getSchoolClass(), new ArrayList<>());
-        studentList.add(student);
-        studentsPerClassMap.put(student.getSchoolClass(), studentList);
-    }
-*/
+
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);

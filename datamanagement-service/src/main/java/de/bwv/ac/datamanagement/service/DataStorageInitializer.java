@@ -25,7 +25,7 @@ public class DataStorageInitializer {
         this.props = props;
     }
 
-    //@PostConstruct
+    @PostConstruct
     public void initializeDataStorage(){
         if(!propsAreValid()){
             log.warn("No Locations of studentsList and companiesList can be found!");

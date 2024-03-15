@@ -14,10 +14,7 @@ import de.bwv.ac.datamanagement.service.writer.ExcelWriter;
 import de.bwv.ac.datamanagement.service.writer.RoomAssignmentsListWriter;
 import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -100,6 +97,12 @@ public class DataManagementService {
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
+    }
+
+    @PutMapping("update/{companyId}/{timeslot}")
+    public CompaniesList updateMeetingForCompany(@PathVariable String companyId, @PathVariable String timeslot, @RequestBody String room){
+        //TODO: implement
+        return null;
     }
 /*
     @PostMapping("update/allocation/studentsList")
