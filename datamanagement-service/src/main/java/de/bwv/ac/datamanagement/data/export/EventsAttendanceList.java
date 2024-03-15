@@ -21,7 +21,8 @@ public class EventsAttendanceList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AttendanceListsPerCompany {
-        private CompaniesList.Company company;
+        private int companyId;
+        private String companyName;
         private List<AttendanceList> attendanceList;
     }
 
@@ -29,7 +30,6 @@ public class EventsAttendanceList {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class AttendanceList {
-        private String companyName;
         private CompaniesList.Meeting event;
         private List<StudentsList.Student> students = new ArrayList<>();
 

@@ -37,11 +37,12 @@ public class AttendanceListWriter extends ExcelWriter{
         try (OutputStream outputStream = Files.newOutputStream(Paths.get(fileLocation)); Workbook workbook = new Workbook(outputStream, "RaumUndZeitplaner", "1.0")) {
             final int COLUMN_SIZE = 4;
             for (int i = 0; i < eventsAttendanceList.getAttendanceListsPerCompany().size(); i++) {
-                CompaniesList.Company company = eventsAttendanceList.getAttendanceListsPerCompany().get(i).getCompany();
-                Worksheet worksheet = workbook.newWorksheet(company.getId()+"_"
-                        +company.getCompName());
+                String companyName = eventsAttendanceList.getAttendanceListsPerCompany().get(i).getCompanyName();
+                int companyId = eventsAttendanceList.getAttendanceListsPerCompany().get(i).getCompanyId();
+                Worksheet worksheet = workbook.newWorksheet(companyId+"_"
+                        +companyName);
                 formatHeadWorksheet(worksheet, COLUMN_SIZE);
-                int numberHead = writeHead(worksheet, company.getCompName());
+                int numberHead = writeHead(worksheet, companyName);
                 List<EventsAttendanceList.AttendanceList> allAttendanceListOfCompany = eventsAttendanceList.getAttendanceListsPerCompany().get(i).getAttendanceList();
                 int indexTop = numberHead+1;
                 for(int k = 0; k < allAttendanceListOfCompany.size(); k++){

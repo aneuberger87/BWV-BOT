@@ -10,12 +10,14 @@ import java.util.*;
 
 public class DataStorage {
 
+    //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
-
     //Key: Class, Value: Students from Class
-    private final Map<String, List<StudentsList.Student>> studentsPerClass = new HashMap<>();
-
+    private final Map<String, List<StudentsList.Student>> studentsPerClassWishMap = new HashMap<>();
+    private final Map<String, List<StudentsList.Student>> studentsPerClassAllocationMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
+    private final Map<Integer, List<EventsAttendanceList.AttendanceList>> attendanceListPerCompanyMap = new HashMap<>();
+
 
     public CompaniesList getCompaniesList() {
         CompaniesList result = new CompaniesList();
@@ -25,30 +27,43 @@ public class DataStorage {
         return result;
     }
 
-    public StudentsList getStudentsList() {
+    public StudentsList getStudentsWishList() {
         StudentsList result = new StudentsList();
         List<StudentsList.Student> studentList = new ArrayList<>();
-        studentsPerClass.forEach((clasz, students) -> studentList.addAll(students));
+        studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
+        result.setStudent(studentList);
+        return result;
+    }
+
+    public StudentsList getStudentsAllocationList() {
+        StudentsList result = new StudentsList();
+        List<StudentsList.Student> studentList = new ArrayList<>();
+        studentsPerClassAllocationMap.forEach((clasz, students) -> studentList.addAll(students));
         result.setStudent(studentList);
         return result;
     }
 
 
-    public void setStudentsList(StudentsList studentsList) {
-        studentsPerClass.clear();
-        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
+    public void setStudentsWishesList(StudentsList studentsList) {
+        studentsPerClassWishMap.clear();
+        studentsPerClassAllocationMap.clear();
+        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassWishMap));
     }
 
-    private void addStudent(StudentsList.Student student) {
-        List<StudentsList.Student> studentList = studentsPerClass.getOrDefault(student.getSchoolClass(), new ArrayList<>());
+    public void setStudentsAllocationList(StudentsList studentsList) {
+        studentsPerClassAllocationMap.clear();
+        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassAllocationMap));
+    }
+
+    private void addStudent(StudentsList.Student student, Map<String, List<StudentsList.Student>> studentsPerClassMap) {
+        List<StudentsList.Student> studentList = studentsPerClassMap.getOrDefault(student.getSchoolClass(), new ArrayList<>());
         studentList.add(student);
-        studentsPerClass.put(student.getSchoolClass(), studentList);
+        studentsPerClassMap.put(student.getSchoolClass(), studentList);
     }
 
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
-
     }
 
     private void addCompany(CompaniesList.Company company) {
@@ -56,8 +71,10 @@ public class DataStorage {
     }
 
     public void clearStorage() {
-        studentsPerClass.clear();
+        studentsPerClassWishMap.clear();
+        studentsPerClassAllocationMap.clear();
         companiesCache.clear();
+        attendanceListPerCompanyMap.clear();
     }
 
     public void setRoomList(RoomList rooms){
@@ -79,9 +96,10 @@ public class DataStorage {
             List<EventsAttendanceList.AttendanceList> attendanceLists = new ArrayList<>();
             EventsAttendanceList.AttendanceListsPerCompany attendanceListsPerCompany = new EventsAttendanceList.AttendanceListsPerCompany();
             CompaniesList.Company company = companiesCache.get(compId);
-            attendanceListsPerCompany.setCompany(company);
+            attendanceListsPerCompany.setCompanyName(company.getCompName());
+            attendanceListsPerCompany.setCompanyId(compId);
             for(CompaniesList.Meeting meeting : company.getMeeting()){
-                attendanceLists.add(new EventsAttendanceList.AttendanceList(company.getCompName(), meeting, getStudentsForMeeting(compId, meeting.getTimeSlot())));
+                attendanceLists.add(new EventsAttendanceList.AttendanceList(meeting, getStudentsForMeeting(compId, meeting.getTimeSlot())));
             }
             attendanceListsPerCompany.setAttendanceList(attendanceLists);
             attendanceListsPerCompanyList.add(attendanceListsPerCompany);
@@ -91,8 +109,8 @@ public class DataStorage {
 
     private List<StudentsList.Student> getStudentsForMeeting(int compId, String timeSlot) {
         List<StudentsList.Student> result = new ArrayList<>();
-        for (String schoolClass : studentsPerClass.keySet()) {
-            List<StudentsList.Student> studentsFromClass = studentsPerClass.get(schoolClass);
+        for (String schoolClass : studentsPerClassWishMap.keySet()) {
+            List<StudentsList.Student> studentsFromClass = studentsPerClassWishMap.get(schoolClass);
             for (StudentsList.Student student : studentsFromClass) {
                 for (int i = 0; i < student.getWishList().size(); i++) {
                     StudentsList.Wish wish = student.getWishList().get(i);
@@ -102,16 +120,14 @@ public class DataStorage {
                     }
                 }
             }
-
         }
         return result;
     }
 
-    /*
     public TimetableList calculateTimeTableList() {
         if(studentsPerClassAllocationMap.isEmpty()){
             studentsPerClassAllocationMap.putAll(studentsPerClassWishMap); //Erstmal für Test Zwecke
-           // return new TimetableList(new ArrayList<>(), "Es kann keine Laufliste erstellt werden, weil die Zuteilung noch nicht erfolgt ist");
+            // return new TimetableList(new ArrayList<>(), "Es kann keine Laufliste erstellt werden, weil die Zuteilung noch nicht erfolgt ist");
         }
         TimetableList timeTableList = new TimetableList();
         List<TimetableList.TimetableOfStudentsFromClass> timeTablesOfClasses = new ArrayList<>();
@@ -154,10 +170,9 @@ public class DataStorage {
         timeTable.setRows(rows);
         return timeTable;
     }
-     */
 
     private String getNumberOfWish(StudentsList.Wish wish, StudentsList.Student student) {
-        List<StudentsList.Student> students = studentsPerClass.get(student.getSchoolClass());
+        List<StudentsList.Student> students = studentsPerClassWishMap.get(student.getSchoolClass());
         for(StudentsList.Student s : students){
             if(s.equals(student)){
                 for(int i = 0; i < student.getWishList().size(); i++){
@@ -188,4 +203,27 @@ public class DataStorage {
         return null;
     }
 
+    public EventsAttendanceList getEventsAttendanceList() {
+        List<EventsAttendanceList.AttendanceListsPerCompany> attendanceListsPerCompanyList = new ArrayList<>();
+        try {
+            for (Integer companyId : attendanceListPerCompanyMap.keySet()) {
+                CompaniesList.Company company = companiesCache.get(companyId);
+                List<EventsAttendanceList.AttendanceList> attendanceLists = attendanceListPerCompanyMap.get(companyId);
+                EventsAttendanceList.AttendanceListsPerCompany attendanceListsPerCompany = new EventsAttendanceList.AttendanceListsPerCompany(companyId, company.getCompName(), attendanceLists);
+                attendanceListsPerCompanyList.add(attendanceListsPerCompany);
+            }
+        } catch (Exception e){
+            return new EventsAttendanceList(new ArrayList<>(), "Die Anwesenheitsliste konnte nicht geladen werden. Fehlermeldung: "+e.getMessage());
+        }
+        return new EventsAttendanceList(attendanceListsPerCompanyList, null);
+    }
+
+    public void setEventsAttendanceList(EventsAttendanceList eventsAttendanceList) {
+        attendanceListPerCompanyMap.clear();
+        for (EventsAttendanceList.AttendanceListsPerCompany attendanceListsPerCompany : eventsAttendanceList.getAttendanceListsPerCompany()) {
+            List<EventsAttendanceList.AttendanceList> attendanceList = attendanceListsPerCompany.getAttendanceList();
+            int companyId = attendanceListsPerCompany.getCompanyId();
+            attendanceListPerCompanyMap.put(companyId, attendanceList);
+        }
+    }
 }
