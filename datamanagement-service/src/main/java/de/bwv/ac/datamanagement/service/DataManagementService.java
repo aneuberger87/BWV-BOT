@@ -52,7 +52,7 @@ public class DataManagementService {
 
     @GetMapping("/attendanceList")
     public EventsAttendanceList getAttendanceList(){
-        return dataStorage.getEventsAttendanceList();
+        return dataStorage.calculateEventsAttendenceList();
     }
 
     @PostMapping("/roomsList")

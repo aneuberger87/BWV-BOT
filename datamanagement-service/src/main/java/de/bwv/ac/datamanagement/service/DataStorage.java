@@ -271,7 +271,9 @@ public class DataStorage {
     public EventsAttendanceList getEventsAttendanceList() {
         List<EventsAttendanceList.AttendanceListsPerCompany> attendanceListsPerCompanyList = new ArrayList<>();
         try {
-            for (Integer companyId : attendanceListPerCompanyMap.keySet()) {
+
+
+            for (Integer companyId : stu.keySet()) {
                 CompaniesList.Company company = companiesCache.get(companyId);
                 List<EventsAttendanceList.AttendanceList> attendanceLists = attendanceListPerCompanyMap.get(companyId);
                 EventsAttendanceList.AttendanceListsPerCompany attendanceListsPerCompany = new EventsAttendanceList.AttendanceListsPerCompany(companyId, company.getCompName(), attendanceLists);
