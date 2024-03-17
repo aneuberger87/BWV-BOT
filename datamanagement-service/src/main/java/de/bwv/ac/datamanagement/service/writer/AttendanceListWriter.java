@@ -1,6 +1,5 @@
 package de.bwv.ac.datamanagement.service.writer;
 
-import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.service.DataStorage;
@@ -47,8 +46,9 @@ public class AttendanceListWriter extends ExcelWriter{
                 int indexTop = numberHead+1;
                 for(int k = 0; k < allAttendanceListOfCompany.size(); k++){
                     EventsAttendanceList.AttendanceList attendanceList = allAttendanceListOfCompany.get(k);
+                    String roomId = attendanceList.getEvent().getRoom().getRoomId();
                     formatHeaderWorksheet(worksheet, indexTop, COLUMN_SIZE);
-                    indexTop = writeHeader(worksheet, attendanceList.getEvent().getTimeSlot(), indexTop);
+                    indexTop = writeHeader(worksheet, attendanceList.getEvent().getTimeSlot(), roomId, indexTop);
                     for (int j = 0; j < attendanceList.getStudents().size(); j++) {
                         formatEntriesWorksheet(worksheet, indexTop, COLUMN_SIZE);
                         writeEntry(attendanceList.getStudents().get(j), worksheet, indexTop); //Zeile 0 ist der Header
@@ -73,8 +73,8 @@ public class AttendanceListWriter extends ExcelWriter{
     }
 
     private void formatHeaderWorksheet(Worksheet worksheet, int indexTop, int sizeColumn){
-        worksheet.range(indexTop, 0, indexTop, 0).style().fontSize(12).bold().borderStyle(BorderStyle.THIN).wrapText(false).set();
-        worksheet.range(indexTop+1, 0, indexTop+1, sizeColumn-1).style().fontSize(11).bold().borderStyle(BorderStyle.THIN).wrapText(false).set();
+        worksheet.range(indexTop, 0, indexTop, 1).style().fontSize(12).bold().fillColor("b3daff").borderStyle(BorderStyle.THIN).wrapText(false).set();
+        worksheet.range(indexTop+1, 0, indexTop+1, sizeColumn-1).style().fontSize(11).bold().fillColor("b3daff").borderStyle(BorderStyle.THIN).wrapText(false).set();
         worksheet.range(indexTop, 0, indexTop+1, sizeColumn-1).style().horizontalAlignment("left").wrapText(false).set();
     }
 
@@ -88,8 +88,9 @@ public class AttendanceListWriter extends ExcelWriter{
         return 2;
     }
 
-    private int writeHeader(Worksheet worksheet, String timeSlot, int indexTop) {
+    private int writeHeader(Worksheet worksheet, String timeSlot, String roomId, int indexTop) {
         worksheet.value(indexTop, 0, getTime(timeSlot));
+        worksheet.value(indexTop, 1, "Raum: "+roomId);
         worksheet.value(indexTop+1, 0, "Klasse");
         worksheet.value(indexTop+1, 1, "Name");
         worksheet.value(indexTop+1, 2, "Vorname");
