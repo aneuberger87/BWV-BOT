@@ -14,20 +14,22 @@ import {
 import { toast } from "sonner";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { dataReset } from "@/lib/data-reset";
 
-export const ButtonCalculate = (props: { disabled: boolean }) => {
+export const ButtonCalculateReset = (props: { disabled: boolean }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const onClick = async () => {
     toast.promise(
-      dataCalculate().finally(() => {
+      // TODO: dataCalculateReset
+      dataReset().finally(() => {
         router.refresh();
         setOpen(false);
       }),
       {
-        loading: "Berechne...",
-        success: "Berechnung erfolgreich",
-        error: "Berechnung fehlgeschlagen",
+        loading: "Setze zurück...",
+        success: "Zurücksetzung erfolgreich",
+        error: "Zurücksetzung fehlgeschlagen",
       },
     );
   };
@@ -35,33 +37,31 @@ export const ButtonCalculate = (props: { disabled: boolean }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={props.disabled} type="button">
-          Ausrechnen
+        <Button disabled={props.disabled} type="button" variant="destructive">
+          Zurücksetzen
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-xl">Auslosung starten</DialogTitle>
+          <DialogTitle className="text-xl">Auslosung zurücksetzen</DialogTitle>
         </DialogHeader>
         <p>
-          Hier können Sie die <i>Auslosung</i> starten.
+          Hier können Sie die <i>Auslosung</i> zurücksetzen.
           <br />
-          Das bedeuted, dass anhand der hochgeladenen Daten die Schüler optimal
-          zugeteilt werden.
+          Das bedeuted, dass alle generierten Daten gelöscht werden.
           <br />
-          Sollten die Eingangsdaten späternochmal geändert werden, so müssen Sie
-          diese <i>Auslosung</i> hier auch nochmal starten. Darauf wird aber
-          auch im späteren Prozess nochmal hingewiesen.
+          Die hochgelandenen Daten bleiben erhalten und können erneut verwendet
+          werden.
         </p>
-        <div className=" text-right text-xs text-green-500">
-          Diese Aktion kann später rückgängig gemacht werden.
+        <div className=" text-right text-xs text-red-500">
+          Diese Aktion kann später nicht rückgängig gemacht werden.
         </div>
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="secondary">Abbrechen</Button>
           </DialogClose>
-          <Button variant="default" onClick={onClick}>
-            Starten
+          <Button variant="destructive" onClick={onClick}>
+            Zurücksetzen
           </Button>
         </DialogFooter>
       </DialogContent>

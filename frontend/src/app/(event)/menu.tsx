@@ -19,7 +19,7 @@ const URL_STUDENTS = "/students";
 const URL_COMPANIES = "/companies";
 const URL_ROOMS = "/rooms";
 
-export function NavigationMenuDemo() {
+export function MainMenu() {
   const pathName = usePathname();
 
   return (

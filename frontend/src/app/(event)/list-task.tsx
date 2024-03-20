@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { getAllCompanies } from "../../lib/fetches";
 import { FaCheck, FaExclamationTriangle, FaTimes, FaCog } from "react-icons/fa";
 import { excelExists } from "@/lib/excel-exists";
+import { getDataStatusCachable } from "@/lib/data-status";
 
 const StatusEmote = ({
   status,
@@ -21,9 +22,16 @@ const StatusEmote = ({
 };
 
 const ListTask = async () => {
-  const companies = excelExists("companiesList");
-  const students = excelExists("studentsList");
-  const rooms = excelExists("roomsList");
+  const data = getDataStatusCachable();
+  const rooms = data.input.excel.roomsExist;
+  const companies = data.input.excel.companiesExist;
+  const students = data.input.excel.studentsExist;
+
+  const calculated = data.output.calculated;
+
+  const downloadedRooms = data.output.downloaded.rooms;
+  const downloadedCompanies = data.output.downloaded.companies;
+  const downloadedStudents = data.output.downloaded.students;
   return (
     <div className="grid grid-cols-[auto_1fr] items-center gap-2">
       <div className="col-span-2"></div>
@@ -39,15 +47,24 @@ const ListTask = async () => {
       <span>
         Hochgeladen: <span className="font-mono text-lg">Schülerdaten</span>
       </span>
-      <div className="col-span-2 h-2"></div>
-      <StatusEmote status={students ? "none" : "none"} />
+      <div className="col-span-2 h-2" />
+      <StatusEmote status={calculated ? "done" : "none"} />
       <span>
-        Verlosung: <span className="font-mono text-lg">Firmen aufgeteilt</span>
+        Berechnet: <span className="font-mono text-lg">Eventaufteilung</span>
       </span>
-      <StatusEmote status={students ? "none" : "none"} />
+      {/* <div className="col-span-2 h-2" />
+      <StatusEmote status={downloadedRooms ? "done" : "none"} />
       <span>
-        Verlosung: <span className="font-mono text-lg">Schüler aufgeteilt</span>
+        Heruntergeladen: <span className="font-mono text-lg">Raumdaten</span>
       </span>
+      <StatusEmote status={downloadedCompanies ? "done" : "none"} />
+      <span>
+        Heruntergeladen: <span className="font-mono text-lg">Firmendaten</span>
+      </span>
+      <StatusEmote status={downloadedStudents ? "done" : "none"} />
+      <span>
+        Heruntergeladen: <span className="font-mono text-lg">Schülerdaten</span>
+      </span> */}
     </div>
   );
 };

@@ -7,11 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ListTask from "./list-task";
-import { NavigationMenuDemo } from "./menu";
+import { MainMenu } from "./menu";
 import { Metadata } from "next";
 import { ButtonPrint } from "@/components/custom/button-print";
 import { ButtonCalculate } from "@/components/custom/button-calculate";
-import { excelExistsAll } from "@/lib/excel-exists-all";
+import { getDataStatusCachable } from "@/lib/data-status";
+import { ButtonCalculateReset } from "@/components/custom/button-calculate-Reset";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,9 @@ export const metadata: Metadata = {
 };
 
 const EventLayout = (props: { children: React.ReactNode }) => {
-  const dataExists = excelExistsAll();
+  const dataExists = getDataStatusCachable().input.excel.allExist;
+  const calculationExists = getDataStatusCachable().output.calculated;
+
   console.log("🚀 ~ EventLayout ~ dataExists:", dataExists);
   return (
     <div className="grid h-full grid-cols-[auto_1fr] gap-x-8 ">
@@ -39,13 +42,8 @@ const EventLayout = (props: { children: React.ReactNode }) => {
               <ListTask />
             </div>
             <div className="flex flex-col gap-4">
-              <ButtonCalculate disabled={!dataExists.allExist} />
-              <div className="flex gap-4">
-                <Button disabled className="grow">
-                  Ergebnis
-                </Button>
-                <ButtonPrint />
-              </div>
+              <ButtonCalculate disabled={!dataExists || calculationExists} />
+              <ButtonCalculateReset disabled={!calculationExists} />
             </div>
           </div>
         </CardContent>
@@ -54,7 +52,7 @@ const EventLayout = (props: { children: React.ReactNode }) => {
         className="grid h-0 max-h-full min-h-full grid-rows-[auto_1fr] items-start justify-stretch
       gap-y-6"
       >
-        <NavigationMenuDemo />
+        <MainMenu />
         {props.children}
         {/* <Tabs defaultValue="overview" className="min-h-full flex flex-col">
           <TabsList className="grid  grid-cols-5 gap-x-4 mb-6">
