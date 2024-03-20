@@ -133,7 +133,7 @@ export const postPrintRoomAssignmentList = async (
 ) => {
   try {
     await fetch(
-      `${BASE_URL}print/roomAssignmentsList?fileLocatoin=${fileFolderLocation}`,
+      `${BASE_URL}print/roomAssignmentsList?fileLocation=${fileFolderLocation}`,
       {
         method: "POST",
         headers: {
@@ -151,7 +151,7 @@ export const postPrintRoomAssignmentList = async (
 export const postPrintTimeTableList = async (fileFolderLocation: string) => {
   try {
     await fetch(
-      `${BASE_URL}print/timetableList?fileLocatoin=${fileFolderLocation}`,
+      `${BASE_URL}print/timetableList?fileLocation=${fileFolderLocation}`,
       {
         method: "POST",
         headers: {
@@ -169,7 +169,7 @@ export const postPrintTimeTableList = async (fileFolderLocation: string) => {
 export const postPrintAttendanceList = async (fileFolderLocation: string) => {
   try {
     await fetch(
-      `${BASE_URL}print/attendanceList?fileLocatoin=${fileFolderLocation}`,
+      `${BASE_URL}print/attendanceList?fileLocation=${fileFolderLocation}`,
       {
         method: "POST",
         headers: {

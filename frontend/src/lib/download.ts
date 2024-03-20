@@ -2,7 +2,10 @@ import { ExcelFileName } from "@/types";
 import { excelFileLocation } from "./excel-file-location";
 import { existsSync } from "fs";
 import { readFile } from "fs/promises";
-import { postPrintRoomAssignmentList } from "./fetches";
+import {
+  postPrintAttendanceList,
+  postPrintRoomAssignmentList,
+} from "./fetches";
 import { getFrontendData, setFrontendData } from "./frontend-data";
 import { revalidatePath } from "next/cache";
 
@@ -33,7 +36,18 @@ type CalcStatus = {
 export const downloadOutputExcelAsBuffer = async (
   type: "attendenceList" | "rooAssignmentList" | "timetableList",
 ) => {
-  const result = await postPrintRoomAssignmentList(shareFolder);
+  console.log("🚀 ~ shareFolder:", shareFolder);
+  let result = null;
+  if (type === "rooAssignmentList") {
+    result = await postPrintRoomAssignmentList(shareFolder);
+  }
+  if (type === "attendenceList") {
+    result = await postPrintAttendanceList(shareFolder);
+  }
+  if (type === "timetableList") {
+    result = await postPrintAttendanceList(shareFolder);
+  }
+
   const fileName =
     type === "attendenceList"
       ? ATTENDENCE_LIST_FILE_NAME
