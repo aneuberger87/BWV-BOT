@@ -5,60 +5,96 @@ import de.bwv.ac.datamanagement.data.RoomList;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
+import de.bwv.ac.datamanagement.data.storage.StudentStorageDatamodel;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
+import java.util.function.Function;
 
+@Slf4j
 public class DataStorage {
 
-    //Key: Company-Id, Value: Company
     private final Map<Integer, CompaniesList.Company> companiesCache = new HashMap<>();
-    //Key: Class, Value: Students from Class
-    private final Map<String, List<StudentsList.Student>> studentsPerClassWishMap = new HashMap<>();
-    private final Map<String, List<StudentsList.Student>> studentsPerClassAllocationMap = new HashMap<>();
+    private final Map<String, List<String>> studentsPerClass = new HashMap<>();
+    private final Map<String, StudentStorageDatamodel> studentsMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
-    private final Map<Integer, List<EventsAttendanceList.AttendanceList>> attendanceListPerCompanyMap = new HashMap<>();
 
 
     public CompaniesList getCompaniesList() {
         CompaniesList result = new CompaniesList();
+        if(companiesCache.isEmpty()){
+            result.setErrorMessage("Es wurden keine Veranstaltungen eingelesen. Entweder war die Datei leer/fehlerhaft oder es wurde noch keine Datei hochgeladen!");
+            return result;
+        }
         List<CompaniesList.Company> companies = new ArrayList<>();
         companiesCache.forEach((id, company) -> companies.add(company));
         result.setCompany(companies);
         return result;
     }
 
-    public StudentsList getStudentsWishList() {
+    public StudentsList getStudentsWishList(){
+        StudentsList result = getStudentList(studentStorageDatamodel -> studentStorageDatamodel.getStudent().getWishList());
+        if(result.getStudent().isEmpty()){
+            result.setErrorMessage("Es wurden keine Schüler eingelesen. Entweder war die Schüler-Datei leer/fehlerhaft oder es wurde noch keine Datei hochgeladen!");
+        }
+        return result;
+    }
+
+    public StudentsList getStudentsAllocationList(){
+        StudentsList result = getStudentList(StudentStorageDatamodel::getAllocation);
+        if(result.getStudent().isEmpty()){
+            result.setErrorMessage("Es wurde noch keine Zuteilung erstellt!");
+        }
+        return result;
+    }
+
+    private StudentsList getStudentList(Function<StudentStorageDatamodel, List<StudentsList.Wish>> wishListForStudent){
         StudentsList result = new StudentsList();
         List<StudentsList.Student> studentList = new ArrayList<>();
-        studentsPerClassWishMap.forEach((clasz, students) -> studentList.addAll(students));
+        studentsPerClass.forEach((classId, studentIds) -> {
+            for (String studentId : studentIds) {
+                StudentStorageDatamodel studentStorageDatamodel = studentsMap.get(studentId);
+                StudentsList.Student student = getStudent(studentStorageDatamodel, wishListForStudent.apply(studentStorageDatamodel));
+                studentList.add(student);
+            }
+        });
         result.setStudent(studentList);
         return result;
     }
 
-    public StudentsList getStudentsAllocationList() {
-        StudentsList result = new StudentsList();
-        List<StudentsList.Student> studentList = new ArrayList<>();
-        studentsPerClassAllocationMap.forEach((clasz, students) -> studentList.addAll(students));
-        result.setStudent(studentList);
-        return result;
-    }
 
+    private StudentsList.Student getStudent(StudentStorageDatamodel studentStorageDatamodel, List<StudentsList.Wish> wishList) {
+        StudentsList.Student studentFromStorage = studentStorageDatamodel.getStudent();
+        return new StudentsList.Student(studentFromStorage.getPrename(), studentFromStorage.getSurname(), studentFromStorage.getSchoolClass(), wishList);
+    }
 
     public void setStudentsWishesList(StudentsList studentsList) {
-        studentsPerClassWishMap.clear();
-        studentsPerClassAllocationMap.clear();
-        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassWishMap));
+        studentsMap.clear();
+        studentsPerClass.clear();
+        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
+    }
+
+    private void addStudent(StudentsList.Student student) {
+        String schoolClass = student.getSchoolClass();
+        List<String> studentsInClass = studentsPerClass.getOrDefault(schoolClass, new ArrayList<>());
+        String studentId = StudentStorageDatamodel.getId(student);
+        studentsInClass.add(studentId);
+        studentsPerClass.put(schoolClass, studentsInClass);
+        StudentStorageDatamodel studentStorageDatamodel = new StudentStorageDatamodel(student, new ArrayList<>());
+        studentsMap.put(studentId, studentStorageDatamodel);
     }
 
     public void setStudentsAllocationList(StudentsList studentsList) {
-        studentsPerClassAllocationMap.clear();
-        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(student -> addStudent(student, studentsPerClassAllocationMap));
+        studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::updateStudent);
     }
 
-    private void addStudent(StudentsList.Student student, Map<String, List<StudentsList.Student>> studentsPerClassMap) {
-        List<StudentsList.Student> studentList = studentsPerClassMap.getOrDefault(student.getSchoolClass(), new ArrayList<>());
-        studentList.add(student);
-        studentsPerClassMap.put(student.getSchoolClass(), studentList);
+    private void updateStudent(StudentsList.Student student) {
+        StudentStorageDatamodel studentStorageDatamodel = studentsMap.get(StudentStorageDatamodel.getId(student));
+        if(studentStorageDatamodel == null){
+            log.warn("Es existiert kein Datensatz für den Schüler {} {} in der Klasse {}!", student.getPrename(), student.getSurname(), student.getSchoolClass());
+            return;
+        }
+        studentStorageDatamodel.setAllocation(student.getWishList());
     }
 
     public void setCompanies(CompaniesList companiesList) {
@@ -71,10 +107,10 @@ public class DataStorage {
     }
 
     public void clearStorage() {
-        studentsPerClassWishMap.clear();
-        studentsPerClassAllocationMap.clear();
+        studentsPerClass.clear();
+        studentsMap.clear();
+        roomMap.clear();
         companiesCache.clear();
-        attendanceListPerCompanyMap.clear();
     }
 
     public void setRoomList(RoomList rooms){
@@ -109,8 +145,8 @@ public class DataStorage {
 
     private List<StudentsList.Student> getStudentsForMeeting(int compId, String timeSlot) {
         List<StudentsList.Student> result = new ArrayList<>();
-        for (String schoolClass : studentsPerClassWishMap.keySet()) {
-            List<StudentsList.Student> studentsFromClass = studentsPerClassWishMap.get(schoolClass);
+        for (String schoolClass : studentsPerClass.keySet()) {
+            List<StudentsList.Student> studentsFromClass = getStudentsFromClass(schoolClass, StudentStorageDatamodel::getAllocation);
             for (StudentsList.Student student : studentsFromClass) {
                 for (int i = 0; i < student.getWishList().size(); i++) {
                     StudentsList.Wish wish = student.getWishList().get(i);
@@ -124,6 +160,22 @@ public class DataStorage {
         return result;
     }
 
+    private List<StudentsList.Student> getStudentsFromClass(String schoolClass, Function<StudentStorageDatamodel, List<StudentsList.Wish>> wishForStudent) {
+        List<StudentsList.Student> students = new ArrayList<>();
+        List<String> studentIds = studentsPerClass.get(schoolClass);
+        studentIds.forEach(id -> {
+            StudentStorageDatamodel studentStorageDatamodel = studentsMap.get(id);
+            StudentsList.Student storedStudent = studentStorageDatamodel.getStudent();
+            StudentsList.Student student = new StudentsList.Student();
+            student.setSchoolClass(storedStudent.getSchoolClass());
+            student.setPrename(storedStudent.getPrename());
+            student.setSurname(storedStudent.getSurname());
+            student.setWishList(wishForStudent.apply(studentStorageDatamodel));
+            students.add(student);
+        });
+        return students;
+    }
+/*
     public TimetableList calculateTimeTableList() {
         if(studentsPerClassAllocationMap.isEmpty()){
             studentsPerClassAllocationMap.putAll(studentsPerClassWishMap); //Erstmal für Test Zwecke
@@ -149,6 +201,7 @@ public class DataStorage {
         timeTableList.setTimetables(timeTablesOfClasses);
         return timeTableList;
     }
+ */
 
     private final List<String> timeSlots = List.of("A", "B", "C", "D", "E");
 
@@ -172,7 +225,7 @@ public class DataStorage {
     }
 
     private String getNumberOfWish(StudentsList.Wish wish, StudentsList.Student student) {
-        List<StudentsList.Student> students = studentsPerClassWishMap.get(student.getSchoolClass());
+        List<StudentsList.Student> students = getStudentsFromClass(student.getSchoolClass(), studentStorageDatamodel -> studentStorageDatamodel.getStudent().getWishList());
         for(StudentsList.Student s : students){
             if(s.equals(student)){
                 for(int i = 0; i < student.getWishList().size(); i++){
@@ -202,11 +255,13 @@ public class DataStorage {
         }
         return null;
     }
-
+/*
     public EventsAttendanceList getEventsAttendanceList() {
         List<EventsAttendanceList.AttendanceListsPerCompany> attendanceListsPerCompanyList = new ArrayList<>();
         try {
-            for (Integer companyId : attendanceListPerCompanyMap.keySet()) {
+
+
+            for (Integer companyId : stu.keySet()) {
                 CompaniesList.Company company = companiesCache.get(companyId);
                 List<EventsAttendanceList.AttendanceList> attendanceLists = attendanceListPerCompanyMap.get(companyId);
                 EventsAttendanceList.AttendanceListsPerCompany attendanceListsPerCompany = new EventsAttendanceList.AttendanceListsPerCompany(companyId, company.getCompName(), attendanceLists);
@@ -226,4 +281,5 @@ public class DataStorage {
             attendanceListPerCompanyMap.put(companyId, attendanceList);
         }
     }
+ */
 }

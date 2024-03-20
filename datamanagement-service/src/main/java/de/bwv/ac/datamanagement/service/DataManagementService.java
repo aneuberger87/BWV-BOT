@@ -14,10 +14,8 @@ import de.bwv.ac.datamanagement.service.writer.ExcelWriter;
 import de.bwv.ac.datamanagement.service.writer.RoomAssignmentsListWriter;
 import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -40,6 +38,11 @@ public class DataManagementService {
         return dataStorage.getStudentsWishList();
     }
 
+    @GetMapping("/students/allocation")
+    public StudentsList getAllStudentsAllocations(){
+        return dataStorage.getStudentsAllocationList();
+    }
+
     @GetMapping("/rooms")
     public RoomList getAllRooms(){
         return dataStorage.getRoomList();
@@ -47,7 +50,7 @@ public class DataManagementService {
 
     @GetMapping("/attendanceList")
     public EventsAttendanceList getAttendanceList(){
-        return dataStorage.getEventsAttendanceList();
+        return dataStorage.calculateEventsAttendenceList();
     }
 
     @PostMapping("/roomsList")
@@ -87,18 +90,8 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("update/studentsList")
-    public PostResponse updateStudentsList(@RequestParam("studentsList") StudentsList studentsList){
-        try {
-            dataStorage.setStudentsWishesList(studentsList);
-            return new PostResponse();
-        } catch (Exception e) {
-            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
-        }
-    }
-
-    @PostMapping("update/allocation/studentsList")
-    public PostResponse updateAllocationStudentsList(@RequestParam("studentsList") StudentsList studentsList){
+    @PostMapping("/update/studentsList")
+    public PostResponse updateStudentsList(@RequestBody StudentsList studentsList){
         try {
             dataStorage.setStudentsAllocationList(studentsList);
             return new PostResponse();
@@ -107,8 +100,14 @@ public class DataManagementService {
         }
     }
 
+    @PutMapping("/update/{companyId}/{timeslot}")
+    public CompaniesList updateMeetingForCompany(@PathVariable String companyId, @PathVariable String timeslot, @RequestBody String room){
+        //TODO: implement
+        return null;
+    }
+
     @PostMapping("update/companiesList")
-    public PostResponse updateCompaniesList(@RequestParam("companiesList") CompaniesList companiesList){
+    public PostResponse updateCompaniesList(@RequestBody CompaniesList companiesList){
         try {
             dataStorage.setCompanies(companiesList);
             return new PostResponse();
@@ -117,7 +116,7 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/attendanceList")
+    @PostMapping("/print/attendanceList")
     public PostResponse printAttendanceList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new AttendanceListWriter(dataStorage);
@@ -128,7 +127,7 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/timetableList")
+    @PostMapping("/print/timetableList")
     public PostResponse printTimetableList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new TimetableListWriter(dataStorage);
@@ -139,7 +138,7 @@ public class DataManagementService {
         }
     }
 
-    @PostMapping("print/roomAssignmentsList")
+    @PostMapping("/print/roomAssignmentsList")
     public PostResponse printRoomAssignmentsList(@RequestParam("fileLocation") String fileLocation){
         try {
             ExcelWriter writer = new RoomAssignmentsListWriter(dataStorage);
@@ -150,20 +149,10 @@ public class DataManagementService {
         }
     }
 
-    @GetMapping("calculate")
+    @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
             pythonScriptExecuter.executeScript("Tranformation.py");
-            return new PostResponse();
-        } catch (Exception e) {
-            return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
-        }
-    }
-
-    @PostMapping("/update/timetableList")
-    public PostResponse updateTimetableList(String json){
-        try {
-            System.out.println(json);
             return new PostResponse();
         } catch (Exception e) {
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());

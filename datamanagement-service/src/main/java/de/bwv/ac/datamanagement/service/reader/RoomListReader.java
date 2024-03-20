@@ -40,7 +40,7 @@ public class RoomListReader extends ExcelReader<RoomList> {
             if(!entries.isEmpty()){
                 RoomList.Room room = new RoomList.Room();
                 room.setRoomId(entries.get(0));
-                if(entries.size() > 1 && entries.get(1).isBlank() && isNumber(entries.get(1))){
+                if(entries.size() > 1 && !entries.get(1).isBlank() && isNumber(entries.get(1))){
                     room.setCapacity(Integer.parseInt(entries.get(1)));
                 }
                 result.add(room);

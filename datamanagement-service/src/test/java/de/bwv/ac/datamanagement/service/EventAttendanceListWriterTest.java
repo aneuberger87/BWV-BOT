@@ -28,10 +28,6 @@ public class EventAttendanceListWriterTest {
 
     }
 
-    private void setTestData(){
-
-    }
-
     private void setDummies() {
         setDummyCompanies();
         setDummyStudents();
@@ -44,7 +40,7 @@ public class EventAttendanceListWriterTest {
                 new StudentsList.Student("John", "Doe", "BetaTest", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(1, "C"))),
                 new StudentsList.Student("Max", "Mustermann", "GammaStrahl", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C"))),
                 new StudentsList.Student("Bernd", "Atlantis", "DeltaX", List.of(new StudentsList.Wish(1, "A"), new StudentsList.Wish(2, "B"), new StudentsList.Wish(3, "C")))));
-
+        dataStorage.setStudentsWishesList(new StudentsList(students, null));
         dataStorage.setStudentsAllocationList(new StudentsList(students, null));
     }
 
