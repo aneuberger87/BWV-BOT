@@ -14,6 +14,12 @@ import java.util.Map;
 
 @Slf4j
 public class RoomListReader extends ExcelReader<RoomList> {
+
+    /**
+     * Liest die Raumliste aus Excel ein und speichert sie als {@link RoomList}
+     * @param fileLocation der Dateipfad mit Dateiname und -endung.
+     * @return die ausgelesene Raumliste
+     */
     @Override
     public RoomList read(String fileLocation) {
         return readRoomList(fileLocation);
@@ -26,9 +32,11 @@ public class RoomListReader extends ExcelReader<RoomList> {
             workbook.getSheets().forEach(sheet -> rooms.addAll(readRooms(sheet)));
             result.setRoomList(rooms);
         } catch (FileNotFoundException e) {
-            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht gefunden werden! Studenten-Liste konnte nicht erstellt werden!");
+            log.error("Die Datei {} konnte nicht gefunden werden! Raumliste konnte nicht erstellt werden!", fileLocation);
+            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht gefunden werden! Raumliste konnte nicht erstellt werden!");
         } catch (IOException e) {
-            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht ausgelesen werden! Studenten-Liste konnte nicht erstellt werden!");
+            log.error("Die Datei {} konnte nicht ausgelesen werden! Raumliste konnte nicht erstellt werden!", fileLocation);
+            result.setErrorMessage("Die Datei "+fileLocation+" konnte nicht ausgelesen werden! Raumliste konnte nicht erstellt werden!");
         }
         return result;
     }
