@@ -3,6 +3,7 @@ package de.bwv.ac.datamanagement.service.writer;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.service.DataStorage;
 import lombok.extern.slf4j.Slf4j;
+import org.dhatim.fastexcel.BorderStyle;
 import org.dhatim.fastexcel.Workbook;
 import org.dhatim.fastexcel.Worksheet;
 
@@ -81,9 +82,10 @@ public class RoomAssignmentsListWriter extends ExcelWriter {
         for(int i = 2; i < sizeColumn; i++){
             worksheet.width(i, 15);
         }
-        worksheet.range(0, 0, 0, sizeColumn).style().horizontalAlignment("center").wrapText(true).set();
-        worksheet.range(1, 0, sizeRows, 1).style().horizontalAlignment("left").wrapText(false).set();
-        worksheet.range(1, 2, sizeRows, sizeColumn).style().horizontalAlignment("center").wrapText(false).set();
+        worksheet.range(0, 0, 0, 1).style().merge().wrapText(true).set();
+        worksheet.range(0, 2, 0, sizeColumn-1).style().borderStyle(BorderStyle.THIN).horizontalAlignment("center").bold().fillColor("b3daff").wrapText(true).set();
+        worksheet.range(1, 0, sizeRows-1, 1).style().borderStyle(BorderStyle.THIN).horizontalAlignment("left").bold().wrapText(false).set();
+        worksheet.range(1, 2, sizeRows-1, sizeColumn-1).style().borderStyle(BorderStyle.THIN).horizontalAlignment("center").wrapText(false).set();
     }
 
     private void writeHeader(Worksheet worksheet) {

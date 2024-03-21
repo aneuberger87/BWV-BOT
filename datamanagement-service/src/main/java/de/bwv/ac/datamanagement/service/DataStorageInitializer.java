@@ -20,9 +20,7 @@ public class DataStorageInitializer {
     private final Properties props;
     private final DataStorage dataStorage;
 
-    public DataStorageInitializer(DataStorage dataStorage
-           , Properties props
-    ){
+    public DataStorageInitializer(DataStorage dataStorage, Properties props){
         this.dataStorage = dataStorage;
         this.props = props;
     }

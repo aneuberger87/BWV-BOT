@@ -11,8 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Klasse zum Einlesen der Schülerliste aus einer Excel-Datei.
+ */
 public class StudentsListReader extends ExcelReader<StudentsList> {
 
+    /**
+     * Liest die Schülerliste als Excel-Datei ein und speichert sie als {@link StudentsList}
+     * @param fileLocation der Dateipfad mit Dateiname und -endung.
+     * @return die ausgelesene Schülerliste
+     */
     @Override
     public StudentsList read(String fileLocation) {
         return readStudentsList(fileLocation);
@@ -56,10 +64,8 @@ public class StudentsListReader extends ExcelReader<StudentsList> {
         List<StudentsList.Wish> wishes = new ArrayList<>();
         for(int i = 0; i < entries.size(); i++){
             String entry = entries.get(i);
-            //if(!isNumber(entry.charAt(entry.length()-1))){
-            //Wunsch mit Timeslot z.B. 4A
+            //Event-Id mit Timeslot z.B. 4A
             wishes.add(i, new StudentsList.Wish(getNumber(entry), getTimeslot(entry)));
-            //}
         }
         return wishes;
     }
