@@ -44,6 +44,8 @@ const InputOutputToggle = (props: {
 };
 
 export const CardData = (props: {
+  hideToggle?: boolean;
+  children?: React.ReactNode;
   table: {
     header: React.ReactNode;
     body: React.ReactNode;
@@ -67,8 +69,17 @@ export const CardData = (props: {
           </CardDescription>
         )}
       </CardHeader>
+      {props.children}
       <CardContent className="grid h-full grid-rows-[1fr] gap-4 p-6 pt-0">
-        {exists && (
+        {props.hideToggle && exists ? (
+          <ScrollArea className="h-0 min-h-full">
+            <Table className="relative [&_th]:sticky [&_th]:top-0">
+              {props.table.header}
+              {props.table.body}
+            </Table>
+          </ScrollArea>
+        ) : null}
+        {!props.hideToggle && exists && (
           <InputOutputToggle
             disableOutput={!props.tableOutput}
             inputChildren={
