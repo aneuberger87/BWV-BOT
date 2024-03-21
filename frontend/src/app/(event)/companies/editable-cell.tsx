@@ -39,6 +39,7 @@ export const EditableCell = (props: {
         () => {
           router.refresh();
           setOpen(false);
+          setNewRoom("");
           setLoading(false);
         },
       ),
@@ -82,6 +83,11 @@ export const EditableCell = (props: {
               onChange={(e) => setNewRoom(e)}
             />
             <div className="ml-auto mt-2 flex w-max gap-2">
+              <PopoverClose asChild>
+                <Button variant="outline" size="icon" type="button">
+                  <FaTimes />
+                </Button>
+              </PopoverClose>
               <Button
                 variant="outline"
                 size="icon"
@@ -91,11 +97,6 @@ export const EditableCell = (props: {
                 {!loading && <FaCheck />}
                 {loading && <LoadingSpinner />}
               </Button>
-              <PopoverClose asChild>
-                <Button variant="outline" size="icon" type="button">
-                  <FaTimes />
-                </Button>
-              </PopoverClose>
             </div>
           </form>
         </PopoverContent>
