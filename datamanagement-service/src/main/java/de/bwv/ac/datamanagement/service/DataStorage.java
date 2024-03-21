@@ -2,6 +2,7 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.RoomList;
+import de.bwv.ac.datamanagement.data.SolutionScore;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
@@ -18,6 +19,8 @@ public class DataStorage {
     private final Map<String, List<String>> studentsPerClass = new HashMap<>();
     private final Map<String, StudentStorageDatamodel> studentsMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
+
+    private SolutionScore realScore;
 
 
     public CompaniesList getCompaniesList() {
@@ -70,6 +73,7 @@ public class DataStorage {
 
     public void setStudentsWishesList(StudentsList studentsList) {
         studentsMap.clear();
+        realScore = null;
         studentsPerClass.clear();
         studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
     }
@@ -99,6 +103,7 @@ public class DataStorage {
 
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
+        realScore = null;
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
     }
 
@@ -111,6 +116,7 @@ public class DataStorage {
         studentsMap.clear();
         roomMap.clear();
         companiesCache.clear();
+        realScore = null;
     }
 
     public void setRoomList(RoomList rooms) {
@@ -311,5 +317,13 @@ public class DataStorage {
             }
         }
         return null;
+    }
+
+    public void setRealScore(SolutionScore solutionScore){
+        this.realScore = solutionScore;
+    }
+
+    public SolutionScore getRealScore(){
+        return realScore;
     }
 }
