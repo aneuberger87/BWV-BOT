@@ -1,46 +1,46 @@
 class Wish:
-    __timeslot__: str = None
-    __company_id__: int = None
-    __prio__: int = None
-    __suffused__: bool = False
+    timeslot: str = None
+    company_id: int = None
+    prio: int = None
+    suffused: bool = False
 
-    def __init__(self, timeslot, company_id, prio):
-        self.__prio__ = prio
+    def __init__(self, timeslot, company_id, prio:int):
+        self.prio = prio
         self.__timeslot__ = timeslot
-        self.__company_id__ = company_id
+        self.company_id = company_id
 
     def setsuffused_true(self):
-        self.__suffused__ = True
+        self.suffused = True
 
     def gettimeslot(self):
         return self.__timeslot__
 
     def getCompID(self):
-        return self.__company_id__
+        return self.company_id
 
-    def getPrio(self):
-        return self.__prio__
+    def getPrio(self) -> int:
+        return int(self.prio)
 
     def getsuffused(self):
-        return self.__suffused__
+        return self.suffused
 
 
 class Student:
-    __prename__: str = None
-    __surname__: str = None
-    __schoolClass__: str = None
-    __wishList__ = list()
-    __clacwishList__ = list()
-    __toGolist__ = list()
-    __timeslots__ = []
+    prename: str = None
+    surname: str = None
+    schoolClass: str = None
+    wishList = list()
+    clacwishList = list()
+    toGolist = list()
+    timeslots = []
 
     def __init__(self, prename, surname, schoolclass, wishlist) -> None:
-        self.__prename__ = prename
-        self.__surname__ = surname
-        self.__schoolClass__ = schoolclass
+        self.prename = prename
+        self.surname = surname
+        self.schoolClass = schoolclass
         self.fillList(wishlist)
-        for element in self.__wishList__:
-            self.__clacwishList__.append(element)
+        for element in self.wishList:
+            self.clacwishList.append(element)
 
     def fillList(self, wisharray):
         prio = 1
@@ -61,23 +61,15 @@ class Student:
                 newWish = Wish(tempTimeslot, tempWish, len(tempwish)+1)
                 tempwish.append(newWish)
                 i = i +1
-        self.__wishList__ = tempwish
+        self.wishList = tempwish
     def wishliststring(self) -> str:
         wishsttr = ""
-        for wish in self.__wishList__:
+        for wish in self.wishList:
             wishsttr = wishsttr + "Comp_ID: " + str(wish.getCompID()) + "|" + "Prio: " + str(
                 wish.getPrio()) + "|" + " Timeslot: " + str(wish.gettimeslot()) + ","
         return wishsttr[:-1]
-
-    def __iter__(self):
-        self.a = 1
-        return self
-
-    def __next__(self):
-        x = self.a
-        self.a += 1
-        return x
-
+    def gettogoList(self):
+        return self.toGolist
 
 class ConcreatWish:
     __studnet__: Student(None, None, None, list())
@@ -128,52 +120,55 @@ class Company:
 
 
 class Event:
-    __eventid__: int = None
-    __company__: Company
-    __participantlist__ = list()
-    __event_topic__: str = None
-    __companyid__: int = None
-    __company_name__: str = None
-    __room__: str = None
-    __timeslot__ = str = None
-    __capacity__: int = 20
-    __amountofmembers__: int = 0
+    eventid: int = None
+    company: Company
+    participantlist = list()
+    event_topic: str = None
+    company_id: int = None
+    company_name: str = None
+    room: str = None
+    timeslot = str = None
+    capacity: int = 20
+    amountofmembers: int = 0
 
     def __init__(self, company, id,timeslot):
-        self.__eventid__ = id
-        self.__company__ = company
-        self.__timeslot__ = timeslot
+        self.eventid = id
+        self.company = company
+        self.timeslot = timeslot
         self.setattributs()
 
 
     def setattributs(self):
-        self.__event_topic__ = self.__company__.getToc()
-        self.__companyid__ = self.__company__.getID()
-        self.__company_name__ = self.__company__.getName()
-        for element in self.__company__.getroomTimeslotlist():
-            if self.__timeslot__ == element.gettimeslot():
-                self.__room__ = element.getroom()
+        self.event_topic = self.company.getToc()
+        self.company_id = self.company.getID()
+        self.company_name = self.company.getName()
+        for element in self.company.getroomTimeslotlist():
+            if self.timeslot == element.gettimeslot():
+                self.room = element.getroom()
     def setcapacity(self,cap : int) -> None:
         self.__capacity = cap
     def addstudentasparticipant(self, student: Student):
-        self.__participantlist__.append(student)
-
+        self.participantlist.append(student)
+    def getTimeslot(self):
+        return self.timeslot
+    def getCompID(self):
+        return self.company_id
     def toString(self):
-        if self.__room__ == None:
+        if self.room == None:
             room = "To be done"
         else:
-            room = str(self.__room__)
-        return ("Versanstalltungsid: " + str(self.__eventid__) + " Unternehmens ID: " + str(
-            self.__companyid__) + " Unternehmensname: " + self.__company_name__
-                + " Thema: " + self.__event_topic__ + " Raum: " + room + " Timeslot: " + self.__timeslot__)
+            room = str(self.room)
+        return ("Versanstalltungsid: " + str(self.eventid) + " Unternehmens ID: " + str(
+            self.company_id) + " Unternehmensname: " + self.company_name
+                + " Thema: " + self.event_topic + " Raum: " + room + " Timeslot: " + self.timeslot)
 
     def participant_to_string(self):
         line = ""
-        for participant in self.__participantlist__:
-            line = line + participant.__prename__ + " | " + participant.__surname__ + " | " + str(participant.__schoolClass__) + "\n"
+        for participant in self.participantlist:
+            line = line + participant.prename + " | " + participant.surname + " | " + str(participant.schoolClass) + "\n"
         return line[:-1]
     def getparticipantlisr(self) -> list:
-        return self.__participantlist__
+        return self.participantlist
 
 class Timeplan:
     __timeslots__ = ["A", "B", "C", "D", "E"]
@@ -199,68 +194,71 @@ class Timeplan:
         maxscrore = self.clacMaxScore()
         realscore = 0
         for student in self.__studentList__:
-            for wish in student.__clacwishList__:
-                for togoevent in student.__toGolist__:
-                    if wish.__company_id__ == togoevent.__eventid__:
-                        if wish.__prio__ == 1:
-                            if wish.__company_id__ != -1:
+            for wish in student.clacwishList:
+                for togoevent in student.toGolist:
+                    wishId = wish.getCompID()
+                    if wishId == togoevent.eventid:
+                        counter = wish.getPrio()
+                        if counter == 1:
+                            if wish.getCompID != -1:
                                 realscore = realscore + 6
                             else:
                                 realscore = realscore + 0
-                        elif wish.__prio__ == 2:
-                            if wish.__company_id__ != -1:
+                        elif counter == 2:
+                            if wish.getCompID != -1:
                                 realscore = realscore + 5
                             else:
                                 realscore = realscore + 0
-                        elif wish.__prio__ == 3:
-                            if wish.__company_id__ != -1:
+                        elif counter == 3:
+                            if wish.getCompID != -1:
                                 realscore = realscore + 4
                             else:
                                 realscore = realscore + 0
-                        elif wish.__prio__ == 4:
-                            if wish.__company_id__ != -1:
+                        elif counter == 4:
+                            if wish.getCompID != -1:
                                 realscore = realscore + 3
                             else:
                                 realscore = realscore + 0
                         else:
-                            if wish.__company_id__ != -1:
+                            if wish.getCompID != -1:
                                 realscore = realscore + 2
                             else:
                                 realscore = realscore + 0
         print(realscore)
+        print(maxscrore)
         return 100 -(realscore / maxscrore) *100
     def clacMaxScore(self):
         maxcore = 0
         test = 0
         for student in self.__studentList__:
-            for wish in student.__clacwishList__:
-                if wish.__prio__ == 1:
-                    test = test +1
-                    if wish.__company_id__ != -1:
+            test = test + 1
+            for wish in student.clacwishList:
+                counter = wish.getPrio()
+                if counter == 1:
+                    if wish.getCompID != -1:
                         maxcore = maxcore + 6
                     else:
                         maxcore = maxcore + 0
-                elif wish.__prio__ == 2:
-                      if wish.__company_id__ != -1:
+                elif counter == 2:
+                      if wish.getCompID != -1:
                           maxcore = maxcore + 5
                       else:
                           maxcore = maxcore + 0
-                elif wish.__prio__ == 3:
-                      if wish.__company_id__ != -1:
+                elif counter == 3:
+                      if wish.getCompID != -1:
                           maxcore = maxcore + 4
                       else:
                           maxcore = maxcore + 0
-                elif wish.__prio__ ==  4:
-                      if wish.__company_id__ != -1:
+                elif counter ==  4:
+                      if wish.getCompID != -1:
                           maxcore = maxcore + 3
                       else:
                           maxcore = maxcore + 0
-                elif wish.__prio__ == 5:
-                      if wish.__company_id__ != -1:
+                elif counter == 5:
+                      if wish.getCompID != -1:
                           maxcore = maxcore + 2
                       else:
                           maxcore = maxcore + 0
-        print(str(test))
         return maxcore
     def filleventList(self):
         for element in self.__companylist__:
@@ -275,66 +273,59 @@ class Timeplan:
         prio = 0
         for prio in range(6):
             for student in self.__studentList__:
-                wish = ConcreatWish(student, prio + 1, student.__wishList__[prio].getCompID())
+                wish = ConcreatWish(student, prio + 1, student.wishList[prio].getCompID())
                 concreateWishlist.append(wish)
             for event in self.__eventlist__:
-                eventid = event.__eventid__
+                eventid = event.eventid
                 temp_particepent_list = list()
-                for element in event.__participantlist__:
+                for element in event.participantlist:
                     temp_particepent_list.append(element)
                 for element in concreateWishlist:
-                    suffused = element.__studnet__.__wishList__[element.__prio__ - 1].getsuffused()
+                    suffused = element.__studnet__.wishList[element.__prio__ - 1].getsuffused()
                     wishID = element.get_wish_id()
                     temp_togolist_forStudnets = list()
                     checkgo: bool = False
                     tempStundentsTslot = []
-                    for tslot in element.__studnet__.__timeslots__:
+                    for tslot in element.__studnet__.timeslots:
                         tempStundentsTslot.append(tslot)
-                    for togoevent in student.__toGolist__:
+                    for togoevent in student.toGolist:
                         temp_togolist_forStudnets.append(togoevent)
                     if eventid == wishID and suffused == False:
-                        tslotEvent = event.__timeslot__
-                        if int(event.__capacity__) > int(event.__amountofmembers__) and tslotEvent not in tempStundentsTslot and len(tempStundentsTslot)<5:
+                        tslotEvent = event.timeslot
+                        if int(event.capacity) > int(event.amountofmembers) and tslotEvent not in tempStundentsTslot and len(tempStundentsTslot)<5:
                             temp_particepent_list.append(element.__studnet__)
-                            element.__studnet__.__wishList__[element.__prio__ - 1].setsuffused_true()
+                            element.__studnet__.wishList[element.__prio__ - 1].setsuffused_true()
                             tempStundentsTslot.append(tslotEvent)
-                            element.__studnet__.__timeslots__ = tempStundentsTslot
+                            element.__studnet__.timeslots = tempStundentsTslot
                             temp_togolist_forStudnets.append(event)
-                            event.__amountofmembers__ = event.__amountofmembers__ +1
-                event.__participantlist__ = temp_particepent_list
+                            event.amountofmembers = event.amountofmembers + 1
+                event.participantlist = temp_particepent_list
                 temp_togolist_forStudnets.append(event)
-                element.__studnet__.__toGolist__ = temp_togolist_forStudnets
+                element.__studnet__.toGolist = temp_togolist_forStudnets
         print(" ")
 
     #post stundets and Company List
     def createTimeplanforStudents(self):
         import requests
         for student in self.__studentList__:
-            data = self.togo_list_to_json(stundent.__prename__,student.__surname__,stundet.__)
+            data = self.togo_list_to_json(stundent.prename, student.surname, stundet.__)
             print()
 
+    def student_to_dict(self,prename,surname,sclass,eventlist):
+        import json
+        temp ={ 'wishlist': [{'wishId': wish.getCompID(), 'timeslot': wish.getTimeslot()} for wish in eventlist] }
+        jsontest =json.dumps(temp)
+        print(jsontest)
+        return {
+            'prename': prename,
+            'surname': surname,
+            'schoolClass': sclass,
+        }
     def togo_list_to_json(self, studentlist):
         import json
-        schueler_json = []
-        for student in studentlist:
-            toGO_liste = list()
-            for element in student.__toGolist__:
-                toGO_liste.append(element)
-            wisharray = []
-            for togoevent in toGO_liste:
-                event_data = {
-                    "compId": togoevent.__eventid__,
-                    "timelot": togoevent.__timeslot__
-                }
-                wisharray.append(event_data)
-            student_data = {
-                "prename": student.__prename__,
-                "surname": student.__surname__,
-                "schoolClass": student.__schoolClass__,
-                "wishList": wisharray
-            }
-            schueler_json.append(student_data)
-        return json.dumps(schueler_json, indent=4, ensure_ascii=False)
+        student_list = [self.student_to_dict(student.prename, student.surname, student.schoolClass, student.gettogoList()) for student in studentlist]
+        return json.dumps(student_list, indent=4, ensure_ascii=False)
+
 class Timeslot:
     __timeSlot__: str = None
     __room__: str = None
@@ -374,9 +365,9 @@ class Transform:
             m = MaxcompareCrowd(company.__id__)
             crowdList.append(m)
         for studnet in self.__stundentList__:
-            for wish in studnet.__wishList__:
+            for wish in studnet.wishList:
                 for max in crowdList:
-                    if wish.__company_id__ == max.__compID__:
+                    if wish.getCompID == max.__compID__:
                         max.andOne()
         crowdList.sort(key=lambda x: MaxcompareCrowd.__crowed__, reverse=False)
         low = crowdList
@@ -389,19 +380,19 @@ class Transform:
             if counter >5:
                 break
         for studnet in self.__stundentList__:
-            for wish in studnet.__wishList__:
-                if wish.__company_id__ == -1 and wish.__prio__ == 1:
-                    wish.__company_id__ = lowdigits[0]
-                if wish.__company_id__ == -1 and wish.__prio__ == 2:
-                    wish.__company_id__ = lowdigits[1]
-                if wish.__company_id__ == -1 and wish.__prio__ == 3:
-                    wish.__company_id__ = lowdigits[2]
-                if wish.__company_id__ == -1 and wish.__prio__ == 4:
-                    wish.__company_id__ = lowdigits[3]
-                if wish.__company_id__ == -1 and wish.__prio__ == 5:
-                    wish.__company_id__ = lowdigits[4]
-                if wish.__company_id__ == -1 and wish.__prio__ == 6:
-                    wish.__company_id__ = lowdigits[5]
+            for wish in studnet.wishList:
+                if wish.getCompID == -1 and wish.__prio__ == 1:
+                    wish.getCompID = lowdigits[0]
+                if wish.getCompID == -1 and wish.__prio__ == 2:
+                    wish.getCompID = lowdigits[1]
+                if wish.getCompID == -1 and wish.__prio__ == 3:
+                    wish.getCompID = lowdigits[2]
+                if wish.getCompID == -1 and wish.__prio__ == 4:
+                    wish.getCompID = lowdigits[3]
+                if wish.getCompID == -1 and wish.__prio__ == 5:
+                    wish.getCompID = lowdigits[4]
+                if wish.getCompID == -1 and wish.__prio__ == 6:
+                    wish.getCompID = lowdigits[5]
 
     def load_student(self, jsonfile) -> None:
         print(jsonfile)
@@ -449,11 +440,11 @@ class Transform:
     def toString(self):
         for company in self.__companyList__:
             print(
-                f"ID: {company.__id__}, Name: {company.__compName__}, Beruf: {company.__trainingOccupation__}, Kapazität: {company.__capacity__}, Timeslot:{company.__meeting__} ")
+                f"ID: {company.__id__}, Name: {company.__compName__}, Beruf: {company.__trainingOccupation__}, Kapazität: {str(company.__capacity__)}, Timeslot:{company.__meeting__} ")
         print("\n")
         for student in self.__stundentList__:
             print(
-                f"Vorname: {student.__prename__}, Nachname: {student.__surname__}, Wünsche: {student.wishliststring()}, Klasse: {student.__schoolClass__}")
+                f"Vorname: {student.prename}, Nachname: {student.surname}, Wünsche: {student.wishliststring()}, Klasse: {student.schoolClass}")
 
 #import requests
 #api_url = "http://localhost:8080" #?companieslist =

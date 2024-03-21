@@ -168,7 +168,7 @@ class Event:
     def participant_to_string(self):
         line = ""
         for participant in self.__participantlist__:
-            line = line + participant.__prename__ + " | " + participant.__surname__ + " | " + str(participant.__schoolClass__) + "\n"
+            line = line + participant.prename + " | " + participant.surname + " | " + str(participant.schoolClass) + "\n"
         return line[:-1]
     def getparticipantlisr(self) -> list:
         return self.__participantlist__
@@ -203,31 +203,31 @@ class Timeplan:
         prio = 0
         for prio in range(6):
             for student in self.__studentList__:
-                wish = ConcreatWish(student, prio + 1, student.__wishList__[prio].getCompID())
+                wish = ConcreatWish(student, prio + 1, student.wishList[prio].getCompID())
                 concreateWishlist.append(wish)
             for event in self.__eventlist__:
-                eventid = event.__eventid__
+                eventid = event.eventid
                 temp_particepent_list = list()
-                for element in event.__participantlist__:
+                for element in event.participantlist:
                     temp_particepent_list.append(element)
                 for element in concreateWishlist:
                     suffused = element.__studnet__.__wishList__[element.__prio__ - 1].getsuffused()
                     wishID = element.get_wish_id()
                     temp_togolist_forStudnets = list()
-                    for togoevent in student.__toGolist__:
+                    for togoevent in student.toGolist:
                         temp_togolist_forStudnets.append(togoevent)
                     if eventid == wishID and suffused == False:
-                        tslotEvent = event.__timeslot__
+                        tslotEvent = event.timeslot
                         checkgo: bool = False
                         for goevent in temp_togolist_forStudnets:
-                            if goevent.__timeslot__ == tslotWish:
+                            if goevent.timeslot == tslotWish:
                                 checkgo = True
-                        if event.__capacity__ > event.__amountofmembers__ and checkgo != True:
+                        if event.capacity > event.amountofmembers and checkgo != True:
                             temp_particepent_list.append(element.__studnet__)
                             element.__studnet__.__wishList__[element.__prio__ - 1].setsuffused_true()
                             temp_togolist_forStudnets.append(event)
-                            event.__amountofmembers__ = event.__amountofmembers__ +1
-                event.__participantlist__ = temp_particepent_list
+                            event.amountofmembers = event.amountofmembers + 1
+                event.participantlist = temp_particepent_list
                 temp_togolist_forStudnets.append(event)
                 element.__studnet__.__toGolist__ = temp_togolist_forStudnets
         print(" ")
@@ -238,10 +238,10 @@ class Timeplan:
         api_url = "http://localhost:8080/update/timetableList"
         data = []
         for stundent in self.__studentList__:
-            temptoGolist = stundent.__toGolist__
-            prename = stundent.__prename__
-            surname = stundent.__surname__
-            sclass = stundent.__schoolClass__
+            temptoGolist = stundent.toGolist
+            prename = stundent.prename
+            surname = stundent.surname
+            sclass = stundent.schoolClass
             tempjson = self.togo_list_to_json(prename,surname,sclass,temptoGolist)
             data.append(tempjson)
         print("PostRequest with data: ")
@@ -260,10 +260,10 @@ class Timeplan:
         for togoevent in toGO_liste:
             veranstaltung_data = {
                 "ID": togoevent.__id__,
-                "compName": togoevent.__company_name__,
-                "topic": togoevent.__event_topic__,
-                "timeslot": togoevent.__timeslot__,
-                "room": togoevent.__room__
+                "compName": togoevent.company_name,
+                "topic": togoevent.event_topic,
+                "timeslot": togoevent.timeslot,
+                "room": togoevent.room
             }
         schueler_data["Events"].append(veranstaltung_data)
         return schueler_data
@@ -338,11 +338,11 @@ class Transform:
     def toString(self):
         for company in self.__companyList__:
             print(
-                f"ID: {company.__id__}, Name: {company.__compName__}, Beruf: {company.__trainingOccupation__}, Kapazität: {company.__capacity__}, Timeslot:{company.__meeting__} ")
+                f"ID: {company.__id__}, Name: {company.__compName__}, Beruf: {company.__trainingOccupation__}, Kapazität: {company.capacity}, Timeslot:{company.__meeting__} ")
         print("\n")
         for student in self.__stundentList__:
             print(
-                f"Vorname: {student.__prename__}, Nachname: {student.__surname__}, Wünsche: {student.wishliststring()}, Klasse: {student.__schoolClass__}")
+                f"Vorname: {student.prename}, Nachname: {student.surname}, Wünsche: {student.wishliststring()}, Klasse: {student.schoolClass}")
 
 import requests
 api_url = "http://localhost:8080" #?companieslist =
