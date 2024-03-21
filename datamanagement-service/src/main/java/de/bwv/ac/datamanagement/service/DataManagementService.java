@@ -14,6 +14,8 @@ import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @Slf4j
 public class DataManagementService {
@@ -215,6 +217,15 @@ public class DataManagementService {
     @DeleteMapping("/clearStorage")
     public void clearStorage(){
         dataStorage.clearStorage();
+    }
+
+    @PostMapping("rooms/add")
+    public PostResponse addRooms(@RequestBody RoomList roomList){
+        if(roomList == null || roomList.getErrorMessage() != null || roomList.getRoomList() == null){
+            return new PostResponse("Es wurden keine Räume zum Hinzufügen übergeben!");
+        }
+        dataStorage.addRooms(roomList.getRoomList());
+        return new PostResponse();
     }
 
 }

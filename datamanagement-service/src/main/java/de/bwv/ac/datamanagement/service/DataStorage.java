@@ -7,6 +7,8 @@ import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
 import de.bwv.ac.datamanagement.data.storage.StudentStorageDatamodel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -20,6 +22,8 @@ public class DataStorage {
     private final Map<String, StudentStorageDatamodel> studentsMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
 
+    @Setter
+    @Getter
     private SolutionScore realScore;
 
 
@@ -319,11 +323,7 @@ public class DataStorage {
         return null;
     }
 
-    public void setRealScore(SolutionScore solutionScore){
-        this.realScore = solutionScore;
-    }
-
-    public SolutionScore getRealScore(){
-        return realScore;
+    public void addRooms(List<RoomList.Room> roomList) {
+        roomList.forEach(room -> roomMap.put(room.getRoomId(), room));
     }
 }
