@@ -28,7 +28,7 @@ const LazyTableBodyStudent = async (props: { asOutput?: boolean }) => {
           {props.asOutput
             ? timeSlots.map((wish, i) => (
                 <TableCell
-                  key={wish}
+                  key={i}
                   className={
                     "w-max px-2 text-right " +
                     (student?.wishList?.[i]?.compId == -1

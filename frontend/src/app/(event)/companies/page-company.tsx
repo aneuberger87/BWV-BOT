@@ -15,6 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Fragment } from "react";
 
 const LazyTableBodyCompany = async (props: { type: "output" | "input" }) => {
   const [companies, rooms] = await Promise.all([
@@ -39,7 +40,7 @@ const LazyTableBodyCompany = async (props: { type: "output" | "input" }) => {
                   (meeting) => meeting.timeSlot === timeSlot,
                 );
                 return (
-                  <>
+                  <Fragment key={i}>
                     {!!meeting ? (
                       <EditableCell
                         timeSlot={timeSlot}
@@ -65,7 +66,7 @@ const LazyTableBodyCompany = async (props: { type: "output" | "input" }) => {
                         </Tooltip>
                       </TableCell>
                     )}
-                  </>
+                  </Fragment>
                 );
               })
             : null}
