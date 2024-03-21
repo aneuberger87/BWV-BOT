@@ -41,6 +41,18 @@ export const getAllStudents = async () => {
   }
 };
 
+export const getAllStudentsAllocation = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}students/allocation`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return (await response.json()) as StudentList;
+  } catch (error) {
+    console.error("getAllStudents error: ", error);
+    throw error;
+  }
+};
 export const postStudentWishes = async (studentsWithWishes: any /*TODO */) => {
   try {
     const response = await fetch(`${BASE_URL}students/wishes`, {
