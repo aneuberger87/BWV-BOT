@@ -111,3 +111,75 @@ export const getAllDummyCompanies = async () => {
     throw error;
   }
 };
+type PostResponse = {
+  postSuccessful: true;
+  errormessage: null;
+};
+export const webhookCalculate = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}calculate`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json() as Promise<PostResponse>;
+  } catch (error) {
+    console.error("webhookCalculate error: ", error);
+    return { postSuccessful: false, errormessage: error };
+  }
+};
+
+export const postPrintRoomAssignmentList = async (
+  fileFolderLocation: string,
+) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/roomAssignmentsList?fileLocation=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintRoomAssignmentList error: ", error);
+    throw error;
+  }
+};
+
+export const postPrintTimeTableList = async (fileFolderLocation: string) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/timetableList?fileLocation=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintTimeTableList error: ", error);
+    throw error;
+  }
+};
+
+export const postPrintAttendanceList = async (fileFolderLocation: string) => {
+  try {
+    await fetch(
+      `${BASE_URL}print/attendanceList?fileLocation=${fileFolderLocation}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+      },
+    );
+  } catch (error) {
+    console.error("postPrintAttendanceList error: ", error);
+    throw error;
+  }
+};

@@ -1,4 +1,4 @@
-import { excelExists } from "@/lib/action-excel-exists";
+import { excelExists } from "@/lib/excel-exists";
 import { ExcelFileName } from "@/types";
 import Link from "next/link";
 import {
@@ -40,11 +40,10 @@ const DeleteButton = (props: { type: ExcelFileName }) => {
           Das wird ebenfalls alle Daten löschen, die sich auf diese Datei
           beziehen oder auf Basis dieser Datei generiert wurden.
           <br />
-          <br />
-          <div className=" text-right text-xs text-red-500">
-            Diese Aktion kann nicht rückgängig gemacht werden.
-          </div>
         </p>
+        <div className=" text-right text-xs text-red-500">
+          Diese Aktion kann nicht rückgängig gemacht werden.
+        </div>
         <DialogFooter>
           <UploadStateDelete type={props.type} />
           <DialogClose asChild>

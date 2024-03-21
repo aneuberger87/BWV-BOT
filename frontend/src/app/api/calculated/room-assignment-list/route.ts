@@ -1,14 +1,14 @@
-import { downloadInputExcelAsBuffer } from "@/lib/download";
+import { downloadOutputExcelAsBuffer } from "@/lib/download";
 
 export const GET = async () => {
-  const buffer = await downloadInputExcelAsBuffer("companiesList");
+  const buffer = await downloadOutputExcelAsBuffer("rooAssignmentList");
   if (buffer === null)
     return new Response("File does not exist", { status: 404 });
 
   return new Response(buffer, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="companiesList.xlsx"`,
+      "Content-Disposition": `attachment; filename="roomAssignmentList.xlsx"`,
     },
   });
 };

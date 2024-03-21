@@ -1,4 +1,4 @@
-import { excelExists } from "@/lib/action-excel-exists";
+import { excelExists } from "@/lib/excel-exists";
 import { ExcelFileName } from "@/types";
 import React from "react";
 import {
@@ -26,7 +26,7 @@ export const CardData = (props: {
         <CardTitle>{props.title}</CardTitle>
         {!exists && (
           <CardDescription>
-            {props.title} wurde noch nicht geladen.
+            {props.title} wurde noch nicht hochgeladen.
           </CardDescription>
         )}
       </CardHeader>

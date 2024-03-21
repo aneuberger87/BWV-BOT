@@ -84,9 +84,18 @@ const InputUploadDefault = (props: {
     return classes;
   }, [isFocused, isDragAccept, isDragReject, className]);
 
+  const manuallyHandleClick = () => {
+    inputRef.current?.click();
+  };
+
   return (
     <div className="relative grid h-36 min-h-max w-72 grid-rows-[1fr_auto]">
-      <div {...getRootProps({ className: combinedClasses })}>
+      <div
+        {...getRootProps({
+          className: combinedClasses,
+          onClick: manuallyHandleClick,
+        })}
+      >
         <input
           {...getInputProps()}
           name="file"

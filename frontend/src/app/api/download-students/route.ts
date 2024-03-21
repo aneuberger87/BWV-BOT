@@ -1,7 +1,7 @@
-import { downloadAsBuffer } from "@/lib/action-download";
+import { downloadInputExcelAsBuffer } from "@/lib/download";
 
 export const GET = async () => {
-  const buffer = await downloadAsBuffer("studentsList");
+  const buffer = await downloadInputExcelAsBuffer("studentsList");
   if (buffer === null)
     return new Response("File does not exist", { status: 404 });
 
