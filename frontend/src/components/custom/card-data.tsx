@@ -24,9 +24,9 @@ const InputOutputToggle = (props: {
       className="w-full"
     >
       <TabsList className="absolute right-2 top-2">
-        <TabsTrigger value="input">Input</TabsTrigger>
+        <TabsTrigger value="input">Hochgeladen</TabsTrigger>
         <TabsTrigger value="output" disabled={props.disableOutput}>
-          Output
+          Berechnet
         </TabsTrigger>
       </TabsList>
       <TabsContent value="input" className="h-full">

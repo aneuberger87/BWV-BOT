@@ -7,11 +7,22 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getDataStatusCachable } from "@/lib/data-status";
-import { getAllCompanies } from "@/lib/fetches";
+import { getAllCompanies, getAllRooms } from "@/lib/fetches";
+import { EditableCell } from "./editable-cell";
+import { FaTimes } from "react-icons/fa";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const LazyTableBodyCompany = async (props: { type: "output" | "input" }) => {
-  const companies = await getAllCompanies();
+  const [companies, rooms] = await Promise.all([
+    getAllCompanies(),
+    getAllRooms(),
+  ]);
   const timeSlots = ["A", "B", "C", "D", "E"];
+
   return (
     <TableBody>
       {companies.company.map((company, i) => (
@@ -23,20 +34,40 @@ const LazyTableBodyCompany = async (props: { type: "output" | "input" }) => {
             {company.numberOfMembers}
           </TableCell>
           {props.type == "output"
-            ? timeSlots.map((timeSlot) => (
-                <TableCell
-                  key={timeSlot}
-                  className="text-right"
-                  contentEditable
-                  suppressContentEditableWarning
-                >
-                  {
-                    company.meeting.find(
-                      (meeting) => meeting.timeSlot === timeSlot,
-                    )?.room?.roomId
-                  }
-                </TableCell>
-              ))
+            ? timeSlots.map((timeSlot, i) => {
+                const meeting = company.meeting.find(
+                  (meeting) => meeting.timeSlot === timeSlot,
+                );
+                return (
+                  <>
+                    {!!meeting ? (
+                      <EditableCell
+                        timeSlot={timeSlot}
+                        companyId={company.id}
+                        key={i}
+                        rooms={rooms}
+                        eventName={company.compName}
+                        eventTitle={company.trainingOccupation}
+                      >
+                        {meeting?.room?.roomId}
+                      </EditableCell>
+                    ) : (
+                      <TableCell className="p-1 text-center">
+                        <Tooltip>
+                          <TooltipTrigger asChild className="cursor-help">
+                            <FaTimes className="m-auto " />
+                          </TooltipTrigger>
+                          <TooltipContent side="bottom">
+                            <div className="p-2">
+                              In diesem Slot findet keine Veranstaltung statt
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TableCell>
+                    )}
+                  </>
+                );
+              })
             : null}
         </TableRow>
       ))}
