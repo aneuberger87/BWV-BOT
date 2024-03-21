@@ -212,4 +212,9 @@ public class DataManagementService {
         }
     }
 
+    @DeleteMapping("/clearStorage")
+    public void clearStorage(){
+        dataStorage.clearStorage();
+    }
+
 }
