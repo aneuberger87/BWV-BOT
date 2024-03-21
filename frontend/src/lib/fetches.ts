@@ -41,6 +41,18 @@ export const getAllStudents = async () => {
   }
 };
 
+export const getAllStudentsAllocation = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}students/allocation`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return (await response.json()) as StudentList;
+  } catch (error) {
+    console.error("getAllStudents error: ", error);
+    throw error;
+  }
+};
 export const postStudentWishes = async (studentsWithWishes: any /*TODO */) => {
   try {
     const response = await fetch(`${BASE_URL}students/wishes`, {
@@ -180,6 +192,46 @@ export const postPrintAttendanceList = async (fileFolderLocation: string) => {
     );
   } catch (error) {
     console.error("postPrintAttendanceList error: ", error);
+    throw error;
+  }
+};
+
+export const getSolutionScore = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}solutionScore`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json() as Promise<{
+      realScore: number;
+      errorMessage: string;
+    }>;
+  } catch (error) {
+    console.error("getSolutionScore error: ", error);
+    throw error;
+  }
+};
+
+export const postRoomUpdateForEvent = async (
+  companyId: string,
+  roomId: string,
+  timeSlot: "A" | "B" | "C" | "D" | "E",
+) => {
+  try {
+    const response = await fetch(`${BASE_URL}update/${companyId}/${timeSlot}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: roomId,
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return "Update successful";
+  } catch (error) {
+    console.error("postRoomUpdateForEvent error: ", error);
     throw error;
   }
 };

@@ -2,10 +2,13 @@ package de.bwv.ac.datamanagement.service;
 
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.RoomList;
+import de.bwv.ac.datamanagement.data.SolutionScore;
 import de.bwv.ac.datamanagement.data.StudentsList;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
 import de.bwv.ac.datamanagement.data.storage.StudentStorageDatamodel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -18,6 +21,10 @@ public class DataStorage {
     private final Map<String, List<String>> studentsPerClass = new HashMap<>();
     private final Map<String, StudentStorageDatamodel> studentsMap = new HashMap<>();
     private final Map<String, RoomList.Room> roomMap = new HashMap<>();
+
+    @Setter
+    @Getter
+    private SolutionScore realScore;
 
 
     public CompaniesList getCompaniesList() {
@@ -70,6 +77,7 @@ public class DataStorage {
 
     public void setStudentsWishesList(StudentsList studentsList) {
         studentsMap.clear();
+        realScore = null;
         studentsPerClass.clear();
         studentsList.getStudent().stream().filter(Objects::nonNull).forEach(this::addStudent);
     }
@@ -99,6 +107,7 @@ public class DataStorage {
 
     public void setCompanies(CompaniesList companiesList) {
         companiesCache.clear();
+        realScore = null;
         companiesList.getCompany().stream().filter(Objects::nonNull).forEach(this::addCompany);
     }
 
@@ -111,6 +120,7 @@ public class DataStorage {
         studentsMap.clear();
         roomMap.clear();
         companiesCache.clear();
+        realScore = null;
     }
 
     public void setRoomList(RoomList rooms) {
@@ -224,15 +234,21 @@ public class DataStorage {
     private String getNumberOfWish(StudentsList.Wish wish, StudentsList.Student student) {
         List<StudentsList.Student> students = getStudentsFromClass(student.getSchoolClass(), studentStorageDatamodel -> studentStorageDatamodel.getStudent().getWishList());
         for (StudentsList.Student s : students) {
-            if (s.equals(student)) {
+            if (sameStudent(s, student)) {
                 for (int i = 0; i < student.getWishList().size(); i++) {
                     if (wish.equals(student.getWishList().get(i))) {
-                        return "" + i;
+                        return "" + (i+1);
                     }
                 }
             }
         }
         return "-";
+    }
+
+    private boolean sameStudent(StudentsList.Student s, StudentsList.Student student) {
+        return s.getPrename().equals(student.getPrename()) &&
+                s.getSurname().equals(student.getSurname()) &&
+                s.getSchoolClass().equals(student.getSchoolClass());
     }
 
     private CompaniesList.Meeting getMeetingOfTimeSlot(List<CompaniesList.Meeting> meetingList, String timeSlot) {
@@ -311,5 +327,9 @@ public class DataStorage {
             }
         }
         return null;
+    }
+
+    public void addRooms(List<RoomList.Room> roomList) {
+        roomList.forEach(room -> roomMap.put(room.getRoomId(), room));
     }
 }

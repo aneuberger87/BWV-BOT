@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -35,10 +36,13 @@ const WhenCalculated = () => {
   return (
     <Card className="flex h-full flex-col justify-between">
       <CardHeader>
-        <CardTitle className="flex items-center justify-start gap-1">
+        <CardTitle className="flex items-center justify-start gap-4">
           <FaRegCheckCircle className="text-green-500" />
           Eine Auslosung liegt bereits vor
         </CardTitle>
+        <CardDescription>
+          Sie können die Auslosung herunterladen, um die Ergebnisse zu nutzen.
+        </CardDescription>
       </CardHeader>
       <CardContent className="h-full">
         <div className="m-auto grid w-max grid-cols-3 justify-center gap-2">

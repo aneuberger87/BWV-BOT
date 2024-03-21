@@ -1,4 +1,5 @@
 import { CardData } from "@/components/custom/card-data";
+import { Button } from "@/components/ui/button";
 import {
   TableBody,
   TableCell,
@@ -7,6 +8,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getAllRooms } from "@/lib/fetches";
+import { FaSquarePlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa";
+import { AddButton } from "./add-room-button";
 
 const LazyTableBodyCompany = async () => {
   const rooms = await getAllRooms();
@@ -26,6 +30,7 @@ const LazyTableBodyCompany = async () => {
 export const PageRooms = () => {
   return (
     <CardData
+      hideToggle
       table={{
         header: (
           <TableHeader>
@@ -39,6 +44,8 @@ export const PageRooms = () => {
       }}
       title="Räume"
       type="roomsList"
-    />
+    >
+      <AddButton />
+    </CardData>
   );
 };

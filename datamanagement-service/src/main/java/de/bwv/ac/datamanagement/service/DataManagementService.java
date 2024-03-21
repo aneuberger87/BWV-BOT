@@ -1,9 +1,6 @@
 package de.bwv.ac.datamanagement.service;
 
-import de.bwv.ac.datamanagement.data.PostResponse;
-import de.bwv.ac.datamanagement.data.RoomList;
-import de.bwv.ac.datamanagement.data.StudentsList;
-import de.bwv.ac.datamanagement.data.CompaniesList;
+import de.bwv.ac.datamanagement.data.*;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
 import de.bwv.ac.datamanagement.service.reader.EventsListReader;
@@ -16,6 +13,8 @@ import de.bwv.ac.datamanagement.service.writer.RoomAssignmentsListWriter;
 import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 @Slf4j
@@ -165,6 +164,21 @@ public class DataManagementService {
         }
     }
 
+    @GetMapping("/solutionScore")
+    public SolutionScore getSolutionScore() {
+        SolutionScore realScore = dataStorage.getRealScore();
+        if(realScore == null){
+            return new SolutionScore(-1, "Der Erfüllungsscore kann nicht ermittelt werden!");
+        }
+        return realScore;
+    }
+
+    @PostMapping("/update/solutionScore")
+    public void getSolutionScore(@RequestBody double realscore) {
+        SolutionScore solutionScore = new SolutionScore(realscore, null);
+        dataStorage.setRealScore(solutionScore);
+    }
+
     @PostMapping("/print/timetableList")
     public PostResponse printTimetableList(@RequestParam("fileLocation") String fileLocation){
         try {
@@ -198,6 +212,20 @@ public class DataManagementService {
             e.printStackTrace();
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
+    }
+
+    @DeleteMapping("/clearStorage")
+    public void clearStorage(){
+        dataStorage.clearStorage();
+    }
+
+    @PostMapping("rooms/add")
+    public PostResponse addRooms(@RequestBody RoomList roomList){
+        if(roomList == null || roomList.getErrorMessage() != null || roomList.getRoomList() == null){
+            return new PostResponse("Es wurden keine Räume zum Hinzufügen übergeben!");
+        }
+        dataStorage.addRooms(roomList.getRoomList());
+        return new PostResponse();
     }
 
 }
