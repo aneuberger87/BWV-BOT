@@ -57,7 +57,7 @@ const WhenCalculated = async () => {
           )}
         </div>
         {score.errorMessage && (
-          <div className="m-auto text-sm text-red-500">
+          <div className="m-auto w-max text-sm text-red-500">
             {score.errorMessage}
           </div>
         )}
