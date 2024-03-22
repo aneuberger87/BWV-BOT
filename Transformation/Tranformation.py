@@ -96,7 +96,7 @@ class SolutionScore:
         temp = {
             'realScore': self.realScore
         }
-        return {temp}
+        return temp
 class Company:
     __id__: int = None
     __compName__: str = None
