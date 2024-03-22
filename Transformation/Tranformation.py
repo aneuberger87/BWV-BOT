@@ -87,6 +87,11 @@ class ConcreatWish:
     def get_wish_id(self)-> int:
         return int(self.__wishID__)
 
+class SolutionScore:
+    realScore: int = None
+
+    def __init__(self,number):
+        self.realScore = number
 
 class Company:
     __id__: int = None
@@ -187,7 +192,7 @@ class Timeplan:
         self.filleventList()
         self.assign_studentstoEvents()
         outputjson = self.togo_list_to_json(self.studentList)
-        score = self.clacscore()
+        score:SolutionScore = self.clacscore()
         print(str(score))
         self.postStudents(outputjson)
         self.postScore(score)
@@ -228,7 +233,8 @@ class Timeplan:
                                 realscore = realscore + 0
         print(realscore)
         print(maxscrore)
-        return (realscore / maxscrore) *100
+        c = SolutionScore((realscore / maxscrore) *100)
+        return c
     def clacMaxScore(self):
         maxcore = 0
         test = 0
@@ -314,7 +320,7 @@ class Timeplan:
     def postScore(self,score):
         import requests
         url = "http://localhost:8080/update/students"
-        x = requests.post(url, data=score)
+        x = requests.post(url, json=score)
 
 
     def student_to_dict(self,prename,surname,sclass,eventlist):
