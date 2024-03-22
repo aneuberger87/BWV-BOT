@@ -53,7 +53,9 @@ const WhenCalculated = async () => {
           )}
         </div>
         {score.errorMessage && (
-          <div className="text-sm text-red-500">{score.errorMessage}</div>
+          <div className="m-auto text-sm text-red-500">
+            {score.errorMessage}
+          </div>
         )}
         <div className="my-6 mt-12 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
           <Separator />
