@@ -169,7 +169,7 @@ class Event:
         self.company_name = self.company.getName()
         for element in self.company.getroomTimeslotlist():
             if self.timeslot == element.gettimeslot():
-                self.room = company.__room__
+                self.room = self.company.__room__
     def setcapacity(self,cap : int) -> None:
         self.__capacity = cap
     def addstudentasparticipant(self, student: Student):
@@ -264,25 +264,25 @@ class Timeplan:
                     else:
                         maxcore = maxcore + 0
                 elif counter == 2:
-                      if wish.getCompID != -1:
-                          maxcore = maxcore + 5
-                      else:
-                          maxcore = maxcore + 0
+                    if wish.getCompID != -1:
+                        maxcore = maxcore + 5
+                    else:
+                        maxcore = maxcore + 0
                 elif counter == 3:
-                      if wish.getCompID != -1:
-                          maxcore = maxcore + 4
-                      else:
-                          maxcore = maxcore + 0
+                    if wish.getCompID != -1:
+                        maxcore = maxcore + 4
+                    else:
+                        maxcore = maxcore + 0
                 elif counter ==  4:
-                      if wish.getCompID != -1:
-                          maxcore = maxcore + 3
-                      else:
-                          maxcore = maxcore + 0
+                    if wish.getCompID != -1:
+                        maxcore = maxcore + 3
+                    else:
+                        maxcore = maxcore + 0
                 elif counter == 5:
-                      if wish.getCompID != -1:
-                          maxcore = maxcore + 2
-                      else:
-                          maxcore = maxcore + 0
+                    if wish.getCompID != -1:
+                        maxcore = maxcore + 2
+                    else:
+                        maxcore = maxcore + 0
         return maxcore
     def filleventList(self):
         for element in self.__companylist__:
@@ -341,7 +341,7 @@ class Timeplan:
 
     def company_to_dict(self,prename,surname,sclass,eventlist):
         #{"id": 1, "compName": "Zentis", "trainingOccupation": "Industriekaufleute",
-         #"meeting": [{"timeSlot": "A", "room": "null"},
+        #"meeting": [{"timeSlot": "A", "room": "null"},
         #temp = {
         #    'prename': prename,
         #    'surname': surname,
