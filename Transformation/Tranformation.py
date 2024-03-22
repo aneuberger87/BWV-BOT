@@ -40,7 +40,7 @@ class Room:
         self.capacity = cap
         for _ in range(5):
             m = FreeSpot
-            self.occupy.append()
+            self.occupy.append(m)
 class Student:
     prename: str = None
     surname: str = None
