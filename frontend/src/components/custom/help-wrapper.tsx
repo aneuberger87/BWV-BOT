@@ -38,7 +38,7 @@ export const HelpWrapper = (Props: {
         </div>
         <SheetFooter className="mt-auto">
           {Props.helpFooter}
-          <Button variant="secondary" asChild>
+          <Button variant="default" asChild>
             <a href="/Benutzerhandbuch.pdf" download="Benutzerhandbuch.pdf">
               <FaDownload className="mr-4" />
               Benutzerdokumentation herunterladen

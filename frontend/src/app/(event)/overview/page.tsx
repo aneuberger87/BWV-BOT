@@ -38,28 +38,38 @@ const WhenCalculated = async () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="h-full pt-0">
-        <Separator className="my-6" />
+        <div className="my-6 mt-10 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <Separator />
+          <div className="text-2xl font-bold">Score</div>
+          <Separator />
+        </div>
         <div className="mt-2 flex items-center gap-2 text-3xl font-bold">
-          <div>Score: </div>
           {score.realScore > 0 ? (
-            <div>{(score.realScore * 100).toFixed(2) + "%"}</div>
+            <div className="m-auto">
+              {(score.realScore * 100).toFixed(2) + "%"}
+            </div>
           ) : (
-            <FaTimes className="relative top-0.5 text-red-500" />
+            <FaTimes className="relative top-0.5 m-auto text-red-500" />
           )}
         </div>
         {score.errorMessage && (
           <div className="text-sm text-red-500">{score.errorMessage}</div>
         )}
-        <Separator className="my-6" />
-        <div className=" text-3xl font-bold">Downloads: </div>
-        <ClickAll
-          idsToClick={[
-            "attendence-list",
-            "room-assignment-list",
-            "timetable-list",
-          ]}
-        />
-        <div className="mt-2 grid w-max grid-cols-3 justify-center gap-2">
+        <div className="my-6 mt-12 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <Separator />
+          <div className="text-2xl font-bold">Downloads</div>
+          <Separator />
+        </div>
+        <div className="m-auto w-max">
+          <ClickAll
+            idsToClick={[
+              "attendence-list",
+              "room-assignment-list",
+              "timetable-list",
+            ]}
+          />
+        </div>
+        <div className="m-auto mt-2 grid w-max grid-cols-3 justify-center gap-2">
           <Download
             title="Anwesenheitslisten"
             type="attendence-list"
