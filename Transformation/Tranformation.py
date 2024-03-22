@@ -92,7 +92,11 @@ class SolutionScore:
 
     def __init__(self,number):
         self.realScore = number
-
+    def output(self):
+        temp = {
+            'realScore': self.realScore
+        }
+        return {temp}
 class Company:
     __id__: int = None
     __compName__: str = None
@@ -320,7 +324,7 @@ class Timeplan:
     def postScore(self,score):
         import requests
         url = "http://localhost:8080/update/students"
-        x = requests.post(url, json=score)
+        x = requests.post(url, json=score.output())
 
 
     def student_to_dict(self,prename,surname,sclass,eventlist):
