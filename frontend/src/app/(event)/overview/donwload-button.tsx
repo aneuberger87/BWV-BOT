@@ -9,6 +9,12 @@ export const Download = (props: {
   type: "attendence-list" | "room-assignment-list" | "timetable-list";
   id: string;
 }) => {
+  const niceName =
+    props.type == "attendence-list"
+      ? "Anwesenheitslisten"
+      : props.type == "room-assignment-list"
+        ? "Raumaufteilungsliste"
+        : "Laufzettel";
   const url = `/api/calculated/${props.type}`;
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,7 +27,7 @@ export const Download = (props: {
             const newUrl = window.URL.createObjectURL(blob);
             const link = document.createElement("a");
             link.href = newUrl;
-            link.setAttribute("download", `${props.type}.xlsx`);
+            link.setAttribute("download", `${niceName}.xlsx`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);

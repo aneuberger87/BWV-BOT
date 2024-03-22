@@ -8,7 +8,7 @@ export const GET = async () => {
   return new Response(buffer, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="attendenceList.xlsx"`,
+      "Content-Disposition": `attachment; filename="Anwesenheitslisten.xlsx"`,
     },
   });
 };
