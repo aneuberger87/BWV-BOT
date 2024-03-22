@@ -174,7 +174,7 @@ public class DataManagementService {
     }
 
     @PostMapping("/update/solutionScore")
-    public void getSolutionScore(@RequestBody double realscore) {
+    public void updateSolutionScore(@RequestBody double realscore) {
         SolutionScore solutionScore = new SolutionScore(realscore, null);
         dataStorage.setRealScore(solutionScore);
     }
@@ -206,9 +206,11 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            pythonScriptExecuter.executeScript("Tranformation.py");
+            DummyAlgo dummyAlgo = new DummyAlgo(this);
+            dummyAlgo.calculate();
+            //pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
             return new PostResponse("Post failed with Exception: "+e.getClass().getName()+", Message: "+e.getMessage());
         }
@@ -219,7 +221,7 @@ public class DataManagementService {
         dataStorage.clearStorage();
     }
 
-    @PostMapping("rooms/add")
+    @PostMapping("/rooms/add")
     public PostResponse addRooms(@RequestBody RoomList roomList){
         if(roomList == null || roomList.getErrorMessage() != null || roomList.getRoomList() == null){
             return new PostResponse("Es wurden keine Räume zum Hinzufügen übergeben!");
