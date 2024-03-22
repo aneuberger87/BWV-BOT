@@ -169,7 +169,7 @@ class Event:
         self.company_name = self.company.getName()
         for element in self.company.getroomTimeslotlist():
             if self.timeslot == element.gettimeslot():
-                self.room = company.__room__
+                self.room = self.company.__room__
     def setcapacity(self,cap : int) -> None:
         self.__capacity = cap
     def addstudentasparticipant(self, student: Student):
