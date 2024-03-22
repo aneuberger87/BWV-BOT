@@ -425,10 +425,17 @@ class Transform:
     def load_company(self, jsonfile) -> None:
         #print(jsonfile)
         try:
-            for company_data in jsonfile.get('company',[]):
+            for company_data in jsonfile.get('company', []):
                 id = company_data.get('id', '')
                 compName = company_data.get('compName', '')
-                com = Company(int(id),compName,cop,meetinglist)
+                cop = company_data.get('trainingOccupation', '')
+                meetinglist = list()
+                for meeting_data in company_data.get('meeting', []):
+                    tslot = meeting_data.get('timeSlot', '')
+                    room = meeting_data.get('room', '')
+                    timeslot = Timeslot(tslot, room)
+                    meetinglist.append(timeslot)
+                com = Company(int(id), compName, cop, meetinglist)
                 self.__companyList__.append(com)
         except KeyError as e:
             print(f"Schluessel {e} fehlt im Dictionary.")
