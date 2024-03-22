@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { useDropzone } from "react-dropzone";
-import { upload } from "../../lib/action-upload";
+import { dataUpload } from "../../lib/data-upload";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -44,7 +44,7 @@ const InputUploadDefault = (props: {
       };
 
       // Now you can call your upload Server Action with the base64String
-      upload(data).then(() => {
+      dataUpload(data).then(() => {
         setDirectUploadPending(false);
         if (inputRef.current) {
           inputRef.current.value = "";

@@ -2,7 +2,7 @@
 
 import { ExcelFileName } from "@/types";
 import { Button } from "../ui/button";
-import { deleteData } from "@/lib/action-delete-data";
+import { dataDelete } from "@/lib/data-delete";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { LoadingSpinner } from "./loading-spinner";
@@ -12,7 +12,7 @@ export const UploadStateDelete = (props: { type: ExcelFileName }) => {
   const [loading, setLoading] = useState(false);
   const onClick = () => {
     setLoading(true);
-    deleteData(props.type).finally(() => {
+    dataDelete(props.type).finally(() => {
       router.refresh();
       setLoading(false);
     });

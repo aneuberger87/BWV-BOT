@@ -9,7 +9,7 @@ import { excelFileLocation } from "./excel-file-location";
 const URL = process.env.DATAMANAGEMENT_URL!;
 const FOLDER = process.env.FOLDER_SHARE!;
 
-export const upload = async (data: {
+export const dataUpload = async (data: {
   type: ExcelFileName;
   fileBase64: string;
 }) => {

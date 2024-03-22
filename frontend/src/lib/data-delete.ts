@@ -1,12 +1,11 @@
 "use server";
 
 import { ExcelFileName } from "@/types";
-import { excelFileLocation } from "./excel-file-location";
 import { existsSync, unlinkSync } from "fs";
-import { upload } from "./action-upload";
+import { excelFileLocation } from "./excel-file-location";
 const URL = process.env.DATAMANAGEMENT_URL!;
 
-export const deleteData = async (type: ExcelFileName) => {
+export const dataDelete = async (type: ExcelFileName) => {
   const path = excelFileLocation(type);
   if (existsSync(path)) {
     unlinkSync(path);
