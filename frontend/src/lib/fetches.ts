@@ -235,3 +235,34 @@ export const postRoomUpdateForEvent = async (
     throw error;
   }
 };
+
+// add for
+
+// @PostMapping("rooms/add")
+// public PostResponse addRooms(@RequestBody RoomList roomList){
+//     if(roomList == null || roomList.getErrorMessage() != null || roomList.getRoomList() == null){
+//         return new PostResponse("Es wurden keine Räume zum Hinzufügen übergeben!");
+//     }
+//     dataStorage.addRooms(roomList.getRoomList());
+//     return new PostResponse();
+// }
+
+export const postAddRooms = async (roomList: RoomList) => {
+  try {
+    const response = await fetch(`${BASE_URL}rooms/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(roomList),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return "Add successful";
+  } catch (error) {
+    console.error("postAddRooms error: ", error);
+    throw error;
+  }
+};

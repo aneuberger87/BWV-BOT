@@ -17,12 +17,14 @@ const LazyTableBodyCompany = async () => {
 
   return (
     <TableBody>
-      {rooms.roomList.map((room, i) => (
-        <TableRow key={i}>
-          <TableCell className="font-medium">{room.roomId}</TableCell>
-          <TableCell>{room.capacity}</TableCell>
-        </TableRow>
-      ))}
+      {rooms.roomList
+        .sort((a, b) => a.roomId.localeCompare(b.roomId))
+        .map((room, i) => (
+          <TableRow key={i}>
+            <TableCell className="font-medium">{room.roomId}</TableCell>
+            <TableCell>{room.capacity}</TableCell>
+          </TableRow>
+        ))}
     </TableBody>
   );
 };
