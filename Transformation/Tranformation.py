@@ -334,7 +334,7 @@ class Timeplan:
         x = requests.post(url, json=jsonstudents)
     def postScore(self,score):
         import requests
-        url = "http://localhost:8080/update/students"
+        url = "http://localhost:8080/update/solutionScore"
         post = score.output()
         x = requests.post(url, json=post)
 
