@@ -357,9 +357,10 @@ class Transform:
     __companyList__ = list()
     __roomList__ = list()
 
-    def __init__(self, filepath_students, filepath_company):
+    def __init__(self, filepath_students, filepath_company,filepath_rooms):
         self.load_company(filepath_company)
         self.load_student(filepath_students)
+        self.load_rooms(filepath_rooms)
         self.handleEmptyWishes()
         t = Timeplan(self.__companyList__, self.__stundentList__)
 
