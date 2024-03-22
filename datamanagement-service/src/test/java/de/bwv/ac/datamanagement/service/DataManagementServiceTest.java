@@ -1,5 +1,7 @@
 package de.bwv.ac.datamanagement.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bwv.ac.datamanagement.config.Properties;
 import de.bwv.ac.datamanagement.data.CompaniesList;
 import de.bwv.ac.datamanagement.data.PostResponse;
@@ -18,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataManagementServiceTest {
 
     private static DataStorage dataStorage = new DataStorage();
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeAll
     public static void setUp(){
@@ -71,7 +75,7 @@ class DataManagementServiceTest {
     private Set<StudentsList.Student> studentsWithNotAllWishesSet = new HashSet<>();
 
     @Test
-    void test(){
+    void test() throws JsonProcessingException {
         dataStorage.clearStorage();
         DataManagementService dataManagementService = new DataManagementService(dataStorage, null);
         readStudentList(dataManagementService,"src/test/resources/IMPORT_BOT2_Wahl.xlsx");
@@ -123,7 +127,7 @@ class DataManagementServiceTest {
         assertEquals(new PostResponse(), dataManagementService.printAttendanceList(fileLocation));
     }
 
-    private void eventsRequest(DataManagementService dataManagementService) {
+    private void eventsRequest(DataManagementService dataManagementService) throws JsonProcessingException {
         CompaniesList companiesList = dataManagementService.getAllCompanies();
         for (int i = 0; i < companiesList.getCompany().size(); i++) {
             CompaniesList.Company company = companiesList.getCompany().get(i);
@@ -132,10 +136,11 @@ class DataManagementServiceTest {
                 meeting.setRoom(new RoomList.Room(""+roomNr));
             }
         }
-        dataManagementService.updateCompaniesList(companiesList);
+        String json = objectMapper.writeValueAsString(companiesList);
+        dataManagementService.updateCompaniesList(json);
     }
 
-    private void studentsRequest(DataManagementService dataManagementService) {
+    private void studentsRequest(DataManagementService dataManagementService) throws JsonProcessingException {
         CompaniesList companiesList = dataManagementService.getAllCompanies();
         StudentsList studentsList = dataManagementService.getAllStudents();
 
@@ -213,7 +218,8 @@ class DataManagementServiceTest {
                 wishList.add(new StudentsList.Wish(compId, strTimeSlot));
             }
         }
-        dataManagementService.updateStudentsList(studentsList);
+        String json = objectMapper.writeValueAsString(studentsList);
+        dataManagementService.updateStudentsList(json);
     }
 
     private boolean hasMeetingInTimeslot(CompaniesList.Company company, String strTimeSlot) {

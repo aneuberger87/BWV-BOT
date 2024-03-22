@@ -1,5 +1,6 @@
 package de.bwv.ac.datamanagement.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bwv.ac.datamanagement.data.*;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
@@ -15,13 +16,13 @@ import de.bwv.ac.datamanagement.service.writer.TimetableListWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @RestController
 @Slf4j
 public class DataManagementService {
     private final DataStorage dataStorage;
     private final PythonScriptExecuter pythonScriptExecuter;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     public DataManagementService(DataStorage dataStorage, PythonScriptExecuter scriptExecuter){
         this.dataStorage = dataStorage;
@@ -120,8 +121,7 @@ public class DataManagementService {
         System.out.println("So kommt es in Java an: "+studentsList);
         log.info("POST-Anfrage zur Aktualisierung der Schülerliste mit den Zuteilungen anstelle der Wünsche");
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            StudentsList studentsList1 = mapper.readValue(studentsList, StudentsList.class);
+            StudentsList studentsList1 = objectMapper.readValue(studentsList, StudentsList.class);
             dataStorage.setStudentsAllocationList(studentsList1);
             return new PostResponse();
         } catch (Exception e) {
@@ -133,10 +133,11 @@ public class DataManagementService {
     }
 
     @PostMapping("/update/companiesList")
-    public PostResponse updateCompaniesList(@RequestBody CompaniesList companiesList){
+    public PostResponse updateCompaniesList(@RequestBody String companiesList){
         log.info("POST-Anfrage zur Aktualisierung der Veranstaltungsliste mit den Zuteilungen auf Räume pro Zeitslot");
         try {
-            dataStorage.setCompanies(companiesList);
+            CompaniesList companiesList1 = objectMapper.readValue(companiesList, CompaniesList.class);
+            dataStorage.setCompanies(companiesList1);
             return new PostResponse();
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,8 +181,12 @@ public class DataManagementService {
     }
 
     @PostMapping("/update/solutionScore")
-    public void updateSolutionScore(@RequestBody double realscore) {
-        SolutionScore solutionScore = new SolutionScore(realscore, null);
+    public void updateSolutionScore(@RequestBody String score) throws JsonProcessingException {
+        System.out.println("Erhalte den Erfüllungsscore: "+score);
+
+        SolutionScore solutionScore = objectMapper.readValue(score, SolutionScore.class);
+
+       // SolutionScore solutionScore = new SolutionScore(realscore, null);
         dataStorage.setRealScore(solutionScore);
     }
 
@@ -212,8 +217,8 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            //DummyAlgo dummyAlgo = new DummyAlgo(this);
-            //dummyAlgo.calculate();
+            DummyAlgo dummyAlgo = new DummyAlgo(this);
+            dummyAlgo.calculate();
             pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
         } catch (Exception e){
