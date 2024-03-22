@@ -115,6 +115,7 @@ class Company:
     __capacity__: int = None
     __meeting__: [] = None  # enthält einen Timeslot und einen Raum
     __timeslotroomlist__ = list()
+    __room__ : Room =("-1",20)
 
     def __init__(self, id, compName, toc, meeting) -> None:
         self.__id__ = id
@@ -150,7 +151,7 @@ class Event:
     event_topic: str = None
     company_id: int = None
     company_name: str = None
-    room: str = None
+    room: Room = (-1,20)
     timeslot = str = None
     capacity: int = 20
     amountofmembers: int = 0
@@ -168,7 +169,7 @@ class Event:
         self.company_name = self.company.getName()
         for element in self.company.getroomTimeslotlist():
             if self.timeslot == element.gettimeslot():
-                self.room = element.getroom()
+                self.room = company.__room__
     def setcapacity(self,cap : int) -> None:
         self.__capacity = cap
     def addstudentasparticipant(self, student: Student):
@@ -338,7 +339,17 @@ class Timeplan:
         post = score.output()
         x = requests.post(url, json=post)
 
-
+    def company_to_dict(self,prename,surname,sclass,eventlist):
+        #{"id": 1, "compName": "Zentis", "trainingOccupation": "Industriekaufleute",
+         #"meeting": [{"timeSlot": "A", "room": "null"},
+        #temp = {
+        #    'prename': prename,
+        #    'surname': surname,
+        #    'schoolClass': sclass,
+        #    'wishList': [{'compId': wish.getCompID(),'timeSlot': wish.getTimeslot()} for wish in eventlist]
+        #}
+        temp = "to be done"
+        return temp
     def student_to_dict(self,prename,surname,sclass,eventlist):
         temp = {
             'prename': prename,
@@ -385,6 +396,14 @@ class Transform:
         self.load_rooms(filepath_rooms)
         self.handleEmptyWishes()
         t = Timeplan(self.__companyList__, self.__stundentList__)
+
+    def setrooms(self):
+        import random
+        for company in self.__companyList__:
+            length = len(self.__roomList__)
+            random_number = random.uniform(0, length)
+            company.__room__ = self.__roomList__[random_number]
+
 
     def handleEmptyWishes(self):
         crowdList = list()
