@@ -26,7 +26,6 @@ const EventLayout = (props: { children: React.ReactNode }) => {
   const dataExists = getDataStatusCachable().input.excel.allExist;
   const calculationExists = getDataStatusCachable().output.calculated;
 
-  console.log("🚀 ~ EventLayout ~ dataExists:", dataExists);
   return (
     <div className="grid h-full grid-cols-[auto_1fr] gap-x-8 ">
       <Card className="grid h-0 max-h-full min-h-full min-w-96 grid-rows-[auto_1fr]">

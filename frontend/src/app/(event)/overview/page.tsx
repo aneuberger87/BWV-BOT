@@ -1,5 +1,4 @@
 import InputUploadBox from "@/components/custom/input-upload-parent";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,27 +13,13 @@ import { excelExists } from "@/lib/excel-exists";
 import { getSolutionScore } from "@/lib/fetches";
 import { Metadata } from "next";
 import { FaRegCheckCircle, FaTimes } from "react-icons/fa";
-import { FaDownload } from "react-icons/fa6";
 import { ClickAll } from "./click-all";
+import { Download } from "./donwload-button";
 
 export const metadata: Metadata = {
   title: "Übersicht",
 };
-const Download = (props: {
-  title: string;
-  type: "attendence-list" | "room-assignment-list" | "timetable-list";
-  id: string;
-}) => {
-  const url = `/api/calculated/${props.type}`;
-  return (
-    <Button variant="secondary" className="flex-grow" asChild>
-      <a href={url} download={`${props.type}.xlsx`} id={props.id}>
-        <FaDownload className="mr-4" />
-        {props.title}
-      </a>
-    </Button>
-  );
-};
+
 const WhenCalculated = async () => {
   const score = await getSolutionScore();
   return (
