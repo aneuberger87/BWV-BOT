@@ -206,9 +206,9 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            //DummyAlgo dummyAlgo = new DummyAlgo(this);
-            //dummyAlgo.calculate();
-            pythonScriptExecuter.executeScript("Tranformation.py");
+            DummyAlgo dummyAlgo = new DummyAlgo(this);
+            dummyAlgo.calculate();
+            //pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
         } catch (Exception e){
             e.printStackTrace();
