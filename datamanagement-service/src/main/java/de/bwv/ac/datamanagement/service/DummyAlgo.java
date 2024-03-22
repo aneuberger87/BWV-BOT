@@ -126,7 +126,7 @@ public class DummyAlgo {
                 wishList.add(new StudentsList.Wish(compId, strTimeSlot));
             }
         }
-        service.updateStudentsList(studentsList);
+        //service.updateStudentsList(studentsList);
     }
 
     private boolean hasMeetingInTimeslot(CompaniesList.Company company, String strTimeSlot) {

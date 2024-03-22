@@ -1,5 +1,6 @@
 package de.bwv.ac.datamanagement.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bwv.ac.datamanagement.data.*;
 import de.bwv.ac.datamanagement.data.export.EventsAttendanceList;
 import de.bwv.ac.datamanagement.data.export.TimetableList;
@@ -30,12 +31,14 @@ public class DataManagementService {
     @GetMapping("/companies")
     public CompaniesList getAllCompanies(){
         log.info("GET-Anfrage für die Veranstaltungsliste");
+        System.out.println(dataStorage.getCompaniesList());
         return dataStorage.getCompaniesList();
     }
 
     @GetMapping("/students")
     public StudentsList getAllStudents(){
         log.info("GET-Anfrage für die Schülerliste");
+        System.out.println(dataStorage.getStudentsWishList());
         return dataStorage.getStudentsWishList();
     }
 
@@ -113,10 +116,13 @@ public class DataManagementService {
     }
 
     @PostMapping("/update/studentsList")
-    public PostResponse updateStudentsList(@RequestBody StudentsList studentsList){
+    public PostResponse updateStudentsList(@RequestBody String studentsList){
+        System.out.println("So kommt es in Java an: "+studentsList);
         log.info("POST-Anfrage zur Aktualisierung der Schülerliste mit den Zuteilungen anstelle der Wünsche");
         try {
-            dataStorage.setStudentsAllocationList(studentsList);
+            ObjectMapper mapper = new ObjectMapper();
+            StudentsList studentsList1 = mapper.readValue(studentsList, StudentsList.class);
+            dataStorage.setStudentsAllocationList(studentsList1);
             return new PostResponse();
         } catch (Exception e) {
             e.printStackTrace();
