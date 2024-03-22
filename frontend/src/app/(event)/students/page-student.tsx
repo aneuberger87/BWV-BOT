@@ -39,10 +39,7 @@ const LazyTableBodyStudent = async (props: { asOutput?: boolean }) => {
                         : "")
                     }
                   >
-                    {!!student.wishList[i] &&
-                      student.wishList[i].compId +
-                        " " +
-                        student.wishList[i].timeSlot}
+                    {!!student.wishList[i] && student.wishList[i].compId}
                   </TableCell>
                 ))
               : wishList.map((timeSlot, i) => (

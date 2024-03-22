@@ -13,7 +13,7 @@ export const ClickAll = (props: { idsToClick: string[] }) => {
     });
   };
   return (
-    <Button variant="secondary" className="mt-4 flex-grow" onClick={onClick}>
+    <Button variant="default" className="m-auto mt-4" onClick={onClick}>
       <FaDownload className="mr-4" /> Alle Excel-Dateien herunterladen
     </Button>
   );

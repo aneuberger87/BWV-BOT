@@ -5,6 +5,7 @@ import { excelFileLocation } from "./excel-file-location";
 import {
   postPrintAttendanceList,
   postPrintRoomAssignmentList,
+  postPrintTimeTableList,
 } from "./fetches";
 import { getFrontendData, setFrontendData } from "./frontend-data";
 
@@ -22,7 +23,7 @@ const shareFolder = process.env.FOLDER_SHARE!;
 
 const ATTENDENCE_LIST_FILE_NAME = "Anwesenheitsliste_pro_Veranstaltung.xlsx";
 const ROOM_ASSIGNMENT_LIST_FILE_NAME = "Raum_und_Zeitplanung.xlsx";
-const TIMETABLE_LIST_FILE_NAME = "UNKOWN"; //TODO
+const TIMETABLE_LIST_FILE_NAME = "Laufzettel.xlsx";
 type CalcStatus = {
   calculated: boolean;
   downloaded: {
@@ -43,7 +44,7 @@ export const downloadOutputExcelAsBuffer = async (
     result = await postPrintAttendanceList(shareFolder);
   }
   if (type === "timetableList") {
-    result = await postPrintAttendanceList(shareFolder);
+    result = await postPrintTimeTableList(shareFolder);
   }
 
   const fileName =
