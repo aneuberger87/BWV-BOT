@@ -14,15 +14,19 @@ import {
 import { toast } from "sonner";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "./loading-spinner";
 
 export const ButtonCalculate = (props: { disabled: boolean }) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const onClick = async () => {
+    setLoading(true);
     toast.promise(
       dataCalculate().finally(() => {
         router.refresh();
         setOpen(false);
+        setLoading(false);
       }),
       {
         loading: "Berechne...",
@@ -60,7 +64,8 @@ export const ButtonCalculate = (props: { disabled: boolean }) => {
           <DialogClose asChild>
             <Button variant="secondary">Abbrechen</Button>
           </DialogClose>
-          <Button variant="default" onClick={onClick}>
+          <Button variant="default" onClick={onClick} disabled={loading}>
+            {loading && <LoadingSpinner className="mr-1" />}
             Starten
           </Button>
         </DialogFooter>

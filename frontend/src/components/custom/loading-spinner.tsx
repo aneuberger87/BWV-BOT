@@ -1,6 +1,6 @@
-export const LoadingSpinner = () => {
+export const LoadingSpinner = (props: { className?: string }) => {
   return (
-    <div role="status">
+    <div role="status" className={props.className}>
       <svg
         aria-hidden="true"
         className="size-4 animate-spin fill-primary text-secondary "

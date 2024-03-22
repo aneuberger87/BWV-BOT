@@ -57,7 +57,7 @@ const WhenCalculated = async () => {
         <div className="mt-2 flex items-center gap-2 text-3xl font-bold">
           <div>Score: </div>
           {score.realScore > 0 ? (
-            <div>score.realScore + "%"</div>
+            <div>{score.realScore + "%"}</div>
           ) : (
             <FaTimes className="relative top-0.5 text-red-500" />
           )}

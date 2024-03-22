@@ -15,16 +15,20 @@ import { toast } from "sonner";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { dataReset } from "@/lib/data-reset";
+import { LoadingSpinner } from "./loading-spinner";
 
 export const ButtonCalculateReset = (props: { disabled: boolean }) => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const onClick = async () => {
+    setLoading(true);
     toast.promise(
       // TODO: dataCalculateReset
       dataReset().finally(() => {
         router.refresh();
         setOpen(false);
+        setLoading(false);
       }),
       {
         loading: "Setze zurück...",
@@ -37,7 +41,7 @@ export const ButtonCalculateReset = (props: { disabled: boolean }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={props.disabled} type="button" variant="secondary">
+        <Button disabled={props.disabled} type="button" variant="default">
           Zurücksetzen
         </Button>
       </DialogTrigger>
@@ -60,7 +64,8 @@ export const ButtonCalculateReset = (props: { disabled: boolean }) => {
           <DialogClose asChild>
             <Button variant="secondary">Abbrechen</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={onClick}>
+          <Button variant="destructive" onClick={onClick} disabled={loading}>
+            {loading && <LoadingSpinner className="pr-1" />}
             Zurücksetzen
           </Button>
         </DialogFooter>
