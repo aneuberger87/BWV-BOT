@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const InputOutputToggle = (props: {
   inputChildren: React.ReactNode;
   outputChildren: React.ReactNode;
+  helpComponent?: React.ReactNode;
   disableOutput: boolean;
 }) => {
   return (
@@ -23,12 +24,22 @@ const InputOutputToggle = (props: {
       defaultValue={!props.disableOutput ? "output" : "input"}
       className="w-full"
     >
-      <TabsList className="absolute right-2 top-2">
-        <TabsTrigger value="input">Hochgeladen</TabsTrigger>
-        <TabsTrigger value="output" disabled={props.disableOutput}>
-          Berechnet
-        </TabsTrigger>
-      </TabsList>
+      <div
+        className={
+          "absolute right-2 top-2 " +
+          (props.helpComponent ? "grid grid-cols-[auto_1fr] gap-2" : "")
+        }
+      >
+        {props.helpComponent}
+        <div>
+          <TabsList className="">
+            <TabsTrigger value="input">Hochgeladen</TabsTrigger>
+            <TabsTrigger value="output" disabled={props.disableOutput}>
+              Berechnet
+            </TabsTrigger>
+          </TabsList>
+        </div>
+      </div>
       <TabsContent value="input" className="h-full">
         <div className="grid h-full w-full grid-rows-[1fr]">
           {props.inputChildren}
@@ -46,6 +57,7 @@ const InputOutputToggle = (props: {
 export const CardData = (props: {
   hideToggle?: boolean;
   children?: React.ReactNode;
+  helpComponent?: React.ReactNode;
   table: {
     header: React.ReactNode;
     body: React.ReactNode;
@@ -81,6 +93,7 @@ export const CardData = (props: {
         ) : null}
         {!props.hideToggle && exists && (
           <InputOutputToggle
+            helpComponent={props.helpComponent}
             disableOutput={!props.tableOutput}
             inputChildren={
               <ScrollArea className="h-0 min-h-full">

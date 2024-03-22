@@ -13,6 +13,7 @@ import { ButtonPrint } from "@/components/custom/button-print";
 import { ButtonCalculate } from "@/components/custom/button-calculate";
 import { getDataStatusCachable } from "@/lib/data-status";
 import { ButtonCalculateReset } from "@/components/custom/button-calculate-Reset";
+import { HelpWrapper } from "@/components/custom/help-wrapper";
 
 export const metadata: Metadata = {
   title: {
@@ -42,8 +43,52 @@ const EventLayout = (props: { children: React.ReactNode }) => {
               <ListTask />
             </div>
             <div className="flex flex-col gap-4">
-              <ButtonCalculate disabled={!dataExists || calculationExists} />
-              <ButtonCalculateReset disabled={!calculationExists} />
+              <div className="grid grid-cols-[auto_1fr] gap-2">
+                <HelpWrapper
+                  helpTitle="Ausrechnen"
+                  helpDescription="Hilfe zum Button 'Ausrechnen' in den Event Details."
+                  helpContent={
+                    <div>
+                      <p>
+                        Durch Klicken auf den Button wird der Algorithmus zur
+                        Berechnung der optimalen Eventverteilung gestartet.
+                      </p>
+                      <br />
+                      <p>
+                        Die Berechnung kann nur durchgeführt werden, wenn alle
+                        Daten hochgeladen wurden.
+                      </p>
+                      <br />
+                      <p>
+                        Dieser Schritt kann später rückgängig gemacht werden.
+                      </p>
+                    </div>
+                  }
+                />
+                <ButtonCalculate disabled={!dataExists || calculationExists} />
+              </div>
+              <div className="grid grid-cols-[auto_1fr] gap-2">
+                <HelpWrapper
+                  helpTitle="Zurücksetzen"
+                  helpDescription="Hilfe zum Button 'Zurücksetzen' in den Event Details."
+                  helpContent={
+                    <div>
+                      <p>
+                        Durch Klicken auf den Button wird die Berechnung der
+                        optimalen Eventverteilung zurückgesetzt.
+                      </p>
+                      <br />
+                      <p>
+                        Dieser Schritt kann später nicht rückgängig gemacht
+                        werden.
+                      </p>
+                      <br />
+                      <p>Die hochgeladenen Daten bleiben erhalten.</p>
+                    </div>
+                  }
+                />
+                <ButtonCalculateReset disabled={!calculationExists} />
+              </div>
             </div>
           </div>
         </CardContent>

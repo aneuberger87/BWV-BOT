@@ -41,7 +41,7 @@ export const ButtonCalculateReset = (props: { disabled: boolean }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={props.disabled} type="button" variant="secondary">
+        <Button disabled={props.disabled} type="button" variant="default">
           Zurücksetzen
         </Button>
       </DialogTrigger>

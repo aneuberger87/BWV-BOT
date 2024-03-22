@@ -1,4 +1,5 @@
 import { CardData } from "@/components/custom/card-data";
+import { HelpWrapper } from "@/components/custom/help-wrapper";
 import {
   TableBody,
   TableCell,
@@ -112,6 +113,30 @@ export const PageStudent = () => {
       }}
       title="Schüler"
       type="studentsList"
+      helpComponent={
+        <HelpWrapper
+          helpTitle="Schüler Ansicht"
+          helpDescription="Hilfe zur Absichtsseite der Schüler."
+          helpContent={
+            <div>
+              <p>
+                Auf dieser Seite können Sie alle Schüler einsehen die
+                hochgeladen wurden.
+              </p>
+              <br />
+              <p>
+                Im Bereich Hochgeladen können Sie die Schüler mit ihren Wünschen
+                einsehen.
+              </p>
+              <br />
+              <p>
+                Im Bereich Berechnet können Sie die Schüler mit ihren
+                EventZuteilungen einsehen.
+              </p>
+            </div>
+          }
+        />
+      }
     />
   );
 };
