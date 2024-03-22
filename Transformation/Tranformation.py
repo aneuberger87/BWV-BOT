@@ -24,12 +24,23 @@ class Wish:
     def getsuffused(self):
         return self.suffused
 
+class FreeSpot:
+    tSlot = ""
+    isfree = False
+
+    def setBlocked(self,tslot):
+        self.tSlot = tslot
+        self.isfree = True
 class Room:
     roomId: str = None
     capacity: int = None
+    occupy = list()
     def __init__(self, roomId, cap):
         self.roomId = roomId
         self.capacity = cap
+        for _ in range(5):
+            m = FreeSpot
+            self.occupy.append()
 class Student:
     prename: str = None
     surname: str = None
@@ -197,7 +208,7 @@ class Timeplan:
         self.assign_studentstoEvents()
         outputjson = self.togo_list_to_json(self.studentList)
         score:SolutionScore = self.clacscore()
-        print(str(score))
+        print(str(score.realScore))
         self.postStudents(outputjson)
         self.postScore(score)
 
@@ -324,7 +335,8 @@ class Timeplan:
     def postScore(self,score):
         import requests
         url = "http://localhost:8080/update/students"
-        x = requests.post(url, json=score.output())
+        post = score.output()
+        x = requests.post(url, json=post)
 
 
     def student_to_dict(self,prename,surname,sclass,eventlist):
