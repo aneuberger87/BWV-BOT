@@ -38,9 +38,11 @@ export const HelpWrapper = (Props: {
         </div>
         <SheetFooter className="mt-auto">
           {Props.helpFooter}
-          <Button variant="secondary">
-            <FaDownload className="mr-4" />
-            Benutzerdokumentation herunterladen
+          <Button variant="secondary" asChild>
+            <a href="/Benutzerhandbuch.pdf" download="Benutzerhandbuch.pdf">
+              <FaDownload className="mr-4" />
+              Benutzerdokumentation herunterladen
+            </a>
           </Button>
         </SheetFooter>
       </SheetContent>
