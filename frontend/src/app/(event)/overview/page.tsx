@@ -42,7 +42,7 @@ const WhenCalculated = async () => {
         <div className="mt-2 flex items-center gap-2 text-3xl font-bold">
           <div>Score: </div>
           {score.realScore > 0 ? (
-            <div>{score.realScore + "%"}</div>
+            <div>{(score.realScore * 100).toFixed(2) + "%"}</div>
           ) : (
             <FaTimes className="relative top-0.5 text-red-500" />
           )}
@@ -61,17 +61,17 @@ const WhenCalculated = async () => {
         />
         <div className="mt-2 grid w-max grid-cols-3 justify-center gap-2">
           <Download
-            title="Anwesenheits Excel"
+            title="Anwesenheitslisten"
             type="attendence-list"
             id="attendence-list"
           />
           <Download
-            title="Raumaufteilungs Excel"
+            title="Raumaufteilungslsite"
             type="room-assignment-list"
             id="room-assignment-list"
           />
           <Download
-            title="Zeiten Excel"
+            title="Laufzettel"
             type="timetable-list"
             id="timetable-list"
           />
