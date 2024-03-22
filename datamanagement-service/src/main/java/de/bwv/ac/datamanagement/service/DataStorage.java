@@ -234,15 +234,21 @@ public class DataStorage {
     private String getNumberOfWish(StudentsList.Wish wish, StudentsList.Student student) {
         List<StudentsList.Student> students = getStudentsFromClass(student.getSchoolClass(), studentStorageDatamodel -> studentStorageDatamodel.getStudent().getWishList());
         for (StudentsList.Student s : students) {
-            if (s.equals(student)) {
+            if (sameStudent(s, student)) {
                 for (int i = 0; i < student.getWishList().size(); i++) {
                     if (wish.equals(student.getWishList().get(i))) {
-                        return "" + i;
+                        return "" + (i+1);
                     }
                 }
             }
         }
         return "-";
+    }
+
+    private boolean sameStudent(StudentsList.Student s, StudentsList.Student student) {
+        return s.getPrename().equals(student.getPrename()) &&
+                s.getSurname().equals(student.getSurname()) &&
+                s.getSchoolClass().equals(student.getSchoolClass());
     }
 
     private CompaniesList.Meeting getMeetingOfTimeSlot(List<CompaniesList.Meeting> meetingList, String timeSlot) {
