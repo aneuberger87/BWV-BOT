@@ -47,7 +47,7 @@ export const Download = (props: {
   };
 
   return (
-    <Button variant="secondary" className="flex-grow" onClick={onClick} asChild>
+    <Button variant="default" className="flex-grow" onClick={onClick} asChild>
       <a href={url} download={`${props.type}.xlsx`} id={props.id}>
         <FaDownload className="mr-4" />
         {props.title}
