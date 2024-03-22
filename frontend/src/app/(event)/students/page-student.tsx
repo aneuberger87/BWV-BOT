@@ -1,4 +1,5 @@
 import { CardData } from "@/components/custom/card-data";
+import { HelpWrapper } from "@/components/custom/help-wrapper";
 import {
   TableBody,
   TableCell,
@@ -18,48 +19,50 @@ const LazyTableBodyStudent = async (props: { asOutput?: boolean }) => {
 
   return (
     <TableBody>
-      {students?.student.map((student, i) => (
-        <TableRow key={i}>
-          <TableCell className="w-max whitespace-nowrap font-medium">
-            {student.prename}
-          </TableCell>
-          <TableCell>{student.surname}</TableCell>
-          <TableCell>{student.schoolClass}</TableCell>
-          {props.asOutput
-            ? timeSlots.map((wish, i) => (
-                <TableCell
-                  key={wish}
-                  className={
-                    "w-max px-2 text-right " +
-                    (student?.wishList?.[i]?.compId == -1
-                      ? "font-bold text-red-500"
-                      : "")
-                  }
-                >
-                  {!!student.wishList[i] &&
-                    student.wishList[i].compId +
-                      " " +
-                      student.wishList[i].timeSlot}
-                </TableCell>
-              ))
-            : wishList.map((timeSlot, i) => (
-                <TableCell
-                  key={timeSlot}
-                  className={
-                    "w-max px-2 text-right " +
-                    (student?.wishList?.[i]?.compId == -1
-                      ? "font-bold text-red-500"
-                      : "")
-                  }
-                >
-                  {!!student.wishList[i] &&
-                    student.wishList[i].compId +
-                      " " +
-                      student.wishList[i].timeSlot}
-                </TableCell>
-              ))}
-        </TableRow>
-      ))}
+      {students?.student
+        .sort((a, b) => a.surname.localeCompare(b.surname))
+        .map((student, i) => (
+          <TableRow key={i}>
+            <TableCell className="w-max whitespace-nowrap font-medium">
+              {student.prename}
+            </TableCell>
+            <TableCell>{student.surname}</TableCell>
+            <TableCell>{student.schoolClass}</TableCell>
+            {props.asOutput
+              ? timeSlots.map((wish, i) => (
+                  <TableCell
+                    key={i}
+                    className={
+                      "w-max px-2 text-right " +
+                      (student?.wishList?.[i]?.compId == -1
+                        ? "font-bold text-red-500"
+                        : "")
+                    }
+                  >
+                    {!!student.wishList[i] &&
+                      student.wishList[i].compId +
+                        " " +
+                        student.wishList[i].timeSlot}
+                  </TableCell>
+                ))
+              : wishList.map((timeSlot, i) => (
+                  <TableCell
+                    key={timeSlot}
+                    className={
+                      "w-max px-2 text-right " +
+                      (student?.wishList?.[i]?.compId == -1
+                        ? "font-bold text-red-500"
+                        : "")
+                    }
+                  >
+                    {!!student.wishList[i] &&
+                      student.wishList[i].compId +
+                        " " +
+                        student.wishList[i].timeSlot}
+                  </TableCell>
+                ))}
+          </TableRow>
+        ))}
     </TableBody>
   );
 };
@@ -110,6 +113,30 @@ export const PageStudent = () => {
       }}
       title="Schüler"
       type="studentsList"
+      helpComponent={
+        <HelpWrapper
+          helpTitle="Schüler Ansicht"
+          helpDescription="Hilfe zur Absichtsseite der Schüler."
+          helpContent={
+            <div>
+              <p>
+                Auf dieser Seite können Sie alle Schüler einsehen die
+                hochgeladen wurden.
+              </p>
+              <br />
+              <p>
+                Im Bereich Hochgeladen können Sie die Schüler mit ihren Wünschen
+                einsehen.
+              </p>
+              <br />
+              <p>
+                Im Bereich Berechnet können Sie die Schüler mit ihren
+                EventZuteilungen einsehen.
+              </p>
+            </div>
+          }
+        />
+      }
     />
   );
 };

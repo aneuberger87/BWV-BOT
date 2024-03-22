@@ -12,22 +12,35 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FaPlus } from "react-icons/fa6";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addRoomAction } from "./add-room-action";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { LoadingSpinner } from "@/components/custom/loading-spinner";
 
 export const AddButton = () => {
   const [roomNumber, setNumber] = useState("");
   const [roomCapacity, setCapacity] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!open) {
+      setNumber("");
+      setCapacity("");
+    }
+  }, [open]);
+  const router = useRouter();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
     toast.promise(
       addRoomAction({ roomNumber, roomCapacity }).then((res) => {
         if (res.success) {
           setOpen(false);
           setNumber("");
           setCapacity("");
+          router.refresh();
+          setLoading(false);
         }
       }),
       {
@@ -79,7 +92,10 @@ export const AddButton = () => {
 
           <DialogFooter className="mt-4">
             <Button variant="secondary">Abbrechen</Button>
-            <Button type="submit">Hinzufügen</Button>
+            <Button type="submit" disabled={loading}>
+              {loading && <LoadingSpinner className="mr-1" />}
+              Hinzufügen
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
