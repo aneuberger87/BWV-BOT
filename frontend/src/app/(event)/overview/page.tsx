@@ -78,7 +78,7 @@ const WhenCalculated = async () => {
             id="attendence-list"
           />
           <Download
-            title="Raumaufteilungslsite"
+            title="Raumaufteilungsliste"
             type="room-assignment-list"
             id="room-assignment-list"
           />
