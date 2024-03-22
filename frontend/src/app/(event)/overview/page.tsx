@@ -46,9 +46,9 @@ const WhenCalculated = async () => {
         <div className="mt-2 flex items-center gap-2 text-3xl font-bold">
           {score.realScore > 0 ? (
             <div className="m-auto">
-              <span>{Math.floor(score.realScore * 100)}</span>
+              <span>{Math.floor(score.realScore)}</span>
               <span className="text-xl">
-                .{(score.realScore * 100).toFixed(2).split(".")[1]}
+                .{score.realScore.toFixed(2).split(".")[1]}
               </span>
               <span>%</span>
             </div>
