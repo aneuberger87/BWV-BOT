@@ -4,7 +4,7 @@
 
 Get a sneak peek of BWV-BOT in action! Check out our live preview at:
 
-[http://3.71.113.68/overview](http://3.71.113.68/overview)
+[http://35.157.117.244/overview](http://35.157.117.244/overview)
 
 Explore the functionalities and interface of our Berufsorientierungstag project, and see how it can guide you through the career orientation process.
 
