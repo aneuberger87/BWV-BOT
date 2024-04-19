@@ -217,15 +217,20 @@ class Timeplan:
     def handleEmptyclaculation(self):
         check = False
         for stundent in self.studentList:
-            if len(stundent.toGolist) <5:
+            for event in stundent.toGolist:
+                tempGolist.append(event)
+            if len(tempGolist) <5:
                 timeslotArray = []
-                if len(stundent.wishList) <1:
-                    for event in stundent.toGolist:
+                for wish in stundent.wishList:
+                    tempwishlist.append(wish)
+                if len(tempwishlist) <1:
+                    for event in tempGolist:
                         timeslotArray.append(event.timeslot)
                     for event in self.__eventlist__:
-                        if event.capacity < 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5 :
-                            student.toGolist.append(event)
+                        if event.capacity < 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5:
+                            tempGolist.append(event)
                             timeslotArray.append(event.timeslot)
+                            stundent.toGolist = tempGolist
                 else:
                     for event in stundent.toGolist:
                         timeslotArray.append(event.timeslot)
@@ -235,7 +240,7 @@ class Timeplan:
                             for event in self.__eventlist__:
                                 if event.getCompID() == wish.getCompID() and event.capacity < 20 and event.timeslot not in timeslotArray:
                                     check = True
-                                    student.toGolist.append(event)
+                                    stundent.toGolist.append(event)
                                     timeslotArray.append(event.timeslot)
                                     break
                                 else:
@@ -243,7 +248,7 @@ class Timeplan:
                                 if check == False:
                                     for event in self.__eventlist__:
                                         if event.capacity < 20 and event.timeslot not in timeslotArray:
-                                            student.toGolist.append(event)
+                                            stundent.toGolist.append(event)
                                             timeslotArray.append(event.timeslot)
                                             break
     def clacscore(self):
@@ -356,6 +361,7 @@ class Timeplan:
                                     tempStundentsTslot.append(tslotEvent)
                                     element.__studnet__.timeslots = tempStundentsTslot
                                     temp_togolist_forStudnets.append(event)
+                                    print("Für den Schüler: " +student.prename +" "+ student.surname+ " wurde wunsch: " + event.getCompID() + "im Timeslot: " + event.timeslot + "hinzugefügt")
                                     student.toGolist = temp_togolist_forStudnets
                                     event.amountofmembers = event.amountofmembers + 1
                     event.participantlist = temp_particepent_list
