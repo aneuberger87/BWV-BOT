@@ -465,7 +465,7 @@ class Transform:
                     wish.getCompID = lowdigits[5]
 
     def load_student(self, jsonfile) -> None:
-        #print(jsonfile)
+        print(jsonfile)
         try:
             for student_data in jsonfile.get('student', []):
                 vorname = student_data.get('prename', '')
@@ -488,7 +488,7 @@ class Transform:
             print(f"Fehler beim Laden des Schuelers: {e}")
 
     def load_company(self, jsonfile) -> None:
-        #print(jsonfile)
+        print(jsonfile)
         try:
             for company_data in jsonfile.get('company', []):
                 id = company_data.get('id', '')
