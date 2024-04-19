@@ -47,9 +47,9 @@ public class StudentsListReader extends ExcelReader<StudentsList> {
         rows.forEach((rowNumber, entries) -> {
             if(!entries.isEmpty() && entries.size() >= 3){
                 StudentsList.Student student = new StudentsList.Student();
-                student.setSchoolClass(entries.get(0));
-                student.setSurname(entries.get(1));
-                student.setPrename(entries.get(2));
+                student.setSchoolClass(entries.get(0).trim());
+                student.setSurname(entries.get(1).trim());
+                student.setPrename(entries.get(2).trim());
                 student.setWishList(readWishes(entries.subList(3, entries.size())));
                 result.add(student);
             }
@@ -63,7 +63,7 @@ public class StudentsListReader extends ExcelReader<StudentsList> {
     private List<StudentsList.Wish> readWishes(List<String> entries) {
         List<StudentsList.Wish> wishes = new ArrayList<>();
         for(int i = 0; i < entries.size(); i++){
-            String entry = entries.get(i);
+            String entry = entries.get(i).trim();
             //Event-Id mit Timeslot z.B. 4A
             wishes.add(i, new StudentsList.Wish(getNumber(entry), getTimeslot(entry)));
         }

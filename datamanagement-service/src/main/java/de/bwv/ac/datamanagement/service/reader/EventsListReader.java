@@ -62,7 +62,7 @@ public class EventsListReader extends ExcelReader<CompaniesList>{
                     event.setMeeting(calculateMeetings(Integer.parseInt(entries.get(4).trim()), entries.get(5).trim()));
                     result.add(event);
                 } catch (NumberFormatException e){
-                    log.warn("{} ist keine Nummer!",entries.get(0));
+                    log.warn("{} ist keine Nummer!",entries.get(0).trim());
                 } catch (Exception e){
                     log.error("Ein Unerwarteter Fehler ist aufgetreten. Fehler: {}", e.getMessage());
                     log.debug("Die folgende Zeile konnte nicht als Veranstaltung gespeichert werden: {}",String.join(", ", entries));

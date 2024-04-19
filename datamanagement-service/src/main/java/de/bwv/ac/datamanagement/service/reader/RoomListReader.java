@@ -47,9 +47,9 @@ public class RoomListReader extends ExcelReader<RoomList> {
         rows.forEach((rowNumber, entries) -> {
             if(!entries.isEmpty()){
                 RoomList.Room room = new RoomList.Room();
-                room.setRoomId(entries.get(0));
-                if(entries.size() > 1 && !entries.get(1).isBlank() && isNumber(entries.get(1))){
-                    room.setCapacity(Integer.parseInt(entries.get(1)));
+                room.setRoomId(entries.get(0).trim());
+                if(entries.size() > 1 && !entries.get(1).isBlank() && isNumber(entries.get(1).trim())){
+                    room.setCapacity(Integer.parseInt(entries.get(1).trim()));
                 }
                 result.add(room);
             }
