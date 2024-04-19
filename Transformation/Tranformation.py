@@ -219,24 +219,33 @@ class Timeplan:
         for stundent in self.studentList:
             if len(stundent.toGolist) <5:
                 timeslotArray = []
-                for event in stundent.toGolist:
-                    timeslotArray.append(event.timeslot)
-                for wish in stundent.wishList:
-                    if wish.suffused == False:
-                        check = False
-                        for event in self.__eventlist__:
-                            if event.getCompID() == wish.getCompID() and event.capacity > 20 and event.timeslot not in timeslotArray:
-                                check = True
-                                student.toGolist.append(event)
-                                timeslotArray.append(event.timeslot)
-                                break
-                            else:
-                                check = False
-                        if check == False:
+                if len(student.wishList) <1:
+                    for event in stundent.toGolist:
+                        timeslotArray.append(event.timeslot)
+                    for event in self.__eventlist__:
+                        if event.capacity > 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5 :
+                            student.toGolist.append(event)
+                            timeslotArray.append(event.timeslot)
+                else:
+                    for event in stundent.toGolist:
+                        timeslotArray.append(event.timeslot)
+                    for wish in stundent.wishList:
+                        if wish.suffused == False:
+                            check = False
                             for event in self.__eventlist__:
-                                if event.capacity > 20 and event.timeslot not in timeslotArray:
+                                if event.getCompID() == wish.getCompID() and event.capacity > 20 and event.timeslot not in timeslotArray:
+                                    check = True
                                     student.toGolist.append(event)
                                     timeslotArray.append(event.timeslot)
+                                    break
+                                else:
+                                    check = False
+                                if check == False:
+                                    for event in self.__eventlist__:
+                                        if event.capacity > 20 and event.timeslot not in timeslotArray:
+                                            student.toGolist.append(event)
+                                            timeslotArray.append(event.timeslot)
+                                            break
     def clacscore(self):
         maxscrore = self.clacMaxScore()
         realscore = 0
