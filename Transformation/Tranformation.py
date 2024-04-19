@@ -219,7 +219,7 @@ class Timeplan:
         for stundent in self.studentList:
             if len(stundent.toGolist) <5:
                 timeslotArray = []
-                if len(student.wishList) <1:
+                if len(stundent.wishList) <1:
                     for event in stundent.toGolist:
                         timeslotArray.append(event.timeslot)
                     for event in self.__eventlist__:
