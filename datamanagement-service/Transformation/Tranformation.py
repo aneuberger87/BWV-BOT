@@ -223,7 +223,7 @@ class Timeplan:
                     for event in stundent.toGolist:
                         timeslotArray.append(event.timeslot)
                     for event in self.__eventlist__:
-                        if event.capacity > 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5 :
+                        if event.capacity < 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5 :
                             student.toGolist.append(event)
                             timeslotArray.append(event.timeslot)
                 else:
@@ -233,7 +233,7 @@ class Timeplan:
                         if wish.suffused == False:
                             check = False
                             for event in self.__eventlist__:
-                                if event.getCompID() == wish.getCompID() and event.capacity > 20 and event.timeslot not in timeslotArray:
+                                if event.getCompID() == wish.getCompID() and event.capacity < 20 and event.timeslot not in timeslotArray:
                                     check = True
                                     student.toGolist.append(event)
                                     timeslotArray.append(event.timeslot)
@@ -242,7 +242,7 @@ class Timeplan:
                                     check = False
                                 if check == False:
                                     for event in self.__eventlist__:
-                                        if event.capacity > 20 and event.timeslot not in timeslotArray:
+                                        if event.capacity < 20 and event.timeslot not in timeslotArray:
                                             student.toGolist.append(event)
                                             timeslotArray.append(event.timeslot)
                                             break
