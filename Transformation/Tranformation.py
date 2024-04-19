@@ -226,14 +226,17 @@ class Timeplan:
                 tempwishlist = list()
                 for wish in stundent.wishList:
                     tempwishlist.append(wish)
+                print("stept1: " +str(len(tempwishlist)))
                 if len(tempwishlist) <1:
                     for event in tempGolist:
                         timeslotArray.append(event.timeslot)
                     for event in self.__eventlist__:
+                        print("step2: Cap: "+ str(event.capacity) + " "+  str(event.timeslot) +" "+ str(len(timeslotArray)))
                         if event.capacity < 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5:
                             tempGolist.append(event)
                             timeslotArray.append(event.timeslot)
                             stundent.toGolist = tempGolist
+                            print("I addeded it")
                 else:
                     for event in stundent.toGolist:
                         timeslotArray.append(event.timeslot)
