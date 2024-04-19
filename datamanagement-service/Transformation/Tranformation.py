@@ -220,6 +220,7 @@ class Timeplan:
             tempGolist = list()
             for event in stundent.toGolist:
                 tempGolist.append(event)
+            print(str(len(tempGolist)))
             if len(tempGolist) <5:
                 timeslotArray = []
                 tempwishlist = list()
