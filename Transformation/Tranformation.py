@@ -217,10 +217,12 @@ class Timeplan:
     def handleEmptyclaculation(self):
         check = False
         for stundent in self.studentList:
+            tempGolist = list()
             for event in stundent.toGolist:
                 tempGolist.append(event)
             if len(tempGolist) <5:
                 timeslotArray = []
+                tempwishlist = list()
                 for wish in stundent.wishList:
                     tempwishlist.append(wish)
                 if len(tempwishlist) <1:
