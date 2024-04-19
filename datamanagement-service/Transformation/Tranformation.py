@@ -207,12 +207,36 @@ class Timeplan:
         self.studentList = studnetlist
         self.filleventList()
         self.assign_studentstoEvents()
+        self.handleEmptyclaculation()
         outputjson = self.togo_list_to_json(self.studentList)
         score:SolutionScore = self.clacscore()
         print(str(score.realScore))
         self.postStudents(outputjson)
         self.postScore(score)
 
+    def handleEmptyclaculation(self):
+        check = False
+        for stundent in self.studentList:
+            if len(stundent.toGolist) <5:
+                timeslotArray = []
+                for event in stundent.toGolist:
+                    timeslotArray.append(event.timeslot)
+                for wish in stundent.wishList:
+                    if wish.suffused == False:
+                        check = False
+                        for event in self.__eventlist__:
+                            if event.getCompID() == wish.getCompID() and event.capacity > 20 and event.timeslot not in timeslotArray:
+                                check = True
+                                student.toGolist.append(event)
+                                timeslotArray.append(event.timeslot)
+                                break
+                            else:
+                                check = False
+                        if check == False:
+                            for event in self.__eventlist__:
+                                if event.capacity > 20 and event.timeslot not in timeslotArray:
+                                    student.toGolist.append(event)
+                                    timeslotArray.append(event.timeslot)
     def clacscore(self):
         maxscrore = self.clacMaxScore()
         realscore = 0
@@ -264,25 +288,25 @@ class Timeplan:
                     else:
                         maxcore = maxcore + 0
                 elif counter == 2:
-                    if wish.getCompID != -1:
-                        maxcore = maxcore + 5
-                    else:
-                        maxcore = maxcore + 0
+                      if wish.getCompID != -1:
+                          maxcore = maxcore + 5
+                      else:
+                          maxcore = maxcore + 0
                 elif counter == 3:
-                    if wish.getCompID != -1:
-                        maxcore = maxcore + 4
-                    else:
-                        maxcore = maxcore + 0
+                      if wish.getCompID != -1:
+                          maxcore = maxcore + 4
+                      else:
+                          maxcore = maxcore + 0
                 elif counter ==  4:
-                    if wish.getCompID != -1:
-                        maxcore = maxcore + 3
-                    else:
-                        maxcore = maxcore + 0
+                      if wish.getCompID != -1:
+                          maxcore = maxcore + 3
+                      else:
+                          maxcore = maxcore + 0
                 elif counter == 5:
-                    if wish.getCompID != -1:
-                        maxcore = maxcore + 2
-                    else:
-                        maxcore = maxcore + 0
+                      if wish.getCompID != -1:
+                          maxcore = maxcore + 2
+                      else:
+                          maxcore = maxcore + 0
         return maxcore
     def filleventList(self):
         for element in self.__companylist__:
@@ -341,7 +365,7 @@ class Timeplan:
 
     def company_to_dict(self,prename,surname,sclass,eventlist):
         #{"id": 1, "compName": "Zentis", "trainingOccupation": "Industriekaufleute",
-        #"meeting": [{"timeSlot": "A", "room": "null"},
+         #"meeting": [{"timeSlot": "A", "room": "null"},
         #temp = {
         #    'prename': prename,
         #    'surname': surname,
