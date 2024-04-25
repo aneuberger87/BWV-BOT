@@ -228,7 +228,7 @@ class Timeplan:
                         print("schülertimeslots: " + str(student.timeslots))
                         print("Eventtimeslot: " + event.timeslot)
                         print("kapazität: " + str(event.capacity))
-                        if event.capacity < 20 and str(event.timeslot) not in student.timeslots:
+                        if event.amountofmembers < 20 and str(event.timeslot) not in student.timeslots:
                             student.toGolist.append(event)
                             student.timeslots.append(event.timeslot)
                             print("I have added")
