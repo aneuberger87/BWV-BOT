@@ -336,7 +336,6 @@ def handleEmptyclaculation(self):
                                     tempStundentsTslot.append(tslotEvent)
                                     element.__studnet__.timeslots = tempStundentsTslot
                                     temp_togolist_forStudnets.append(event)
-                                    print("Für den Schüler: " +str(student.prename) +" "+ str(student.surname)+ " wurde wunsch: " + str(event.getCompID()) + "im Timeslot: " + str(event.timeslot) + "hinzugefügt")
                                     student.toGolist = temp_togolist_forStudnets
                                     event.amountofmembers = event.amountofmembers + 1
                     event.participantlist = temp_particepent_list
