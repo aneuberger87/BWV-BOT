@@ -131,7 +131,7 @@ public class DataManagementService {
             return new PostResponse("Die Schülerliste konnte nicht aktuallisiert werden! Fehlermeldung: "+e.getMessage());
         }
     }
-
+/*
     @PostMapping("/update/companiesList")
     public PostResponse updateCompaniesList(@RequestBody String companiesList){
         log.info("POST-Anfrage zur Aktualisierung der Veranstaltungsliste mit den Zuteilungen auf Räume pro Zeitslot");
@@ -147,6 +147,7 @@ public class DataManagementService {
         }
     }
 
+ */
     @PutMapping("/update/{companyId}/{timeslot}")
     public void updateMeetingForCompany(@PathVariable String companyId, @PathVariable String timeslot, @RequestBody String room){
         log.info("PUT-Anfrage zum Ändern des Raums, der für eine Veranstaltung mit der ID: {} im Zeitslot: {} zugeteilt wurde auf {}", companyId, timeslot, room);
@@ -217,7 +218,7 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            DummyAlgo dummyAlgo = new DummyAlgo(this);
+            DummyAlgo dummyAlgo = new DummyAlgo(dataStorage);
             dummyAlgo.calculate();
             pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();

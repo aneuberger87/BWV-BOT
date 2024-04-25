@@ -62,10 +62,16 @@ public class StudentsListReader extends ExcelReader<StudentsList> {
 
     private List<StudentsList.Wish> readWishes(List<String> entries) {
         List<StudentsList.Wish> wishes = new ArrayList<>();
-        for(int i = 0; i < entries.size(); i++){
+        int i = 0;
+        for(; i < entries.size(); i++){
             String entry = entries.get(i).trim();
             //Event-Id mit Timeslot z.B. 4A
             wishes.add(i, new StudentsList.Wish(getNumber(entry), getTimeslot(entry)));
+        }
+        if (i < 6){
+            for(; i < 6; i++){
+                wishes.add(i, new StudentsList.Wish(-1, ""));
+            }
         }
         return wishes;
     }
