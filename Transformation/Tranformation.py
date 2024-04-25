@@ -199,7 +199,7 @@ class Timeplan:
     __timeslots__ = ["A", "B", "C", "D", "E"]
     __companylist__ = list()
     studentList = list()
-    __eventlist__ = list()
+    eventlist = list()
     __eventId__: int = 1
 
     def __init__(self, companylist, studnetlist):
@@ -213,50 +213,19 @@ class Timeplan:
         print(str(score.realScore))
         self.postStudents(outputjson)
         self.postScore(score)
-
-    def handleEmptyclaculation(self):
-        check = False
-        for stundent in self.studentList:
-            tempGolist = list()
-            for event in stundent.toGolist:
-                tempGolist.append(event)
-            print(str(len(tempGolist)))
-            if len(tempGolist) <5:
-                timeslotArray = []
-                tempwishlist = list()
-                for wish in stundent.wishList:
-                    tempwishlist.append(wish)
-                print("stept1: " +str(len(tempwishlist)))
-                if len(tempwishlist) <1:
-                    for event in tempGolist:
-                        timeslotArray.append(event.timeslot)
-                    for event in self.__eventlist__:
-                        print("step2: Cap: "+ str(event.capacity) + " "+  str(event.timeslot) +" "+ str(len(timeslotArray)))
-                        if event.capacity < 20 and event.timeslot not in timeslotArray and len(timeslotArray)<5:
-                            tempGolist.append(event)
-                            timeslotArray.append(event.timeslot)
-                            stundent.toGolist = tempGolist
-                            print("I addeded it")
-                else:
-                    for event in stundent.toGolist:
-                        timeslotArray.append(event.timeslot)
-                    for wish in stundent.wishList:
-                        if wish.suffused == False:
-                            check = False
-                            for event in self.__eventlist__:
-                                if event.getCompID() == wish.getCompID() and event.capacity < 20 and event.timeslot not in timeslotArray:
-                                    check = True
-                                    stundent.toGolist.append(event)
-                                    timeslotArray.append(event.timeslot)
-                                    break
-                                else:
-                                    check = False
-                                if check == False:
-                                    for event in self.__eventlist__:
-                                        if event.capacity < 20 and event.timeslot not in timeslotArray:
-                                            stundent.toGolist.append(event)
-                                            timeslotArray.append(event.timeslot)
-                                            break
+def handleEmptyclaculation(self):
+    check = False
+    for student in self.studentList:
+        if len(student.toGolist) < 5:
+            counter = len(student.toGolist)
+            tslotArray = []
+            for event in student.toGolist:
+                tslotArray.append(event.timeslot)
+            for counter in range(5):
+                for event in self.eventlist:
+                    if event.capacity < 20 and event.timeslot not in tslotArray:
+                        student.toGolist.add(event)
+                        print("I have added")
     def clacscore(self):
         maxscrore = self.clacMaxScore()
         realscore = 0
@@ -334,7 +303,7 @@ class Timeplan:
             for t in templist:
                 temptimeslot = t.gettimeslot()
                 event = Event(element, self.__eventId__, temptimeslot)
-                self.__eventlist__.append(event)
+                self.eventlist.append(event)
             self.__eventId__ = self.__eventId__ + 1
     def assign_studentstoEvents(self):
         concreateWishlist = list()
@@ -343,7 +312,7 @@ class Timeplan:
             for student in self.studentList:
                 wish = ConcreatWish(student, prio + 1, student.wishList[prio].getCompID())
                 concreateWishlist.append(wish)
-                for event in self.__eventlist__:
+                for event in self.eventlist:
                     eventid = event.eventid
                     temp_particepent_list = list()
                     for element in event.participantlist:
