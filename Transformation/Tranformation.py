@@ -213,19 +213,19 @@ class Timeplan:
         print(str(score.realScore))
         self.postStudents(outputjson)
         self.postScore(score)
-def handleEmptyclaculation(self):
-    check = False
-    for student in self.studentList:
-        if len(student.toGolist) < 5:
-            counter = len(student.toGolist)
-            tslotArray = []
-            for event in student.toGolist:
-                tslotArray.append(event.timeslot)
-            for counter in range(5):
-                for event in self.eventlist:
-                    if event.capacity < 20 and event.timeslot not in tslotArray:
-                        student.toGolist.add(event)
-                        print("I have added")
+    def handleEmptyclaculation(self):
+        check = False
+        for student in self.studentList:
+            if len(student.toGolist) < 5:
+                counter = len(student.toGolist)
+                tslotArray = []
+                for event in student.toGolist:
+                    tslotArray.append(event.timeslot)
+                for counter in range(5):
+                    for event in self.eventlist:
+                        if event.capacity < 20 and event.timeslot not in tslotArray:
+                            student.toGolist.add(event)
+                            print("I have added")
     def clacscore(self):
         maxscrore = self.clacMaxScore()
         realscore = 0
