@@ -218,10 +218,15 @@ class Timeplan:
     def handleEmptyclaculation(self):
         check = False
         for student in self.studentList:
+            print(student.toGolist)
             if len(student.toGolist) < 5:
+                print("togolist ist nicht vollständig")
                 counter = len(student.toGolist)
                 for counter in range(5):
+                    print("counter: "+counter)
                     for event in self.eventlist:
+                        print(student.timeslots)
+                        print(event.timeslot)
                         if event.capacity < 20 and event.timeslot not in student.timeslots:
                             student.toGolist.append(event)
                             student.timeslots.append(event.timeslot)
