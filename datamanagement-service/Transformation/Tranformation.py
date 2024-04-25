@@ -239,7 +239,7 @@ class Timeplan:
             for wish in student.clacwishList:
                 for togoevent in student.toGolist:
                     wishId = wish.getCompID()
-                    if wishId == togoevent.eventid:
+                    if wishId == togoevent.eventid or wishId == -1:
                         counter = wish.getPrio()
                         if counter == 1:
                             if wish.getCompID != -1:
