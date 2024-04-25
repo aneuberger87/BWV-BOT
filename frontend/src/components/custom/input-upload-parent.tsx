@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "../ui/separator";
 import InputUploadDefault from "./input-upload-child";
-import { UploadState } from "./upload-state";
+import { InputUploadState } from "./input-upload-state";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { ExcelFileName } from "@/types";
@@ -66,7 +66,10 @@ const InputUploadBox = (props: {
             />
           </Suspense>
           <Separator orientation="horizontal" className="mb-2 mt-4 w-full" />
-          <UploadState excelType={props.type} targetHraf={props.dataViewHref} />
+          <InputUploadState
+            excelType={props.type}
+            targetHraf={props.dataViewHref}
+          />
         </CardContent>
       </form>
     </Card>

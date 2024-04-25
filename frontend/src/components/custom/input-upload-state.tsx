@@ -19,7 +19,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { excelFileName } from "@/lib/excel-file-name";
-import { UploadStateDelete } from "./upload-state-delete";
+import { UploadStateDelete } from "./input-upload-state-delete";
 
 const DeleteButton = (props: { type: ExcelFileName }) => {
   return (
@@ -55,7 +55,7 @@ const DeleteButton = (props: { type: ExcelFileName }) => {
   );
 };
 
-export const UploadState = async (props: {
+export const InputUploadState = async (props: {
   excelType: ExcelFileName;
   targetHraf: string;
 }) => {
