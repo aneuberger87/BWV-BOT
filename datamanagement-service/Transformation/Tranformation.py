@@ -224,7 +224,7 @@ class Timeplan:
                 for counter in range(5):
                     for event in self.eventlist:
                         if event.capacity < 20 and event.timeslot not in tslotArray:
-                            student.toGolist.add(event)
+                            student.toGolist.append(event)
                             print("I have added")
     def clacscore(self):
         maxscrore = self.clacMaxScore()
