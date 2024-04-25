@@ -225,9 +225,10 @@ class Timeplan:
                 for counter in range(5):
                     print("counter: "+str(counter))
                     for event in self.eventlist:
-                        print(str(student.timeslots))
-                        print(event.timeslot)
-                        if event.capacity < 20 and event.timeslot not in student.timeslots:
+                        print("schülertimeslots: " + str(student.timeslots))
+                        print("Eventtimeslot: " + event.timeslot)
+                        print("kapazität: " + str(event.capacity))
+                        if event.capacity < 20 and str(event.timeslot) not in student.timeslots:
                             student.toGolist.append(event)
                             student.timeslots.append(event.timeslot)
                             print("I have added")
