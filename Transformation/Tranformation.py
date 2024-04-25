@@ -209,6 +209,8 @@ class Timeplan:
         self.assign_studentstoEvents()
         self.handleEmptyclaculation()
         outputjson = self.togo_list_to_json(self.studentList)
+        print("Python Json: ")
+        print(outputjson)
         score:SolutionScore = self.clacscore()
         print(str(score.realScore))
         self.postStudents(outputjson)
@@ -218,13 +220,11 @@ class Timeplan:
         for student in self.studentList:
             if len(student.toGolist) < 5:
                 counter = len(student.toGolist)
-                tslotArray = []
-                for event in student.toGolist:
-                    tslotArray.append(event.timeslot)
                 for counter in range(5):
                     for event in self.eventlist:
-                        if event.capacity < 20 and event.timeslot not in tslotArray:
+                        if event.capacity < 20 and event.timeslot not in student.timeslots:
                             student.toGolist.append(event)
+                            student.timeslots.append(event.timeslot)
                             print("I have added")
     def clacscore(self):
         maxscrore = self.clacMaxScore()
