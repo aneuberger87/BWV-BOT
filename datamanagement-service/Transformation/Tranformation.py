@@ -223,9 +223,9 @@ class Timeplan:
                 print("togolist ist nicht vollständig")
                 counter = len(student.toGolist)
                 for counter in range(5):
-                    print("counter: "+counter)
+                    print("counter: "+str(counter))
                     for event in self.eventlist:
-                        print(student.timeslots)
+                        print(str(student.timeslots))
                         print(event.timeslot)
                         if event.capacity < 20 and event.timeslot not in student.timeslots:
                             student.toGolist.append(event)
