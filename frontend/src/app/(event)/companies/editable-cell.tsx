@@ -59,8 +59,9 @@ export const EditableCell = (props: {
           <Button
             variant={open ? "secondary" : "ghost"}
             size="icon"
-            className={"p-2 text-indigo-700 " + (open ? "border" : "")}
+            className={"truncate p-2 text-indigo-700 " + (open ? "border" : "")}
             type="button"
+            title={props.eventTitle}
           >
             {!props.children || props.children == "" ? (
               <MdErrorOutline />
