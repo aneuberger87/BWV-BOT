@@ -12,9 +12,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
-@Deprecated
 public class DataStorageInitializer {
 
     private final Properties props;
@@ -25,7 +23,7 @@ public class DataStorageInitializer {
         this.props = props;
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initializeDataStorage(){
         if(!propsAreValid()){
             log.warn("No Locations of studentsList and companiesList can be found!");

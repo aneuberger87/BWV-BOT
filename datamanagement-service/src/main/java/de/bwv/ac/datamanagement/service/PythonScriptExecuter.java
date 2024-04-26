@@ -19,7 +19,7 @@ public class PythonScriptExecuter {
         Process process = processBuilder.start();
         List<String> results = readProcessOutput(process.getInputStream());
         for (int i = 0; i < results.size(); i++) {
-            System.out.println(results.get(i));
+            System.out.println("Python Print: "+ results.get(i));
         }
     }
 

@@ -9,7 +9,7 @@ import lombok.Data;
 
 import java.util.*;
 
-public class DummyAlgo {
+public class RoomAssignmentAlgorithm {
 
     private DataStorage dataStorage;
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -20,7 +20,7 @@ public class DummyAlgo {
     private Map<String, RoomAssignment> roomAssignmentsMap = new HashMap<>();
     private List<CompaniesList.Company> eventData = new ArrayList<>();
 
-    public DummyAlgo(DataStorage dataStorage){
+    public RoomAssignmentAlgorithm(DataStorage dataStorage){
         this.dataStorage = dataStorage;
         studentData.addAll(dataStorage.getStudentsWishList().getStudent());
         roomData.addAll(dataStorage.getRoomList().getRoomList());
@@ -64,25 +64,45 @@ public class DummyAlgo {
             }
         }
 
+        //Alle Zeitslots auffüllen (falls nicht gesetzt soll die compId = null gesetzt werden)
+        for(CompaniesList.Company company: eventData){
+            fillNotSetMeetingsWithNull(company);
+        }
+
         //Speichere Daten
         String json = objectMapper.writeValueAsString(eventData);
         System.out.println(json);
         dataStorage.setCompanies(new CompaniesList(eventData, null));
 
+    }
 
-        //Wieviele Leute haben wollen die Veranstaltung insgesammt hören; wieviele Pro Wunsch
-        //Raumeinteilung mit insgesammt (allChoices)
-        //Roomdaten per Kapazität sortieren (von groß nach klein)(probieren)
-        //Eventdaten nach maxTeilnehmer sortieren (von groß nach klein)(probieren)
-        //Eventdaten foreach , wie viele wollen daran insgesamt teilnehmen, wie groß Teilnehmeranzahl
-            //Raumdaten foreach
-            //Reale Teilnahmeranzahl (setze Veranstaltungsteilnehmerozahl min(interessenten, teilnehmeranzahl veranstaltung))
-            //Wie viele Events müssten laufen um alle Wünsche zu erfüllen
-            //Reale Eventanzahl bestimmen (min(mögliche, gewünschte))
-            //Anzahl aufeinanderfolgenden Slots für Raum bestimmen
-            //Falls  ein Raum gefunden mit genug zeitslot (anzahl), schleife abbrechen
-        //Hole die Timeslots, die hintereinander frei sind
-        //Zuweiseung der Räume auf Timeslots in Events
+    private void fillNotSetMeetingsWithNull(CompaniesList.Company company) {
+        if(company.getMeeting().size() < 5){
+            if(!hasTimeSlot("A",company.getMeeting())){
+                company.getMeeting().add(0, new CompaniesList.Meeting("A", null));
+            }
+            if(!hasTimeSlot("B", company.getMeeting())){
+                company.getMeeting().add(1, new CompaniesList.Meeting("B", null));
+            }
+            if(!hasTimeSlot("C", company.getMeeting())){
+                company.getMeeting().add(2, new CompaniesList.Meeting("C", null));
+            }
+            if(!hasTimeSlot("D", company.getMeeting())){
+                company.getMeeting().add(3, new CompaniesList.Meeting("D", null));
+            }
+            if(!hasTimeSlot("E", company.getMeeting())){
+                company.getMeeting().add(4, new CompaniesList.Meeting("E", null));
+            }
+        }
+    }
+
+    private boolean hasTimeSlot(String timeSlot, List<CompaniesList.Meeting> meeting) {
+        for(CompaniesList.Meeting m : meeting){
+            if(m.getTimeSlot().equals(timeSlot)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean roomHasFreeSlots(RoomAssignment roomAssignment) {

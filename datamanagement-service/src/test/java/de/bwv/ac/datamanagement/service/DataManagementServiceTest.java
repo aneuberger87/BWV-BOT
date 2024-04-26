@@ -136,8 +136,7 @@ class DataManagementServiceTest {
                 meeting.setRoom(new RoomList.Room(""+roomNr));
             }
         }
-        String json = objectMapper.writeValueAsString(companiesList);
-        dataManagementService.updateCompaniesList(json);
+        dataStorage.setCompanies(companiesList);
     }
 
     private void studentsRequest(DataManagementService dataManagementService) throws JsonProcessingException {

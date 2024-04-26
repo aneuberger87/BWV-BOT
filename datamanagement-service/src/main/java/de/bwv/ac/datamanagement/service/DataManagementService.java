@@ -218,7 +218,7 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            DummyAlgo dummyAlgo = new DummyAlgo(dataStorage);
+            RoomAssignmentAlgorithm dummyAlgo = new RoomAssignmentAlgorithm(dataStorage);
             dummyAlgo.calculate();
             pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
