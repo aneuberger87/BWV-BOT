@@ -46,19 +46,20 @@ public class TimetableListWriter extends ExcelWriter{
 
                 for(int k = 0; k < studentsAllocationList.size(); k++) {
                     TimetableList.StudentsAllocation studentsAllocation = studentsAllocationList.get(k);
-                    String prename = studentsAllocation.getPrename().trim();
-                    String surname = studentsAllocation.getSurname().trim();
+                    String prename = studentsAllocation.getPrename();
+                    String surname = studentsAllocation.getSurname();
                     formatHeaderWorksheet(worksheet, indexTop, COLUMN_SIZE);
                     indexTop = writeHeader(worksheet, schoolClass, prename, surname, indexTop);
                     List<TimetableList.TimeTable.Rows> rows = studentsAllocation.getTimeTable().getRows();
+                    rows.removeIf(r -> r.getMeeting() == null || r.getMeeting().getRoom() == null);
                     for(int j = 0; j < rows.size(); j++) {
                         TimetableList.TimeTable.Rows row = rows.get(j);
                         try {
-                            String timeSlot = row.getMeeting().getTimeSlot().trim();
-                            String roomId = row.getMeeting().getRoom().getRoomId().trim();
-                            String companyName = row.getCompanyName().trim();
-                            String companyEvent = row.getCompanyEvent().trim();
-                            String numberWish = row.getNumberWish().trim();
+                            String timeSlot = row.getMeeting().getTimeSlot();
+                            String roomId = row.getMeeting().getRoom().getRoomId();
+                            String companyName = row.getCompanyName();
+                            String companyEvent = row.getCompanyEvent();
+                            String numberWish = row.getNumberWish();
                             formatEntriesWorksheet(worksheet, indexTop, COLUMN_SIZE);
                             writeEntry(timeSlot, roomId, companyName, companyEvent, numberWish, worksheet, indexTop);
                         } catch (Exception e){

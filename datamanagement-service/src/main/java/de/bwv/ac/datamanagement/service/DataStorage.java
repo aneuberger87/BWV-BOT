@@ -145,7 +145,9 @@ public class DataStorage {
             attendanceListsPerCompany.setCompanyName(company.getCompName().trim());
             attendanceListsPerCompany.setCompanyId(compId);
             for (CompaniesList.Meeting meeting : company.getMeeting()) {
-                attendanceLists.add(new EventsAttendanceList.AttendanceList(meeting, getStudentsForMeeting(compId, meeting.getTimeSlot())));
+                if(meeting.getRoom() != null){
+                    attendanceLists.add(new EventsAttendanceList.AttendanceList(meeting, getStudentsForMeeting(compId, meeting.getTimeSlot())));
+                }
             }
             attendanceListsPerCompany.setAttendanceList(attendanceLists);
             attendanceListsPerCompanyList.add(attendanceListsPerCompany);
@@ -215,9 +217,14 @@ public class DataStorage {
     private TimetableList.TimeTable getTimeTable(StudentsList.Student student) {
         TimetableList.TimeTable timeTable = new TimetableList.TimeTable();
         List<TimetableList.TimeTable.Rows> rows = new ArrayList<>();
+        student.getWishList().sort((a, b) -> {
+            int testA = a.getTimeSlot().charAt(0);
+            int testB = b.getTimeSlot().charAt(0);
+            return Integer.compare(testA, testB);
+        });
         for (String timeSlot : timeSlots) {
             StudentsList.Wish wish = getWish(student, timeSlot);
-            if (wish != null) {
+            if (wish != null && wish.getCompId() >= 0) {
                 TimetableList.TimeTable.Rows row = new TimetableList.TimeTable.Rows();
                 CompaniesList.Company company = companiesCache.get(wish.getCompId());
                 row.setMeeting(getMeetingOfTimeSlot(company.getMeeting(), timeSlot));

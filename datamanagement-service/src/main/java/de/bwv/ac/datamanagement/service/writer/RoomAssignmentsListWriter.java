@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -51,7 +52,8 @@ public class RoomAssignmentsListWriter extends ExcelWriter {
     private void writeEntry(CompaniesList.Company company, Worksheet worksheet, int row) {
         worksheet.value(row, 0, company.getId());
         worksheet.value(row, 1, company.getCompName());
-        List<CompaniesList.Meeting> meeting = company.getMeeting();
+        List<CompaniesList.Meeting> meeting = new ArrayList<>(company.getMeeting());
+        meeting.removeIf(m -> m.getRoom() == null);
         for (CompaniesList.Meeting m : meeting) {
             switch (m.getTimeSlot()) {
                 case "A": {
