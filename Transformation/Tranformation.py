@@ -218,20 +218,18 @@ class Timeplan:
     def handleEmptyclaculation(self):
         check = False
         for student in self.studentList:
-            print(student.toGolist)
             if len(student.toGolist) < 5:
-                print("togolist ist nicht vollständig")
+                compidArray = []
+                for event in student.toGolist:
+                    compidArray.append(event.company_id)
                 counter = len(student.toGolist)
                 for counter in range(5):
                     print("counter: "+str(counter))
                     for event in self.eventlist:
-                        print("schülertimeslots: " + str(student.timeslots))
-                        print("Eventtimeslot: " + event.timeslot)
-                        print("kapazität: " + str(event.capacity))
-                        if event.amountofmembers < 20 and str(event.timeslot) not in student.timeslots:
+                        if event.amountofmembers < 20 and str(event.timeslot) not in student.timeslots and event.company_id not in compidArray:
                             student.toGolist.append(event)
                             student.timeslots.append(event.timeslot)
-                            print("I have added")
+                            compidArray.append(event.company_id)
     def clacscore(self):
         maxscrore = self.clacMaxScore()
         realscore = 0
