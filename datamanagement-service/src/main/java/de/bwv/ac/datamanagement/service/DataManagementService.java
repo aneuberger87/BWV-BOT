@@ -218,8 +218,8 @@ public class DataManagementService {
     @GetMapping("/calculate")
     public PostResponse calculate(){
         try {
-            RoomAssignmentAlgorithm dummyAlgo = new RoomAssignmentAlgorithm(dataStorage);
-            dummyAlgo.calculate();
+            RoomAssignmentAlgorithm roomAssignmentAlgorithm = new RoomAssignmentAlgorithm(dataStorage);
+            roomAssignmentAlgorithm.calculate();
             pythonScriptExecuter.executeScript("Tranformation.py");
             return new PostResponse();
         } catch (Exception e){

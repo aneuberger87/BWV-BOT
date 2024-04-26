@@ -73,7 +73,6 @@ public class RoomAssignmentAlgorithm {
         String json = objectMapper.writeValueAsString(eventData);
         System.out.println(json);
         dataStorage.setCompanies(new CompaniesList(eventData, null));
-
     }
 
     private void fillNotSetMeetingsWithNull(CompaniesList.Company company) {
