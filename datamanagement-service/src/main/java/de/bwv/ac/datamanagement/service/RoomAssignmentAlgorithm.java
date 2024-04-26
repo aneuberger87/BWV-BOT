@@ -40,6 +40,10 @@ public class RoomAssignmentAlgorithm {
         //Eventdaten nach maxTeilnehmer sortieren (von groß nach klein)(probieren)
         eventData = sortEventsPerNumberParticipants();
 
+        for(CompaniesList.Company company : eventData){
+            fillNotSetMeetingsWithNull(company);
+        }
+
         for(CompaniesList.Company event : eventData){
             //Wieviele Leute haben wollen die Veranstaltung insgesammt hören
             int anzahlInteressenten = countEventInterest(event);
