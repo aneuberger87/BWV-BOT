@@ -56,17 +56,20 @@ public class RoomAssignmentAlgorithm {
             }
 
         }
+        List<RoomAssignment> sortedRoomAssignment = new ArrayList<>(roomAssignmentsMap.values());
+        sortedRoomAssignment.sort((a, b) -> Integer.compare(b.getRoom().getCapacity(), a.getRoom().getCapacity()));
 
-        for(String roomID : roomAssignmentsMap.keySet()){
-            RoomAssignment roomAssignment = roomAssignmentsMap.get(roomID);
+        for(RoomAssignment roomAssignment : sortedRoomAssignment){
             if(roomHasFreeSlots(roomAssignment)){
                 assignFreeRoomSlots(roomAssignment);
             }
         }
 
         //Alle Zeitslots auffüllen (falls nicht gesetzt soll die compId = null gesetzt werden)
+
         for(CompaniesList.Company company: eventData){
-            fillNotSetMeetingsWithNull(company);
+            company.getMeeting().removeIf(meeting -> meeting.getRoom() == null);
+            //fillNotSetMeetingsWithNull(company);
         }
 
         //Speichere Daten
